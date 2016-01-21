@@ -1,0 +1,9 @@
+<div class="center--all">
+    <h1>DC Chess</h1>
+    <form method="post">
+        <input #user (keyup)="userEntry = user.value" type="text" placeholder="User name" />
+        <input #license (keyup)="licenseEntry = license.value" type="text" placeholder="license key" />
+    </form>
+    <button [hidden]="!user.value">Try demo</button>
+    <button [hidden]="!licenseMatch()">Login</button>
+</div>
