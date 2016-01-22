@@ -2,6 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @Component({
     selector: 'app',
@@ -15,23 +16,18 @@ import { HomeComponent } from './home/home.component';
         name: 'Home',
         component: HomeComponent,
         useAsDefault: true
-    }/*,
-    {
-      path: '/user/:user',
-      name: 'User',
-      component: UserComponent 
     },
     {
-        path: 'tournament/:user/:tuid',
-        name: 'Tournament',
-        component: TournamentComponent
-    }*/
+        path: '/dashboard/:creds',
+        name: 'Dashboard',
+        component: DashboardComponent
+    }
 ])
 
 export class AppComponent implements OnInit {
 
     constructor() {
-        console.log('App initialized!');
+
      }
 
     ngOnInit() { }

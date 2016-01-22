@@ -1,0 +1,11 @@
+<div class="center--all">
+    <h1>Welcome, {{user}}!</h1>
+    <button class="button--xlg bg--success">
+        New tournament
+    </button>
+    {{userData}}
+    <div *ngFor="#key of tournamentKeys">
+        <button>{{key}}</button>
+    </div>
+</div>
+    
