@@ -55,7 +55,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     child.remove();
                 };
                 DataService.prototype.save = function (data) {
-                    this._ref.set(this._dataStore);
+                    this._ref.set(data);
                 };
                 DataService.prototype.push = function (path, data) {
                     if (path === void 0) { path = 'thisAlsoKeepsThingsCalmer'; }

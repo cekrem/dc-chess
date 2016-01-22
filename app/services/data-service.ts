@@ -52,7 +52,7 @@ export class DataService {
     }
     
     save(data) {
-        this._ref.set(this._dataStore);
+        this._ref.set(data);
     }
 
     push(path: string = 'thisAlsoKeepsThingsCalmer', data) {
