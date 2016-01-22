@@ -56,6 +56,6 @@ export class HomeComponent implements OnInit {
             license: this.licenseEntry
         }
         
-        this._router.navigate(['/Dashboard', {creds: creds }]);
+        this._router.navigate(['/Dashboard', {user: this.userEntry }]);
     }
 }

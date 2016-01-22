@@ -1,0 +1,35 @@
+<div *ngIf="tournamentData">
+    <form [ngFormModel]="tournamentForm">
+        <fieldset>
+            <legend>Tournament info</legend>
+            <p>
+                <label>Name:</label>
+                <input ngControl="name" type="text" (keyup)="submit()" />
+            </p>
+
+            <p>
+                <label>Description:</label>
+                <input ngControl="desc" type="text" (keyup)="submit()" />
+            </p>
+        </fieldset>
+    </form>
+
+    <table class="table--full">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="#key of playerKeys">
+                <td>{{tournamentData.players[key]}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<div *ngIf="!tournamentData" class="center--all">
+    <div class="spinner"></div>
+</div>

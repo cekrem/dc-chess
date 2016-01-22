@@ -1,8 +1,10 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { HomeComponent } from './home/home.component';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TournamentAdminComponent } from './dashboard/tournament-admin.component';
 
 @Component({
     selector: 'app',
@@ -18,9 +20,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         useAsDefault: true
     },
     {
-        path: '/dashboard/:creds',
+      path: '/dashboard',
+      name: 'Dashboard',
+      redirectTo: ['Dashboard', {user: 'demo'}]  
+    },
+    {
+        path: '/dashboard/:user',
         name: 'Dashboard',
         component: DashboardComponent
+    },
+    {
+        path: '/dashboard/:user/:tournamentId',
+        name: 'TournamentAdmin',
+        component: TournamentAdminComponent
     }
 ])
 
@@ -28,7 +40,7 @@ export class AppComponent implements OnInit {
 
     constructor() {
 
-     }
+    }
 
     ngOnInit() { }
 }

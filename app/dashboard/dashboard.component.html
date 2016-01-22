@@ -1,11 +1,21 @@
-<div class="center--all">
+<div *ngIf="userData" class="center--all">
     <h1>Welcome, {{user}}!</h1>
-    <button class="button--xlg bg--success">
+    <button class="button--xlg bg--success" (click)="addTournament()">
         New tournament
     </button>
-    {{userData}}
+    <p></p>
     <div *ngFor="#key of tournamentKeys">
-        <button>{{key}}</button>
+        <p></p>
+        <button [hidden]="confirmKey == key" (contextmenu)="confirmDelete(key)" (click)="openTournament(key)">
+            {{userData.tournaments[key].name}}
+        </button>
+        <button [hidden]="confirmKey != key" (contextmenu)="deleteTournament(key)">
+            Right click again to delete!
+        </button>
+        <p></p>
     </div>
 </div>
-    
+
+<div *ngIf="!userData" class="center--all">
+    <div class="spinner"></div>
+</div>

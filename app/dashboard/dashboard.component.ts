@@ -1,42 +1,76 @@
 import {Component, OnInit} from 'angular2/core';
-import { NgFor } from 'angular2/common';
-import { RouteParams } from 'angular2/router';
-import { Observable } from 'rxjs/Observable';
+import { NgIf, NgFor } from 'angular2/common';
+import { Router, RouteParams } from 'angular2/router';
 
 import { DataService } from '../services/data-service';
 
 @Component({
     selector: 'dashboard',
     templateUrl: 'app/dashboard/dashboard.component.html',
-    directives: [NgFor]
+    directives: [NgIf, NgFor]
 })
 
 export class DashboardComponent implements OnInit {
-    private _creds: any;
-    
-    public subscription: Observable<any>;
+    private _router: Router;
+    private _timeout: any;
+    private _data: DataService;
+
+    public confirmKey: string;
+    public user: string;
     public userData: any;
     public tournamentKeys: Array<string>;
 
-    constructor(params: RouteParams, data: DataService) {
-        this._creds = params.get('creds');
-        if(this._creds.user == '') {
-            this._creds.user = 'demo';
-        }
+    constructor(router: Router, params: RouteParams, data: DataService) {
+        this._router = router;
+        this._data = data;
 
-        this.subscription = data.subscription;
+        this.confirmKey = '';
+        this.user = params.get('user') || 'demo';
         
-        data.setRef('demo');
-        this.subscription
+        // Connect and subscribe to user data 
+        data.setRef(this.user);
+        data.subscription
             .map(data => {
-                this.tournamentKeys = Object.keys(data.tournaments);
+                try {
+                    this.tournamentKeys = Object.keys(data.tournaments);
+                } catch (error) {
+                    this.tournamentKeys = [];
+                }
                 return data;
             })
             .subscribe(data => this.userData = data);
     }
 
-    get user() {
-        return this._creds.user;
+    openTournament(key) {
+        this._router.navigate(['../TournamentAdmin', {
+            user: this.user,
+            tournamentId: key
+        }]);
+    }
+    
+    addTournament() {
+        this._data.push('tournaments/', {name: 'New Tournament'});
+    }
+
+    confirmDelete(key) {
+        clearTimeout(this._timeout);
+
+        this.confirmKey = key;
+
+        this._timeout = setTimeout(() => {
+            this.confirmKey = '';
+        }, 5000);
+
+        return false;
+    }
+    
+    deleteTournament(key) {
+        clearTimeout(this._timeout);
+        this.confirmKey = '';
+        
+        this._data.remove('tournaments/' + key);
+        
+        return false;
     }
 
     ngOnInit() { }

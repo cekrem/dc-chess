@@ -26,36 +26,58 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             }],
         execute: function() {
             DashboardComponent = (function () {
-                function DashboardComponent(params, data) {
+                function DashboardComponent(router, params, data) {
                     var _this = this;
-                    this._creds = params.get('creds');
-                    if (this._creds.user == '') {
-                        this._creds.user = 'demo';
-                    }
-                    this.subscription = data.subscription;
-                    data.setRef('demo');
-                    this.subscription
+                    this._router = router;
+                    this._data = data;
+                    this.confirmKey = '';
+                    this.user = params.get('user') || 'demo';
+                    // Connect and subscribe to user data 
+                    data.setRef(this.user);
+                    data.subscription
                         .map(function (data) {
-                        _this.tournamentKeys = Object.keys(data.tournaments);
+                        try {
+                            _this.tournamentKeys = Object.keys(data.tournaments);
+                        }
+                        catch (error) {
+                            _this.tournamentKeys = [];
+                        }
                         return data;
                     })
                         .subscribe(function (data) { return _this.userData = data; });
                 }
-                Object.defineProperty(DashboardComponent.prototype, "user", {
-                    get: function () {
-                        return this._creds.user;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
+                DashboardComponent.prototype.openTournament = function (key) {
+                    this._router.navigate(['../TournamentAdmin', {
+                            user: this.user,
+                            tournamentId: key
+                        }]);
+                };
+                DashboardComponent.prototype.addTournament = function () {
+                    this._data.push('tournaments/', { name: 'New Tournament' });
+                };
+                DashboardComponent.prototype.confirmDelete = function (key) {
+                    var _this = this;
+                    clearTimeout(this._timeout);
+                    this.confirmKey = key;
+                    this._timeout = setTimeout(function () {
+                        _this.confirmKey = '';
+                    }, 5000);
+                    return false;
+                };
+                DashboardComponent.prototype.deleteTournament = function (key) {
+                    clearTimeout(this._timeout);
+                    this.confirmKey = '';
+                    this._data.remove('tournaments/' + key);
+                    return false;
+                };
                 DashboardComponent.prototype.ngOnInit = function () { };
                 DashboardComponent = __decorate([
                     core_1.Component({
                         selector: 'dashboard',
                         templateUrl: 'app/dashboard/dashboard.component.html',
-                        directives: [common_1.NgFor]
+                        directives: [common_1.NgIf, common_1.NgFor]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, data_service_1.DataService])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, data_service_1.DataService])
                 ], DashboardComponent);
                 return DashboardComponent;
             })();

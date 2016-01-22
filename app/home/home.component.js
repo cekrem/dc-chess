@@ -58,7 +58,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                         user: this.userEntry,
                         license: this.licenseEntry
                     };
-                    this._router.navigate(['/Dashboard', { creds: creds }]);
+                    this._router.navigate(['/Dashboard', { user: this.userEntry }]);
                 };
                 HomeComponent = __decorate([
                     core_1.Component({

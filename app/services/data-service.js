@@ -19,9 +19,6 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 Observable_1 = Observable_1_1;
             }],
         execute: function() {
-            // If we're not using observables, the active ref is pretty much all we need.
-            // If we want to do all firebase calls here, observables would be better.
-            // But do we need to? The why duplicate the API?
             DataService = (function () {
                 function DataService() {
                     var _this = this;
@@ -30,16 +27,19 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         _this._observer = observer;
                     }).share();
                     this.subscription
-                        .subscribe(function (data) { return console.log(data); });
+                        .subscribe(function (data) {
+                        console.log(data);
+                        _this._dataStore = data;
+                    });
                 }
                 DataService.prototype.setRef = function (path) {
                     var _this = this;
                     if (path === void 0) { path = ''; }
                     // set the ref
-                    this.ref = new Firebase(this._baseUrl + path);
+                    this._ref = new Firebase(this._baseUrl + path);
                     console.log(this._baseUrl + path);
                     // and setup subscription as well
-                    this.ref.on('value', function (snapshot) {
+                    this._ref.on('value', function (snapshot) {
                         _this._observer.next(snapshot.val());
                     });
                     // this fixes some WEIRD(!) Firebase bug:
@@ -48,6 +48,19 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     });
                     crapObservable
                         .subscribe();
+                };
+                DataService.prototype.remove = function (path) {
+                    if (path === void 0) { path = 'thisDisablesAccidents!'; }
+                    var child = this._ref.child(path);
+                    child.remove();
+                };
+                DataService.prototype.save = function (data) {
+                    this._ref.set(this._dataStore);
+                };
+                DataService.prototype.push = function (path, data) {
+                    if (path === void 0) { path = 'thisAlsoKeepsThingsCalmer'; }
+                    var child = this._ref.child(path);
+                    child.push(data);
                 };
                 DataService = __decorate([
                     core_1.Injectable(), 
