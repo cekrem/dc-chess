@@ -27,7 +27,7 @@ export class TournamentAdminComponent implements OnInit {
         // Connect and subscribe to the tournament object
         this._tournamentPath = params.get('user') +
             '/tournaments/' + params.get('tournamentId');
-        data.setRef(this._tournamentPath);
+        data.setUser(this._tournamentPath);
 
         data.subscription
             .map(data => {

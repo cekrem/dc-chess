@@ -23,23 +23,28 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 function DataService() {
                     var _this = this;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
+                    this._baseRef = new Firebase(this._baseUrl);
                     this.subscription = new Observable_1.Observable(function (observer) {
                         _this._observer = observer;
                     }).share();
                     this.subscription
                         .subscribe(function (data) {
                         console.log(data);
-                        _this._dataStore = data;
+                        _this._userData = data;
                     });
+                    // This should happen on auth, with auth/id as param
+                    this.setUser();
                 }
-                DataService.prototype.setRef = function (path) {
+                // This should (on auth) create the userRef and wire up the observable
+                // NOTE: This means we have to change implementation on tournament admin,
+                // it should only map the subscription and get 
+                DataService.prototype.setUser = function (path) {
                     var _this = this;
-                    if (path === void 0) { path = ''; }
-                    // set the ref
-                    this._ref = new Firebase(this._baseUrl + path);
-                    console.log(this._baseUrl + path);
+                    if (path === void 0) { path = 'demo'; }
+                    // set the userRef
+                    this._userRef = this._baseRef.child(path);
                     // and setup subscription as well
-                    this._ref.on('value', function (snapshot) {
+                    this._userRef.on('value', function (snapshot) {
                         _this._observer.next(snapshot.val());
                     });
                     // this fixes some WEIRD(!) Firebase bug:
@@ -51,15 +56,15 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 };
                 DataService.prototype.remove = function (path) {
                     if (path === void 0) { path = 'thisDisablesAccidents!'; }
-                    var child = this._ref.child(path);
+                    var child = this._baseRef.child(path);
                     child.remove();
                 };
                 DataService.prototype.save = function (data) {
-                    this._ref.set(data);
+                    this._baseRef.set(data);
                 };
                 DataService.prototype.push = function (path, data) {
                     if (path === void 0) { path = 'thisAlsoKeepsThingsCalmer'; }
-                    var child = this._ref.child(path);
+                    var child = this._userRef.child(path);
                     child.push(data);
                 };
                 DataService = __decorate([

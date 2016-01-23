@@ -32,8 +32,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.confirmKey = '';
                     this.user = params.get('user') || 'demo';
-                    // Connect and subscribe to user data 
-                    data.setRef(this.user);
+                    // Subscribe to user data 
                     data.subscription
                         .map(function (data) {
                         try {

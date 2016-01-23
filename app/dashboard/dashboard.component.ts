@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit {
         this.confirmKey = '';
         this.user = params.get('user') || 'demo';
         
-        // Connect and subscribe to user data 
-        data.setRef(this.user);
+        // Subscribe to user data 
         data.subscription
             .map(data => {
                 try {

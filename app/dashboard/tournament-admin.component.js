@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     // Connect and subscribe to the tournament object
                     this._tournamentPath = params.get('user') +
                         '/tournaments/' + params.get('tournamentId');
-                    data.setRef(this._tournamentPath);
+                    data.setUser(this._tournamentPath);
                     data.subscription
                         .map(function (data) {
                         try {
