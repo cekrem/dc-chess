@@ -46,17 +46,12 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                             useAsDefault: true
                         },
                         {
-                            path: '/dashboard',
-                            name: 'Dashboard',
-                            redirectTo: ['Dashboard', { user: 'demo' }]
-                        },
-                        {
-                            path: '/dashboard/:user',
+                            path: '/dashboard/',
                             name: 'Dashboard',
                             component: dashboard_component_1.DashboardComponent
                         },
                         {
-                            path: '/dashboard/:user/:tournamentId',
+                            path: '/dashboard/:tournamentId',
                             name: 'TournamentAdmin',
                             component: tournament_admin_component_1.TournamentAdminComponent
                         }

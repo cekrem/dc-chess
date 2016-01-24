@@ -23,13 +23,12 @@ export class DashboardComponent implements OnInit {
     constructor(router: Router, params: RouteParams, data: UserDataService) {
         this._router = router;
         this._data = data;
-
         this.confirmKey = '';
-        this.user = params.get('user') || 'demo';
+        this.user = data.getAuth().uid; // this shouldn't actually get the uid, but the username from real auth
         
         try {
             // If coming from a tournament , we don't wait for data
-            this.userData = data.userData;
+            this.userData = data.userData || {};
             this.tournamentKeys = Object.keys(this.userData.tournaments);
         } catch (error) {
             console.warn('User data available yet, waiting for subscription...');
@@ -45,12 +44,11 @@ export class DashboardComponent implements OnInit {
                 }
                 return data;
             })
-            .subscribe(data => this.userData = data);
+            .subscribe(data => this.userData = data || {});
     }
 
     openTournament(key) {
         this._router.navigate(['../TournamentAdmin', {
-            user: this.user,
             tournamentId: key
         }]);
     }
@@ -66,7 +64,7 @@ export class DashboardComponent implements OnInit {
 
         this._timeout = setTimeout(() => {
             this.confirmKey = '';
-        }, 5000);
+        }, 2000);
 
         return false;
     }

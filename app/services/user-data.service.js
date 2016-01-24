@@ -27,22 +27,40 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     this.subscription = new Observable_1.Observable(function (observer) {
                         _this._observer = observer;
                     }).share();
+                    this._baseRef.onAuth(function (authData) {
+                        if (authData) {
+                            console.log('User is logged in: ' + authData.uid);
+                            _this.setUser(authData.uid);
+                        }
+                    });
                     this.subscription
                         .subscribe(function (data) {
                         console.log(data);
                         _this.userData = data;
                     });
-                    // This should happen on auth, with auth/id as param
-                    this.setUser();
                 }
-                // This should (on auth) create the userRef and wire up the observable
-                // NOTE: This means we have to change implementation on tournament admin,
-                // it should only map the subscription and get cold data from _userData
-                UserDataService.prototype.setUser = function (path) {
+                UserDataService.prototype.login = function (cred) {
+                    // only anonymous login for now! Fine for demo mode :)
+                    this._baseRef.authAnonymously(function (error, authData) {
+                        if (error) {
+                            console.error(error);
+                        }
+                        else {
+                            console.log('Logged in anonymously');
+                        }
+                    });
+                };
+                UserDataService.prototype.getAuth = function () {
+                    var auth = this._baseRef.getAuth();
+                    console.log(auth);
+                    return auth;
+                };
+                UserDataService.prototype.setUser = function (uid) {
                     var _this = this;
-                    if (path === void 0) { path = 'demo'; }
+                    if (uid === void 0) { uid = 'demo'; }
+                    console.log('setting user to ' + uid);
                     // set the userRef
-                    this._userRef = this._baseRef.child(path);
+                    this._userRef = this._baseRef.child(uid);
                     // and setup subscription as well
                     this._userRef.on('value', function (snapshot) {
                         _this._observer.next(snapshot.val());
@@ -55,15 +73,16 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         .subscribe();
                 };
                 UserDataService.prototype.remove = function (path) {
-                    if (path === void 0) { path = 'thisDisablesAccidents!'; }
+                    if (path === void 0) { path = 'failsafe'; }
                     var child = this._userRef.child(path);
                     child.remove();
                 };
-                UserDataService.prototype.save = function (data) {
-                    // not implemented yet
+                UserDataService.prototype.save = function (path, data) {
+                    var child = this._userRef.child(path);
+                    child.update(data);
                 };
                 UserDataService.prototype.push = function (path, data) {
-                    if (path === void 0) { path = 'thisAlsoKeepsThingsCalmer'; }
+                    if (path === void 0) { path = 'failsafe'; }
                     var child = this._userRef.child(path);
                     child.push(data);
                 };

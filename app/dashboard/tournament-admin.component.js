@@ -56,7 +56,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         _this.tournamentData = data;
                     });
                 }
-                TournamentAdminComponent.prototype.submit = function () {
+                TournamentAdminComponent.prototype.submit = function (data) {
+                    this._data.save('tournaments/' + this.tournamentId, data);
                 };
                 TournamentAdminComponent.prototype.ngOnInit = function () { };
                 TournamentAdminComponent = __decorate([

@@ -20,23 +20,45 @@ export class UserDataService {
         this.subscription = new Observable(observer => {
             this._observer = observer;
         }).share();
+        
+        this._baseRef.onAuth((authData) => {
+            if(authData) {
+                console.log('User is logged in: ' + authData.uid);
+                this.setUser(authData.uid);
+            }
+        })
 
         this.subscription
             .subscribe(data => {
                 console.log(data);
                 this.userData = data;
             });
-        
-        // This should happen on auth, with auth/id as param
-        this.setUser();
     }
-    
-    // This should (on auth) create the userRef and wire up the observable
-    // NOTE: This means we have to change implementation on tournament admin,
-    // it should only map the subscription and get cold data from _userData
-    setUser(path: string = 'demo') {
+
+    login(cred) {
+        // only anonymous login for now! Fine for demo mode :)
+        this._baseRef.authAnonymously((error, authData) => {
+            if (error) {
+                console.error(error);
+            }
+            else {
+                console.log('Logged in anonymously');
+            }
+        });
+    }
+
+    getAuth() {
+        let auth = this._baseRef.getAuth();
+
+        console.log(auth);
+        return auth;
+    }
+
+    private setUser(uid: string = 'demo') {
+        console.log('setting user to ' + uid);
+        
         // set the userRef
-        this._userRef = this._baseRef.child(path);
+        this._userRef = this._baseRef.child(uid);
         
         // and setup subscription as well
         this._userRef.on('value', snapshot => {
@@ -52,17 +74,19 @@ export class UserDataService {
             .subscribe();
     }
 
-    remove(path: string = 'thisDisablesAccidents!') {
+    remove(path: string = 'failsafe') {
         let child = this._userRef.child(path);
 
         child.remove();
     }
-    
-    save(data) {
-        // not implemented yet
+
+    save(path: string, data) {
+        let child = this._userRef.child(path);
+        
+        child.update(data);
     }
 
-    push(path: string = 'thisAlsoKeepsThingsCalmer', data) {
+    push(path: string = 'failsafe', data) {
         let child = this._userRef.child(path);
 
         child.push(data);

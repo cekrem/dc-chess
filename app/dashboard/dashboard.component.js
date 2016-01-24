@@ -31,10 +31,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._router = router;
                     this._data = data;
                     this.confirmKey = '';
-                    this.user = params.get('user') || 'demo';
+                    this.user = data.getAuth().uid; // this shouldn't actually get the uid, but the username from real auth
                     try {
                         // If coming from a tournament , we don't wait for data
-                        this.userData = data.userData;
+                        this.userData = data.userData || {};
                         this.tournamentKeys = Object.keys(this.userData.tournaments);
                     }
                     catch (error) {
@@ -51,11 +51,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         }
                         return data;
                     })
-                        .subscribe(function (data) { return _this.userData = data; });
+                        .subscribe(function (data) { return _this.userData = data || {}; });
                 }
                 DashboardComponent.prototype.openTournament = function (key) {
                     this._router.navigate(['../TournamentAdmin', {
-                            user: this.user,
                             tournamentId: key
                         }]);
                 };
@@ -68,7 +67,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.confirmKey = key;
                     this._timeout = setTimeout(function () {
                         _this.confirmKey = '';
-                    }, 5000);
+                    }, 2000);
                     return false;
                 };
                 DashboardComponent.prototype.deleteTournament = function (key) {

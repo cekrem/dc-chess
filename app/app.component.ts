@@ -20,17 +20,12 @@ import { TournamentAdminComponent } from './dashboard/tournament-admin.component
         useAsDefault: true
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      redirectTo: ['Dashboard', {user: 'demo'}]  
-    },
-    {
-        path: '/dashboard/:user',
+        path: '/dashboard/',
         name: 'Dashboard',
         component: DashboardComponent
     },
     {
-        path: '/dashboard/:user/:tournamentId',
+        path: '/dashboard/:tournamentId',
         name: 'TournamentAdmin',
         component: TournamentAdminComponent
     }

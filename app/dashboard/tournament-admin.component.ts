@@ -49,8 +49,8 @@ export class TournamentAdminComponent implements OnInit {
             });
     }
     
-    submit() {
-        
+    submit(data) {
+        this._data.save('tournaments/' + this.tournamentId, data);
     }
 
     ngOnInit() { }

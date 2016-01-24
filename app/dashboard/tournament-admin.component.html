@@ -4,12 +4,12 @@
             <legend>Tournament info</legend>
             <p>
                 <label>Name:</label>
-                <input [value]="tournamentData.name" type="text" (keyup)="submit()" />
+                <input #name [value]="tournamentData.name" type="text" (keyup)="submit({name: name.value})" />
             </p>
 
             <p>
                 <label>Description:</label>
-                <input [value]="tournamentData.desc || ''" type="text" (keyup)="submit()" />
+                <input #desc [value]="tournamentData.desc || ''" type="text" (keyup)="submit({desc: desc.value})" />
             </p>
         </fieldset>
     </form>

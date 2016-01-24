@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../services/user-data.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, user_data_service_1;
     var HomeComponent;
     return {
         setters:[
@@ -17,11 +17,15 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (user_data_service_1_1) {
+                user_data_service_1 = user_data_service_1_1;
             }],
         execute: function() {
             HomeComponent = (function () {
-                function HomeComponent(r) {
-                    this._router = r;
+                function HomeComponent(router, data) {
+                    this._router = router;
+                    this._data = data;
                 }
                 HomeComponent.prototype.ngOnInit = function () { };
                 Object.defineProperty(HomeComponent.prototype, "userEntry", {
@@ -41,24 +45,20 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                         console.log('Match!');
                         return true;
                     }
-                    else if (this.userEntry == 'demo') {
-                        console.log('Demo mode!');
-                        return true;
-                    }
                     else {
-                        console.log('No match!');
                         return false;
                     }
                 };
                 HomeComponent.prototype.login = function () {
-                    if (this.userEntry == 'demo') {
-                    }
                     console.log('logging in as ' + this.userEntry);
                     var creds = {
                         user: this.userEntry,
                         license: this.licenseEntry
                     };
-                    this._router.navigate(['/Dashboard', { user: this.userEntry }]);
+                    if (!this._data.getAuth()) {
+                        this._data.login(creds);
+                    }
+                    this._router.navigate(['/Dashboard']);
                 };
                 HomeComponent = __decorate([
                     core_1.Component({
@@ -66,7 +66,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                         templateUrl: './app/home/home.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, user_data_service_1.UserDataService])
                 ], HomeComponent);
                 return HomeComponent;
             })();
