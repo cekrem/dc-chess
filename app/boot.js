@@ -1,5 +1,5 @@
-System.register(['rxjs/Rx', 'angular2/platform/browser', 'angular2/router', './services/data-service', './app.component'], function(exports_1) {
-    var browser_1, router_1, data_service_1, app_component_1;
+System.register(['rxjs/Rx', 'angular2/platform/browser', 'angular2/router', './services/user-data.service', './app.component'], function(exports_1) {
+    var browser_1, router_1, user_data_service_1, app_component_1;
     return {
         setters:[
             function (_1) {},
@@ -9,14 +9,14 @@ System.register(['rxjs/Rx', 'angular2/platform/browser', 'angular2/router', './s
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (data_service_1_1) {
-                data_service_1 = data_service_1_1;
+            function (user_data_service_1_1) {
+                user_data_service_1 = user_data_service_1_1;
             },
             function (app_component_1_1) {
                 app_component_1 = app_component_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, data_service_1.DataService]);
+            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, user_data_service_1.UserDataService]);
         }
     }
 });

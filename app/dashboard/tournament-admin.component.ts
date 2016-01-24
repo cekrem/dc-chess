@@ -1,8 +1,8 @@
 import {Component, OnInit} from 'angular2/core';
-import { NgIf, NgFor, FormBuilder } from 'angular2/common';
+import { NgIf, NgFor } from 'angular2/common';
 
 import { RouteParams } from 'angular2/router';
-import { DataService } from '../services/data-service';
+import { UserDataService } from '../services/user-data.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -13,23 +13,28 @@ import { Observable } from 'rxjs/Observable';
 
 export class TournamentAdminComponent implements OnInit {
     private _tournamentPath: string;
-    private _data: DataService;
-    private _fb: FormBuilder;
+    private _data: UserDataService;
 
+    public tournamentId: string;
     public tournamentData: any;
     public playerKeys: Array<string>;
-    public tournamentForm: any;
 
-    constructor(params: RouteParams, data: DataService, fb: FormBuilder) {
+    constructor(params: RouteParams, data: UserDataService) {
         this._data = data;
-        this._fb = fb;
+        this.tournamentId = params.get('tournamentId');
         
-        // Connect and subscribe to the tournament object
-        this._tournamentPath = params.get('user') +
-            '/tournaments/' + params.get('tournamentId');
-        data.setUser(this._tournamentPath);
-
+        try {
+            // If coming from dashboard (which you usually are!), we don't wait for data
+            this.tournamentData = data.userData.tournaments[this.tournamentId];      
+        } catch (error) {
+            console.warn('No tournament data available yet, waiting for subscription...');
+        }
+        
+        // Subscribe to the tournament object
         data.subscription
+            .map(data => {
+                return data.tournaments[this.tournamentId];
+            })
             .map(data => {
                 try {
                     this.playerKeys = Object.keys(data.players);
@@ -39,22 +44,13 @@ export class TournamentAdminComponent implements OnInit {
                 return data;
             })
             .subscribe(data => {
+                console.log(data);
                 this.tournamentData = data;
-                this.initForm();
             });
-    }
-
-    initForm() {
-        // Tournament form / settings
-        this.tournamentForm = this._fb.group({
-            name: [this.tournamentData.name],
-            desc: [this.tournamentData.desc]
-        });
     }
     
     submit() {
-        console.log(this.tournamentForm.value);
-        this._data.save(this.tournamentForm.value);
+        
     }
 
     ngOnInit() { }

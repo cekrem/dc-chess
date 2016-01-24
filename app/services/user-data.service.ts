@@ -4,13 +4,13 @@ import {Injectable} from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class DataService {
+export class UserDataService {
     private _baseUrl: string;
     private _baseRef: Firebase;
     private _userRef: Firebase;
-    private _userData: any;
     private _observer: any;
 
+    public userData: any;
     public subscription: Observable<any>;
 
     constructor() {
@@ -24,7 +24,7 @@ export class DataService {
         this.subscription
             .subscribe(data => {
                 console.log(data);
-                this._userData = data;
+                this.userData = data;
             });
         
         // This should happen on auth, with auth/id as param
@@ -53,13 +53,13 @@ export class DataService {
     }
 
     remove(path: string = 'thisDisablesAccidents!') {
-        let child = this._baseRef.child(path);
+        let child = this._userRef.child(path);
 
         child.remove();
     }
     
     save(data) {
-        this._baseRef.set(data);
+        // not implemented yet
     }
 
     push(path: string = 'thisAlsoKeepsThingsCalmer', data) {

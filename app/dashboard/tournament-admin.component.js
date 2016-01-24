@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/data-service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, data_service_1;
+    var core_1, common_1, router_1, user_data_service_1;
     var TournamentAdminComponent;
     return {
         setters:[
@@ -21,20 +21,27 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (data_service_1_1) {
-                data_service_1 = data_service_1_1;
+            function (user_data_service_1_1) {
+                user_data_service_1 = user_data_service_1_1;
             }],
         execute: function() {
             TournamentAdminComponent = (function () {
-                function TournamentAdminComponent(params, data, fb) {
+                function TournamentAdminComponent(params, data) {
                     var _this = this;
                     this._data = data;
-                    this._fb = fb;
-                    // Connect and subscribe to the tournament object
-                    this._tournamentPath = params.get('user') +
-                        '/tournaments/' + params.get('tournamentId');
-                    data.setUser(this._tournamentPath);
+                    this.tournamentId = params.get('tournamentId');
+                    try {
+                        // If coming from dashboard (which you usually are!), we don't wait for data
+                        this.tournamentData = data.userData.tournaments[this.tournamentId];
+                    }
+                    catch (error) {
+                        console.warn('No tournament data available yet, waiting for subscription...');
+                    }
+                    // Subscribe to the tournament object
                     data.subscription
+                        .map(function (data) {
+                        return data.tournaments[_this.tournamentId];
+                    })
                         .map(function (data) {
                         try {
                             _this.playerKeys = Object.keys(data.players);
@@ -45,20 +52,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         return data;
                     })
                         .subscribe(function (data) {
+                        console.log(data);
                         _this.tournamentData = data;
-                        _this.initForm();
                     });
                 }
-                TournamentAdminComponent.prototype.initForm = function () {
-                    // Tournament form / settings
-                    this.tournamentForm = this._fb.group({
-                        name: [this.tournamentData.name],
-                        desc: [this.tournamentData.desc]
-                    });
-                };
                 TournamentAdminComponent.prototype.submit = function () {
-                    console.log(this.tournamentForm.value);
-                    this._data.save(this.tournamentForm.value);
                 };
                 TournamentAdminComponent.prototype.ngOnInit = function () { };
                 TournamentAdminComponent = __decorate([
@@ -67,7 +65,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         templateUrl: 'app/dashboard/tournament-admin.component.html',
                         directives: [common_1.NgIf, common_1.NgFor]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, data_service_1.DataService, common_1.FormBuilder])
+                    __metadata('design:paramtypes', [router_1.RouteParams, user_data_service_1.UserDataService])
                 ], TournamentAdminComponent);
                 return TournamentAdminComponent;
             })();

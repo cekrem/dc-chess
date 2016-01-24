@@ -9,7 +9,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, Observable_1;
-    var DataService;
+    var UserDataService;
     return {
         setters:[
             function (core_1_1) {
@@ -19,8 +19,8 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 Observable_1 = Observable_1_1;
             }],
         execute: function() {
-            DataService = (function () {
-                function DataService() {
+            UserDataService = (function () {
+                function UserDataService() {
                     var _this = this;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
                     this._baseRef = new Firebase(this._baseUrl);
@@ -30,15 +30,15 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     this.subscription
                         .subscribe(function (data) {
                         console.log(data);
-                        _this._userData = data;
+                        _this.userData = data;
                     });
                     // This should happen on auth, with auth/id as param
                     this.setUser();
                 }
                 // This should (on auth) create the userRef and wire up the observable
                 // NOTE: This means we have to change implementation on tournament admin,
-                // it should only map the subscription and get 
-                DataService.prototype.setUser = function (path) {
+                // it should only map the subscription and get cold data from _userData
+                UserDataService.prototype.setUser = function (path) {
                     var _this = this;
                     if (path === void 0) { path = 'demo'; }
                     // set the userRef
@@ -54,27 +54,27 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     crapObservable
                         .subscribe();
                 };
-                DataService.prototype.remove = function (path) {
+                UserDataService.prototype.remove = function (path) {
                     if (path === void 0) { path = 'thisDisablesAccidents!'; }
-                    var child = this._baseRef.child(path);
+                    var child = this._userRef.child(path);
                     child.remove();
                 };
-                DataService.prototype.save = function (data) {
-                    this._baseRef.set(data);
+                UserDataService.prototype.save = function (data) {
+                    // not implemented yet
                 };
-                DataService.prototype.push = function (path, data) {
+                UserDataService.prototype.push = function (path, data) {
                     if (path === void 0) { path = 'thisAlsoKeepsThingsCalmer'; }
                     var child = this._userRef.child(path);
                     child.push(data);
                 };
-                DataService = __decorate([
+                UserDataService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], DataService);
-                return DataService;
+                ], UserDataService);
+                return UserDataService;
             })();
-            exports_1("DataService", DataService);
+            exports_1("UserDataService", UserDataService);
         }
     }
 });
-//# sourceMappingURL=data-service.js.map
+//# sourceMappingURL=user-data.service.js.map
