@@ -34,6 +34,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
                     this.confirmKey = '';
+                    this.activeView = 'info';
                     try {
                         // If coming from dashboard (which you usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
@@ -41,6 +42,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     }
                     catch (error) {
                         console.warn('No tournament data available yet, waiting for subscription...');
+                        this.playerKeys = [];
                     }
                     // Subscribe to the tournament object
                     data.subscription
@@ -48,7 +50,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         return data.tournaments[_this.tournamentId];
                     })
                         .subscribe(function (data) {
-                        _this.tournamentData = data;
+                        _this.tournamentData = data || {};
                         try {
                             _this.playerKeys = Object.keys(data.players);
                         }

@@ -1,24 +1,15 @@
 <div *ngIf="tournamentData">
-
-    <!-- Setup rounds -->
-    <div row>
-        <button column="4" (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success tooltip--bottom" data-hint="All play all. 3-30 players">
-            Setup roundrobin
-        </button>
-        <button column="4" (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
-            Setup swiss
-        </button>
-        <button column="4" (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
-            Setup cup
-        </button>
-    </div>
-
-    <button *ngIf="tournamentData.rounds" (click)="clearRounds()" class="button--error">Clear rounds!</button>
+    <ul class="breadcrumbs">
+        <li><a (click)="activeView='info'">Info</a></li>
+        <li><a (click)="activeView='players'">Players</a></li>
+        <li [hidden]="!tournamentData.rounds"><a (click)="activeView='rounds'">Matches</a></li>
+        <li [hidden]="!tournamentData.rounds"><a (click)="activeView='score'">Score</a></li>
+    </ul>
 
     <p></p>
 
     <!-- Tournament info -->
-    <form>
+    <form *ngIf="activeView =='info'">
         <fieldset>
             <legend>Tournament info</legend>
             <p>
@@ -30,13 +21,20 @@
                 <label>Description:</label>
                 <input #desc [value]="tournamentData.desc || ''" type="text" (keyup)="submit({desc: desc.value})" />
             </p>
+
+            <p>
+                <label>Tournament ID:</label>
+                <input type="text" readonly [value]="tournamentId">
+            </p>
         </fieldset>
     </form>
 
     <!-- Rounds -->
-    <fieldset>
-        <legend>Rounds</legend>
-        <table *ngFor="#round of tournamentData.rounds; #r = index" class="table--full table--border table--hoverRow table--responsive">
+    <fieldset *ngIf="activeView =='rounds'">
+        <legend>Matches</legend>
+        <p [hidden]="tournamentData.rounds">You have not setup any matches yet! Go back to you player list.</p>
+        <button *ngIf="tournamentData.rounds" (click)="clearRounds()" class="button--error">Clear rounds!</button>
+        <table *ngFor="#round of tournamentData.rounds; #r = index" class="table--full table--border table--hoverCell table--responsive">
             <thead>
                 <tr>
                     <th>Round {{r+1}}</th>
@@ -54,14 +52,30 @@
         </table>
     </fieldset>
 
+    <!-- Setup rounds -->
+    <div *ngIf="activeView =='players'">
+        <button (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success tooltip--bottom"
+        data-hint="All play all. 3-30 players">
+            Setup roundrobin
+        </button>
+        <button (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
+            Setup swiss
+        </button>
+        <button (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
+            Setup cup
+        </button>
+    </div>
+    <p></p>
+
     <!-- Player list -->
-    <form>
+    <form *ngIf="activeView =='players'">
         <fieldset>
             <legend>
                 Player list
                 <span *ngIf="(playerKeys.length > 2)" class="badge bg--success">{{playerKeys.length}}</span>
                 <span *ngIf="(playerKeys.length < 3)" class="badge bg--muted">{{playerKeys.length}}</span>
             </legend>
+
             <input #player type="text" placeholder="Player name">
             <button [disabled]="tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--muted button--full">Add player</button>
             <p></p>
@@ -90,6 +104,12 @@
             </table>
         </fieldset>
     </form>
+    
+    <!-- Score -->
+    <fieldset *ngIf="activeView == 'score'">
+        <legend>Score</legend>
+        <p [hidden]="tournamentData.rounds">You have not setup any matches yet! Go back to you player list.</p>
+    </fieldset>
 </div>
 
 <div *ngIf="!tournamentData" class="center--all">
