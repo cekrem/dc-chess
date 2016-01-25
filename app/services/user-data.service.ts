@@ -39,7 +39,7 @@ export class UserDataService {
         this.subscription
             .subscribe(data => {
                 console.log(data);
-                this.userData = data;
+                this.userData = data || {};
             });
     }
 

@@ -43,7 +43,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     this.subscription
                         .subscribe(function (data) {
                         console.log(data);
-                        _this.userData = data;
+                        _this.userData = data || {};
                     });
                 }
                 UserDataService.prototype.login = function (cred) {

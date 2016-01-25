@@ -1,15 +1,18 @@
+<!-- TODO: Separate each view into component? -->
+
 <div *ngIf="tournamentData">
     <ul class="breadcrumbs">
         <li><a (click)="activeView='info'">Info</a></li>
         <li><a (click)="activeView='players'">Players</a></li>
-        <li [hidden]="!tournamentData.rounds"><a (click)="activeView='rounds'">Matches</a></li>
-        <li [hidden]="!tournamentData.rounds"><a (click)="activeView='score'">Score</a></li>
+        <li><a (click)="activeView='rounds'">
+            <span [hidden]="tournamentData.rounds">Setup matches</span>
+            <span [hidden]="!tournamentData.rounds">Rounds & matches</span>
+        </a></li>
+        <li *ngIf="tournamentData.rounds"><a (click)="activeView='score'">Score</a></li>
     </ul>
 
-    <p></p>
-
     <!-- Tournament info -->
-    <form *ngIf="activeView =='info'">
+    <form *ngIf="activeView =='info'" class="form--inline">
         <fieldset>
             <legend>Tournament info</legend>
             <p>
@@ -29,58 +32,21 @@
         </fieldset>
     </form>
 
-    <!-- Rounds -->
-    <fieldset *ngIf="activeView =='rounds'">
-        <legend>Matches</legend>
-        <p [hidden]="tournamentData.rounds">You have not setup any matches yet! Go back to you player list.</p>
-        <button *ngIf="tournamentData.rounds" (click)="clearRounds()" class="button--error">Clear rounds!</button>
-        <table *ngFor="#round of tournamentData.rounds; #r = index" class="table--full table--border table--hoverCell table--responsive">
-            <thead>
-                <tr>
-                    <th>Round {{r+1}}</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="#match of round; #m = index">
-                    <td>{{tournamentData.players[match.white].name}}</td>
-                    <td>Table {{m+1}}</td>
-                    <td>{{tournamentData.players[match.black].name}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </fieldset>
-
-    <!-- Setup rounds -->
-    <div *ngIf="activeView =='players'">
-        <button (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success tooltip--bottom"
-        data-hint="All play all. 3-30 players">
-            Setup roundrobin
-        </button>
-        <button (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
-            Setup swiss
-        </button>
-        <button (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
-            Setup cup
-        </button>
-    </div>
-    <p></p>
-
     <!-- Player list -->
-    <form *ngIf="activeView =='players'">
+    <form *ngIf="activeView =='players'" class="form--inline">
         <fieldset>
             <legend>
                 Player list
                 <span *ngIf="(playerKeys.length > 2)" class="badge bg--success">{{playerKeys.length}}</span>
                 <span *ngIf="(playerKeys.length < 3)" class="badge bg--muted">{{playerKeys.length}}</span>
             </legend>
+            <p>
+                <label>Add player:</label>
+                <input [disabled]="tournamentData.rounds" #player type="text" placeholder="Player name">
+                <button [disabled]="tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--xsm">Add player</button>
+            </p>
 
-            <input #player type="text" placeholder="Player name">
-            <button [disabled]="tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--muted button--full">Add player</button>
-            <p></p>
-
-            <table class="table--full table--border table--hoverRow table--responsive">
+            <table class="table--border table--hoverRow table--responsive">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -104,7 +70,53 @@
             </table>
         </fieldset>
     </form>
-    
+
+    <!-- Setup rounds -->
+    <fieldset *ngIf="activeView == 'rounds'" class="form--inline">
+        <legend>Setup matches</legend>
+        <p [hidden]="tournamentData.rounds">
+            <button (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success button--full tooltip--bottom"
+            data-hint="All play all. 3-30 players">
+                Setup roundrobin
+            </button>
+        </p>
+        <p [hidden]="tournamentData.rounds">
+            <button (click)="setupRounds()" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
+                Setup swiss
+            </button>
+        </p>
+        <p [hidden]="tournamentData.rounds">
+            <button (click)="setupRounds()" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
+                Setup cup
+            </button>
+        </p>
+        <p [hidden]="!tournamentData.rounds">
+            <button data-hint="Remove all rounds and matches (irreversible!)" (click)="clearRounds()" class="button--error button--full tooltip--bottom">Clear rounds!</button>
+        </p>
+    </fieldset>
+
+    <!-- Rounds / matches -->
+    <fieldset *ngIf="activeView =='rounds' && tournamentData.rounds">
+        <legend>Matches</legend>
+
+        <table *ngFor="#round of tournamentData.rounds; #r = index" class="table--full table--border table--hoverCell table--responsive">
+            <thead>
+                <tr>
+                    <th>Round {{r+1}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="#match of round; #m = index">
+                    <td>{{tournamentData.players[match.white].name}}</td>
+                    <td>Table {{m+1}}</td>
+                    <td>{{tournamentData.players[match.black].name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
     <!-- Score -->
     <fieldset *ngIf="activeView == 'score'">
         <legend>Score</legend>
