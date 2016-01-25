@@ -31,6 +31,13 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         if (authData) {
                             console.log('User is logged in: ' + authData.uid);
                             _this.setUser(authData.uid);
+                            _this._user = authData;
+                        }
+                        else {
+                            console.log('User is logged out!');
+                            _this._userRef = null;
+                            _this._user = null;
+                            _this.userData = null;
                         }
                     });
                     this.subscription
@@ -40,6 +47,10 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     });
                 }
                 UserDataService.prototype.login = function (cred) {
+                    // Don't login twice! :)
+                    if (this._userRef) {
+                        return;
+                    }
                     // only anonymous login for now! Fine for demo mode :)
                     this._baseRef.authAnonymously(function (error, authData) {
                         if (error) {
@@ -50,10 +61,21 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         }
                     });
                 };
-                UserDataService.prototype.getAuth = function () {
-                    var auth = this._baseRef.getAuth();
-                    console.log(auth);
-                    return auth;
+                UserDataService.prototype.logout = function () {
+                    this._baseRef.unauth();
+                };
+                UserDataService.prototype.getAuthAsync = function () {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        _this._baseRef.onAuth(function (authData) {
+                            if (authData) {
+                                resolve(authData);
+                            }
+                            else {
+                                reject('Not logged in!');
+                            }
+                        });
+                    });
                 };
                 UserDataService.prototype.setUser = function (uid) {
                     var _this = this;
@@ -82,7 +104,6 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     child.update(data);
                 };
                 UserDataService.prototype.push = function (path, data) {
-                    if (path === void 0) { path = 'failsafe'; }
                     var child = this._userRef.child(path);
                     child.push(data);
                 };

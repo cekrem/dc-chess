@@ -13,21 +13,38 @@
             </p>
         </fieldset>
     </form>
+    <form>
+        <fieldset>
+            <legend>Player list</legend>
+            <input #player type="text" placeholder="Player name">
+            <button (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--full">Add player</button>
+            <p></p>
 
-    <table class="table--full">
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
+            <table class="table--full table--border table--hoverRow table--responsive">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            <tr *ngFor="#key of playerKeys">
-                <td>{{tournamentData.players[key]}}</td>
-            </tr>
-        </tbody>
+                <tbody>
+                    <tr *ngFor="#key of playerKeys">
+                        <td *ngIf="confirmKey != key" (contextmenu)="confirmDelete(key)">
+                            {{tournamentData.players[key].name}}
+                        </td>
+                        <td *ngIf="confirmKey == key" (contextmenu)="deletePlayer(key)">
+                            Right click again do delete player
+                        </td>
+                    </tr>
+                    <tr *ngIf="!playerKeys.length">
+                        <td>(empty)</td>
+                    </tr>
+                </tbody>
 
-    </table>
+            </table>
+        </fieldset>
+    </form>
+
 </div>
 
 <div *ngIf="!tournamentData" class="center--all">

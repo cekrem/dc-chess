@@ -31,14 +31,13 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._router = router;
                     this._data = data;
                     this.confirmKey = '';
-                    this.user = data.getAuth().uid; // this shouldn't actually get the uid, but the username from real auth
                     try {
                         // If coming from a tournament , we don't wait for data
-                        this.userData = data.userData || {};
+                        this.userData = data.userData;
                         this.tournamentKeys = Object.keys(this.userData.tournaments);
                     }
                     catch (error) {
-                        console.warn('User data available yet, waiting for subscription...');
+                        console.warn('User data not available yet, waiting for subscription...');
                     }
                     // Subscribe to user data 
                     data.subscription
@@ -75,6 +74,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.confirmKey = '';
                     this._data.remove('tournaments/' + key);
                     return false;
+                };
+                DashboardComponent.prototype.logout = function () {
+                    this._router.navigate(['/Home']);
+                    this._data.logout();
                 };
                 DashboardComponent.prototype.ngOnInit = function () { };
                 DashboardComponent = __decorate([

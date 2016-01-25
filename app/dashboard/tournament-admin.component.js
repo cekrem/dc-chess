@@ -30,6 +30,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     var _this = this;
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
+                    this.confirmKey = '';
                     try {
                         // If coming from dashboard (which you usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
@@ -58,6 +59,37 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 }
                 TournamentAdminComponent.prototype.submit = function (data) {
                     this._data.save('tournaments/' + this.tournamentId, data);
+                };
+                TournamentAdminComponent.prototype.addPlayer = function (playerName) {
+                    var _this = this;
+                    var player = { name: playerName };
+                    var duplicate = false;
+                    this.playerKeys.forEach(function (key) {
+                        if (_this.tournamentData.players[key].name == playerName) {
+                            duplicate = true;
+                        }
+                    });
+                    if (duplicate) {
+                        this.addPlayer(playerName + '*');
+                    }
+                    else {
+                        this._data.push('tournaments/' + this.tournamentId + '/players/', player);
+                    }
+                };
+                TournamentAdminComponent.prototype.confirmDelete = function (key) {
+                    var _this = this;
+                    clearTimeout(this._timeout);
+                    this.confirmKey = key;
+                    this._timeout = setTimeout(function () {
+                        _this.confirmKey = '';
+                    }, 2000);
+                    return false;
+                };
+                TournamentAdminComponent.prototype.deletePlayer = function (key) {
+                    clearTimeout(this._timeout);
+                    this.confirmKey = '';
+                    this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
+                    return false;
                 };
                 TournamentAdminComponent.prototype.ngOnInit = function () { };
                 TournamentAdminComponent = __decorate([

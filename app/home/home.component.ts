@@ -50,10 +50,8 @@ export class HomeComponent implements OnInit {
             user: this.userEntry,
             license: this.licenseEntry
         }
-
-        if (!this._data.getAuth()) {
-            this._data.login(creds);
-        }
+        
+        this._data.login(creds);
 
         this._router.navigate(['/Dashboard']);
     }

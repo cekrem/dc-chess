@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
     private _data: UserDataService;
 
     public confirmKey: string;
-    public user: string;
     public userData: any;
     public tournamentKeys: Array<string>;
 
@@ -24,14 +23,13 @@ export class DashboardComponent implements OnInit {
         this._router = router;
         this._data = data;
         this.confirmKey = '';
-        this.user = data.getAuth().uid; // this shouldn't actually get the uid, but the username from real auth
-        
+                
         try {
             // If coming from a tournament , we don't wait for data
-            this.userData = data.userData || {};
+            this.userData = data.userData;
             this.tournamentKeys = Object.keys(this.userData.tournaments);
         } catch (error) {
-            console.warn('User data available yet, waiting for subscription...');
+            console.warn('User data not available yet, waiting for subscription...');
         }
         
         // Subscribe to user data 
@@ -76,6 +74,11 @@ export class DashboardComponent implements OnInit {
         this._data.remove('tournaments/' + key);
         
         return false;
+    }
+    
+    logout() {
+        this._router.navigate(['/Home'])
+        this._data.logout();
     }
 
     ngOnInit() { }

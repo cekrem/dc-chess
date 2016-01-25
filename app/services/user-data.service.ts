@@ -8,6 +8,7 @@ export class UserDataService {
     private _baseUrl: string;
     private _baseRef: Firebase;
     private _userRef: Firebase;
+    private _user: FirebaseAuthData;
     private _observer: any;
 
     public userData: any;
@@ -25,6 +26,13 @@ export class UserDataService {
             if(authData) {
                 console.log('User is logged in: ' + authData.uid);
                 this.setUser(authData.uid);
+                this._user = authData;
+            }
+            else {
+                console.log('User is logged out!');
+                this._userRef = null;
+                this._user = null;
+                this.userData = null;
             }
         })
 
@@ -36,6 +44,11 @@ export class UserDataService {
     }
 
     login(cred) {
+        // Don't login twice! :)
+        if(this._userRef) {
+            return;
+        }
+        
         // only anonymous login for now! Fine for demo mode :)
         this._baseRef.authAnonymously((error, authData) => {
             if (error) {
@@ -46,12 +59,22 @@ export class UserDataService {
             }
         });
     }
+    
+    logout() {
+        this._baseRef.unauth();
+    }
 
-    getAuth() {
-        let auth = this._baseRef.getAuth();
-
-        console.log(auth);
-        return auth;
+    getAuthAsync() {
+        return new Promise((resolve, reject) => {
+            this._baseRef.onAuth(authData => {
+                if(authData) {
+                    resolve(authData);
+                }
+                else {
+                    reject('Not logged in!');
+                }
+            })
+        });
     }
 
     private setUser(uid: string = 'demo') {
@@ -86,7 +109,7 @@ export class UserDataService {
         child.update(data);
     }
 
-    push(path: string = 'failsafe', data) {
+    push(path: string, data) {
         let child = this._userRef.child(path);
 
         child.push(data);

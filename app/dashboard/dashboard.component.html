@@ -1,15 +1,17 @@
 <div *ngIf="userData" class="center--all">
-    <h1>Welcome, {{user}}!</h1>
+    <h1>Dashboard</h1>
+    <button (click)="logout()" class="button--xsm button--pill button--warning">Logout</button>
+    <p></p>
     <button class="button--xlg bg--success" (click)="addTournament()">
         New tournament
     </button>
     <p></p>
     <div *ngFor="#key of tournamentKeys">
         <p></p>
-        <button [hidden]="confirmKey == key" (contextmenu)="confirmDelete(key)" (click)="openTournament(key)">
+        <button class="button--muted" [hidden]="confirmKey == key" (contextmenu)="confirmDelete(key)" (click)="openTournament(key)">
             {{userData.tournaments[key].name}}
         </button>
-        <button [hidden]="confirmKey != key" (contextmenu)="deleteTournament(key)">
+        <button class="button--error" [hidden]="confirmKey != key" (contextmenu)="deleteTournament(key)">
             Right click again to delete!
         </button>
         <p></p>

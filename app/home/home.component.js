@@ -55,9 +55,7 @@ System.register(['angular2/core', 'angular2/router', '../services/user-data.serv
                         user: this.userEntry,
                         license: this.licenseEntry
                     };
-                    if (!this._data.getAuth()) {
-                        this._data.login(creds);
-                    }
+                    this._data.login(creds);
                     this._router.navigate(['/Dashboard']);
                 };
                 HomeComponent = __decorate([

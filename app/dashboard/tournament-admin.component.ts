@@ -12,20 +12,22 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class TournamentAdminComponent implements OnInit {
-    private _tournamentPath: string;
     private _data: UserDataService;
+    private _timeout: any;
 
     public tournamentId: string;
     public tournamentData: any;
     public playerKeys: Array<string>;
+    public confirmKey: string;
 
     constructor(params: RouteParams, data: UserDataService) {
         this._data = data;
         this.tournamentId = params.get('tournamentId');
-        
+        this.confirmKey = '';
+
         try {
             // If coming from dashboard (which you usually are!), we don't wait for data
-            this.tournamentData = data.userData.tournaments[this.tournamentId];      
+            this.tournamentData = data.userData.tournaments[this.tournamentId];
         } catch (error) {
             console.warn('No tournament data available yet, waiting for subscription...');
         }
@@ -48,9 +50,48 @@ export class TournamentAdminComponent implements OnInit {
                 this.tournamentData = data;
             });
     }
-    
+
     submit(data) {
         this._data.save('tournaments/' + this.tournamentId, data);
+    }
+
+    addPlayer(playerName) {
+        let player = { name: playerName };
+        let duplicate = false;
+
+        this.playerKeys.forEach(key => {
+            if (this.tournamentData.players[key].name == playerName) {
+                duplicate = true;
+            }
+        });
+
+        if (duplicate) {
+            this.addPlayer(playerName + '*');
+        }
+        else {
+            this._data.push('tournaments/' + this.tournamentId + '/players/', player);
+        }
+    }
+
+    confirmDelete(key) {
+        clearTimeout(this._timeout);
+
+        this.confirmKey = key;
+
+        this._timeout = setTimeout(() => {
+            this.confirmKey = '';
+        }, 2000);
+
+        return false;
+    }
+
+    deletePlayer(key) {
+        clearTimeout(this._timeout);
+        this.confirmKey = '';
+
+        this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
+
+        return false;
     }
 
     ngOnInit() { }
