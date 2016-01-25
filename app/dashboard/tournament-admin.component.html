@@ -1,4 +1,23 @@
 <div *ngIf="tournamentData">
+
+    <!-- Setup rounds -->
+    <div row>
+        <button column="4" (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success tooltip--bottom" data-hint="All play all. 3-30 players">
+            Setup roundrobin
+        </button>
+        <button column="4" (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
+            Setup swiss
+        </button>
+        <button column="4" (click)="setupRounds()" disabled class="button--muted tooltip--bottom" data-hint="Coming soon!">
+            Setup cup
+        </button>
+    </div>
+
+    <button *ngIf="tournamentData.rounds" (click)="clearRounds()" class="button--error">Clear rounds!</button>
+
+    <p></p>
+
+    <!-- Tournament info -->
     <form>
         <fieldset>
             <legend>Tournament info</legend>
@@ -13,11 +32,38 @@
             </p>
         </fieldset>
     </form>
+
+    <!-- Rounds -->
+    <fieldset>
+        <legend>Rounds</legend>
+        <table *ngFor="#round of tournamentData.rounds; #r = index" class="table--full table--border table--hoverRow table--responsive">
+            <thead>
+                <tr>
+                    <th>Round {{r+1}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="#match of round; #m = index">
+                    <td>{{tournamentData.players[match.white].name}}</td>
+                    <td>Table {{m+1}}</td>
+                    <td>{{tournamentData.players[match.black].name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <!-- Player list -->
     <form>
         <fieldset>
-            <legend>Player list</legend>
+            <legend>
+                Player list
+                <span *ngIf="(playerKeys.length > 2)" class="badge bg--success">{{playerKeys.length}}</span>
+                <span *ngIf="(playerKeys.length < 3)" class="badge bg--muted">{{playerKeys.length}}</span>
+            </legend>
             <input #player type="text" placeholder="Player name">
-            <button (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--full">Add player</button>
+            <button [disabled]="tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--muted button--full">Add player</button>
             <p></p>
 
             <table class="table--full table--border table--hoverRow table--responsive">
@@ -44,7 +90,6 @@
             </table>
         </fieldset>
     </form>
-
 </div>
 
 <div *ngIf="!tournamentData" class="center--all">

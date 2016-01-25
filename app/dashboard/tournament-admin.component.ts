@@ -1,9 +1,11 @@
 import {Component, OnInit} from 'angular2/core';
 import { NgIf, NgFor } from 'angular2/common';
 
-import { RouteParams } from 'angular2/router';
-import { UserDataService } from '../services/user-data.service';
 import { Observable } from 'rxjs/Observable';
+import { RouteParams } from 'angular2/router';
+
+import { UserDataService } from '../services/user-data.service';
+import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
 
 @Component({
     selector: 'tournamentAdmin',
@@ -28,6 +30,7 @@ export class TournamentAdminComponent implements OnInit {
         try {
             // If coming from dashboard (which you usually are!), we don't wait for data
             this.tournamentData = data.userData.tournaments[this.tournamentId];
+            this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
         } catch (error) {
             console.warn('No tournament data available yet, waiting for subscription...');
         }
@@ -37,22 +40,33 @@ export class TournamentAdminComponent implements OnInit {
             .map(data => {
                 return data.tournaments[this.tournamentId];
             })
-            .map(data => {
+            .subscribe(data => {
+                this.tournamentData = data;
+                
                 try {
                     this.playerKeys = Object.keys(data.players);
                 } catch (error) {
                     this.playerKeys = [];
                 }
-                return data;
-            })
-            .subscribe(data => {
-                console.log(data);
-                this.tournamentData = data;
             });
     }
 
     submit(data) {
         this._data.save('tournaments/' + this.tournamentId, data);
+    }
+    
+    setupRounds(system: string = 'roundrobin') {
+        let rounds;
+        
+        if(system == 'roundrobin') {
+            rounds = setupRoundRobin(this.playerKeys);
+        }
+        
+        this.submit({ rounds: rounds });
+    }
+    
+    clearRounds() {
+        this.submit({ rounds: null });
     }
 
     addPlayer(playerName) {
