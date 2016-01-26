@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import { NgIf, NgFor } from 'angular2/common';
 
 import { Observable } from 'rxjs/Observable';
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
@@ -17,6 +17,7 @@ import { getScore } from '../services/score.function';
 export class TournamentAdminComponent implements OnInit {
     private _data: UserDataService;
     private _timeout: any;
+    private _subscription: any;
 
     public tournamentId: string;
     public tournamentData: any;
@@ -40,7 +41,7 @@ export class TournamentAdminComponent implements OnInit {
         }
         
         // Subscribe to the tournament object
-        data.subscription
+        this._subscription = data.subscription
             .map(data => {
                 return data.tournaments[this.tournamentId];
             })
@@ -117,6 +118,11 @@ export class TournamentAdminComponent implements OnInit {
         this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
 
         return false;
+    }
+    
+    routerOnDeactivate() {
+        console.log('leaving tournament admin route!');
+        this._subscription.unsubscribe();
     }
 
     ngOnInit() { }

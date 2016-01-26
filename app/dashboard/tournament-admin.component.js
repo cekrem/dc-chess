@@ -48,7 +48,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         this.playerKeys = [];
                     }
                     // Subscribe to the tournament object
-                    data.subscription
+                    this._subscription = data.subscription
                         .map(function (data) {
                         return data.tournaments[_this.tournamentId];
                     })
@@ -112,6 +112,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.confirmKey = '';
                     this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
                     return false;
+                };
+                TournamentAdminComponent.prototype.routerOnDeactivate = function () {
+                    console.log('leaving tournament admin route!');
+                    this._subscription.unsubscribe();
                 };
                 TournamentAdminComponent.prototype.ngOnInit = function () { };
                 TournamentAdminComponent = __decorate([
