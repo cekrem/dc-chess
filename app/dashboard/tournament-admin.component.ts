@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import { NgIf, NgFor } from 'angular2/common';
 
 import { Observable } from 'rxjs/Observable';
-import { RouteParams } from 'angular2/router';
+import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
@@ -11,7 +11,7 @@ import { getScore } from '../services/score.function';
 @Component({
     selector: 'tournamentAdmin',
     templateUrl: 'app/dashboard/tournament-admin.component.html',
-    directives: [NgIf, NgFor]
+    directives: [NgIf, NgFor, ROUTER_DIRECTIVES]
 })
 
 export class TournamentAdminComponent implements OnInit {

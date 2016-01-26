@@ -118,7 +118,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     core_1.Component({
                         selector: 'tournamentAdmin',
                         templateUrl: 'app/dashboard/tournament-admin.component.html',
-                        directives: [common_1.NgIf, common_1.NgFor]
+                        directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, user_data_service_1.UserDataService])
                 ], TournamentAdminComponent);

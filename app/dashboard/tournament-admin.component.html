@@ -11,6 +11,7 @@
             </a>
         </li>
         <li *ngIf="tournamentData.rounds"><a (click)="activeView='score'">Score</a></li>
+        <a class="float--right" [routerLink]="[ '/Dashboard' ]">Dashboard</a>
     </ul>
 
     <!-- Tournament info -->
