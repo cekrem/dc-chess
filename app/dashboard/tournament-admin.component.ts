@@ -28,7 +28,7 @@ export class TournamentAdminComponent implements OnInit {
         this._data = data;
         this.tournamentId = params.get('tournamentId');
         this.confirmKey = '';
-        this.activeView = 'score';
+        this.activeView = 'info';
 
         try {
             // If coming from dashboard (which you usually are!), we don't wait for data

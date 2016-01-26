@@ -1,4 +1,5 @@
 <div *ngIf="userData" class="center--all">
+    <button (click)="logout()" class="button--xsm button--pill button--warning">Logout</button>
     <h1>Dashboard</h1>
     <p></p>
     <button class="button--xlg bg--success" (click)="addTournament()">
@@ -20,5 +21,3 @@
 <div *ngIf="!userData" class="center--all">
     <div class="spinner"></div>
 </div>
-
-<button (click)="logout()" class="button--xsm button--pill button--warning float--right">Logout</button>

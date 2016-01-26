@@ -37,7 +37,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
                     this.confirmKey = '';
-                    this.activeView = 'score';
+                    this.activeView = 'info';
                     try {
                         // If coming from dashboard (which you usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
