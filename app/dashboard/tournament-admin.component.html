@@ -109,24 +109,24 @@
                     <tbody>
                         <tr class="text--center">
                             <td>{{tournamentData.players[match.white].name}}</td>
-                            <td>
+                            <td style="width: 120px">
                                 <span [hidden]="match.result">vs</span>
                                 <a (click)="match.result = 0; submit({rounds: tournamentData.rounds})">
-                                    <strong *ngIf="match.result == 'white'">White won!</strong>
-                                    <strong *ngIf="match.result == 'draw'">Game drawn!</strong>
-                                    <strong *ngIf="match.result == 'black'">Black won!</strong>
+                                    <strong *ngIf="match.result == 'white'">White!</strong>
+                                    <strong *ngIf="match.result == 'draw'">Draw!</strong>
+                                    <strong *ngIf="match.result == 'black'">Black!</strong>
                                 </a>
                             </td>
                             <td>{{tournamentData.players[match.black].name}}</td>
                         </tr>
                         <tr class="text--center">
-                            <td class="button--muted" (click)="match.result = 'white'; submit({rounds: tournamentData.rounds})">
+                            <td class="button button--full button--primary" (click)="match.result = 'white'; submit({rounds: tournamentData.rounds})">
                                 White
                             </td>
                             <td class="button--muted" (click)="match.result = 'draw'; submit({rounds: tournamentData.rounds})">
                                 Draw
                             </td>
-                            <td class="button--muted" (click)="match.result = 'black'; submit({rounds: tournamentData.rounds})">
+                            <td class="button button--full button--primary" (click)="match.result = 'black'; submit({rounds: tournamentData.rounds})">
                                 Black
                             </td>
                         </tr>
