@@ -6,6 +6,7 @@ import { RouteParams } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
+import { getScore } from '../services/score.function';
 
 @Component({
     selector: 'tournamentAdmin',
@@ -27,7 +28,7 @@ export class TournamentAdminComponent implements OnInit {
         this._data = data;
         this.tournamentId = params.get('tournamentId');
         this.confirmKey = '';
-        this.activeView = 'rounds';
+        this.activeView = 'score';
 
         try {
             // If coming from dashboard (which you usually are!), we don't wait for data
@@ -45,33 +46,36 @@ export class TournamentAdminComponent implements OnInit {
             })
             .subscribe(data => {
                 this.tournamentData = data || {};
-                
+
                 try {
                     this.playerKeys = Object.keys(data.players);
                 } catch (error) {
                     this.playerKeys = [];
-                }
-                
-                if(data.rounds) {
-                    // get results
                 }
             });
     }
 
     submit(data: any = this.tournamentData) {
         this._data.save('tournaments/' + this.tournamentId, data);
+
+        if (data.rounds) {
+            console.log('Rounds saved! Trying to update score...');
+
+            let undecidedMatches = getScore(data.rounds, this.tournamentData.players);
+            this.submit({ players: this.tournamentData.players, playedMatches: undecidedMatches });
+        }
     }
-    
+
     setupRounds(system: string = 'roundrobin') {
         let rounds;
-        
-        if(system == 'roundrobin') {
+
+        if (system == 'roundrobin') {
             rounds = setupRoundRobin(this.playerKeys);
         }
-        
+
         this.submit({ rounds: rounds });
     }
-    
+
     clearRounds() {
         this.submit({ rounds: null });
     }

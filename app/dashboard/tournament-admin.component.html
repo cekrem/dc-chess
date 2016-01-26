@@ -3,10 +3,10 @@
 <div *ngIf="tournamentData">
     <ul class="breadcrumbs">
         <li><a (click)="activeView='info'">Info</a></li>
-        <li><a (click)="activeView='players'">Players</a></li>
+        <li *ngIf="!tournamentData.rounds"><a (click)="activeView='players'">Players</a></li>
         <li>
             <a (click)="activeView='rounds'">
-                <span [hidden]="tournamentData.rounds">Setup matches</span>
+                <span [hidden]="tournamentData.rounds">Match setup</span>
                 <span [hidden]="!tournamentData.rounds">Rounds & matches</span>
             </a>
         </li>
@@ -75,7 +75,7 @@
 
     <!-- Setup rounds -->
     <fieldset *ngIf="activeView == 'rounds'" class="form--inline">
-        <legend>Setup matches</legend>
+        <legend>Match setup</legend>
         <p [hidden]="tournamentData.rounds">
             <button (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success button--full tooltip--bottom"
             data-hint="All play all. 3-30 players">
@@ -140,10 +140,53 @@
     </div>
 
     <!-- Score -->
-    <fieldset *ngIf="activeView == 'score'">
-        <legend>Score</legend>
-        <p [hidden]="tournamentData.rounds">You have not setup any matches yet! Go back to you player list.</p>
-    </fieldset>
+    <div *ngIf="activeView == 'score'">
+        <fieldset>
+            <legend>Some actions</legend>
+            <p>
+                <button class="button--success button--full tooltip--bottom" data-hint="This is a placeholder button!">
+                    Some action
+                </button>
+            </p>
+            <p>
+                <button class="button--success button--full tooltip--bottom" data-hint="This is a placeholder button!">
+                    Some action
+                </button>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                Score
+            </legend>
+            
+            <div class="alert">
+                <p><strong>Status:</strong> You have played {{tournamentData.playedMatches[0]}} of {{tournamentData.playedMatches[1]}} matches.</p>
+            </div>
+            
+            <table class="table--border table--hoverRow table--responsive">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="#key of playerKeys">
+                        <td>
+                            {{tournamentData.players[key].name}}
+                        </td>
+                        <td>
+                            {{tournamentData.players[key].points || 0}}
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </fieldset>
+    </div>
+
 </div>
 
 <div *ngIf="!tournamentData" class="center--all">

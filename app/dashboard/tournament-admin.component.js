@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', '../services/score.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1;
+    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, score_function_1;
     var TournamentAdminComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             },
             function (roundrobin_function_1_1) {
                 roundrobin_function_1 = roundrobin_function_1_1;
+            },
+            function (score_function_1_1) {
+                score_function_1 = score_function_1_1;
             }],
         execute: function() {
             TournamentAdminComponent = (function () {
@@ -34,7 +37,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
                     this.confirmKey = '';
-                    this.activeView = 'rounds';
+                    this.activeView = 'score';
                     try {
                         // If coming from dashboard (which you usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
@@ -57,13 +60,16 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         catch (error) {
                             _this.playerKeys = [];
                         }
-                        if (data.rounds) {
-                        }
                     });
                 }
                 TournamentAdminComponent.prototype.submit = function (data) {
                     if (data === void 0) { data = this.tournamentData; }
                     this._data.save('tournaments/' + this.tournamentId, data);
+                    if (data.rounds) {
+                        console.log('Rounds saved! Trying to update score...');
+                        var undecidedMatches = score_function_1.getScore(data.rounds, this.tournamentData.players);
+                        this.submit({ players: this.tournamentData.players, playedMatches: undecidedMatches });
+                    }
                 };
                 TournamentAdminComponent.prototype.setupRounds = function (system) {
                     if (system === void 0) { system = 'roundrobin'; }
@@ -109,7 +115,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 };
                 TournamentAdminComponent.prototype.ngOnInit = function () { };
                 TournamentAdminComponent = __decorate([
-                    // is this cool? Function?
                     core_1.Component({
                         selector: 'tournamentAdmin',
                         templateUrl: 'app/dashboard/tournament-admin.component.html',
