@@ -34,7 +34,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
                     this.confirmKey = '';
-                    this.activeView = 'info';
+                    this.activeView = 'rounds';
                     try {
                         // If coming from dashboard (which you usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
@@ -57,9 +57,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         catch (error) {
                             _this.playerKeys = [];
                         }
+                        if (data.rounds) {
+                        }
                     });
                 }
                 TournamentAdminComponent.prototype.submit = function (data) {
+                    if (data === void 0) { data = this.tournamentData; }
                     this._data.save('tournaments/' + this.tournamentId, data);
                 };
                 TournamentAdminComponent.prototype.setupRounds = function (system) {

@@ -27,7 +27,7 @@ export class TournamentAdminComponent implements OnInit {
         this._data = data;
         this.tournamentId = params.get('tournamentId');
         this.confirmKey = '';
-        this.activeView = 'info';
+        this.activeView = 'rounds';
 
         try {
             // If coming from dashboard (which you usually are!), we don't wait for data
@@ -51,10 +51,14 @@ export class TournamentAdminComponent implements OnInit {
                 } catch (error) {
                     this.playerKeys = [];
                 }
+                
+                if(data.rounds) {
+                    // get results
+                }
             });
     }
 
-    submit(data) {
+    submit(data: any = this.tournamentData) {
         this._data.save('tournaments/' + this.tournamentId, data);
     }
     
