@@ -6,35 +6,33 @@ import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
+import { getScore } from '../services/score.function';
 
 import { InfoComponent } from './info.component';
-import { getScore } from '../services/score.function';
+import { PlayersComponent } from './players.component';
 
 @Component({
     selector: 'tournamentAdmin',
     templateUrl: 'app/dashboard/tournament-admin.component.html',
-    directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent]
+    directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent, PlayersComponent]
 })
 
 export class TournamentAdminComponent implements OnInit {
     private _data: UserDataService;
-    private _timeout: any;
     private _subscription: any;
 
     public tournamentId: string;
     public tournamentData: any;
     public playerKeys: Array<string>;
-    public confirmKey: string;
     public activeView: string;
 
     constructor(params: RouteParams, data: UserDataService) {
         this._data = data;
         this.tournamentId = params.get('tournamentId');
-        this.confirmKey = '';
         this.activeView = 'info';
 
         try {
-            // If coming from dashboard (which you usually are!), we don't wait for data
+            // If coming from dashboard (which we usually are!), we don't wait for data
             this.tournamentData = data.userData.tournaments[this.tournamentId];
             this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
         } catch (error) {
@@ -83,43 +81,12 @@ export class TournamentAdminComponent implements OnInit {
         this.submit({ rounds: null });
     }
 
-    addPlayer(playerName) {
-        let player = { name: playerName };
-        let duplicate = false;
-
-        this.playerKeys.forEach(key => {
-            if (this.tournamentData.players[key].name == playerName) {
-                duplicate = true;
-            }
-        });
-
-        if (duplicate) {
-            this.addPlayer(playerName + '*');
-        }
-        else {
-            this._data.push('tournaments/' + this.tournamentId + '/players/', player);
-        }
-    }
-
-    confirmDelete(key) {
-        clearTimeout(this._timeout);
-
-        this.confirmKey = key;
-
-        this._timeout = setTimeout(() => {
-            this.confirmKey = '';
-        }, 2000);
-
-        return false;
+    addPlayer(player) {
+        this._data.push('tournaments/' + this.tournamentId + '/players/', player);
     }
 
     deletePlayer(key) {
-        clearTimeout(this._timeout);
-        this.confirmKey = '';
-
         this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
-
-        return false;
     }
     
     routerOnDeactivate() {

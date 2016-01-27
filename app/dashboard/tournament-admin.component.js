@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', './info.component', '../services/score.function'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', '../services/score.function', './info.component', './players.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, info_component_1, score_function_1;
+    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, score_function_1, info_component_1, players_component_1;
     var TournamentAdminComponent;
     return {
         setters:[
@@ -27,11 +27,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             function (roundrobin_function_1_1) {
                 roundrobin_function_1 = roundrobin_function_1_1;
             },
+            function (score_function_1_1) {
+                score_function_1 = score_function_1_1;
+            },
             function (info_component_1_1) {
                 info_component_1 = info_component_1_1;
             },
-            function (score_function_1_1) {
-                score_function_1 = score_function_1_1;
+            function (players_component_1_1) {
+                players_component_1 = players_component_1_1;
             }],
         execute: function() {
             TournamentAdminComponent = (function () {
@@ -39,10 +42,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     var _this = this;
                     this._data = data;
                     this.tournamentId = params.get('tournamentId');
-                    this.confirmKey = '';
                     this.activeView = 'info';
                     try {
-                        // If coming from dashboard (which you usually are!), we don't wait for data
+                        // If coming from dashboard (which we usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
                         this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
                     }
@@ -85,36 +87,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 TournamentAdminComponent.prototype.clearRounds = function () {
                     this.submit({ rounds: null });
                 };
-                TournamentAdminComponent.prototype.addPlayer = function (playerName) {
-                    var _this = this;
-                    var player = { name: playerName };
-                    var duplicate = false;
-                    this.playerKeys.forEach(function (key) {
-                        if (_this.tournamentData.players[key].name == playerName) {
-                            duplicate = true;
-                        }
-                    });
-                    if (duplicate) {
-                        this.addPlayer(playerName + '*');
-                    }
-                    else {
-                        this._data.push('tournaments/' + this.tournamentId + '/players/', player);
-                    }
-                };
-                TournamentAdminComponent.prototype.confirmDelete = function (key) {
-                    var _this = this;
-                    clearTimeout(this._timeout);
-                    this.confirmKey = key;
-                    this._timeout = setTimeout(function () {
-                        _this.confirmKey = '';
-                    }, 2000);
-                    return false;
+                TournamentAdminComponent.prototype.addPlayer = function (player) {
+                    this._data.push('tournaments/' + this.tournamentId + '/players/', player);
                 };
                 TournamentAdminComponent.prototype.deletePlayer = function (key) {
-                    clearTimeout(this._timeout);
-                    this.confirmKey = '';
                     this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
-                    return false;
                 };
                 TournamentAdminComponent.prototype.routerOnDeactivate = function () {
                     console.log('leaving tournament admin route!');
@@ -125,7 +102,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     core_1.Component({
                         selector: 'tournamentAdmin',
                         templateUrl: 'app/dashboard/tournament-admin.component.html',
-                        directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent]
+                        directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent, players_component_1.PlayersComponent]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, user_data_service_1.UserDataService])
                 ], TournamentAdminComponent);

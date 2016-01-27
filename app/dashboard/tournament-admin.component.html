@@ -17,46 +17,14 @@
     </ul>
 
     <!-- Tournament info -->
-    <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" [id]="tournamentId" (dataChange)="submit($event)"></tournamentInfo>
+    <tournamentInfo *ngIf="activeView =='info'" 
+    [tournament]="tournamentData" [id]="tournamentId" 
+    (dataChange)="submit($event)"></tournamentInfo>
 
     <!-- Player list -->
-    <form *ngIf="activeView =='players'" class="form--inline">
-        <fieldset>
-            <legend>
-                Player list
-                <span *ngIf="(playerKeys.length > 2)" class="badge bg--success">{{playerKeys.length}}</span>
-                <span *ngIf="(playerKeys.length < 3)" class="badge bg--muted">{{playerKeys.length}}</span>
-            </legend>
-            <p>
-                <label>Add player:</label>
-                <input [disabled]="tournamentData.rounds" #player type="text" placeholder="Player name">
-                <button [disabled]="tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--xsm">Add player</button>
-            </p>
-
-            <table class="table--border table--hoverRow table--responsive">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="#key of playerKeys">
-                        <td *ngIf="confirmKey != key" (contextmenu)="confirmDelete(key)">
-                            {{tournamentData.players[key].name}}
-                        </td>
-                        <td *ngIf="confirmKey == key" (contextmenu)="deletePlayer(key)">
-                            Right click again do delete player
-                        </td>
-                    </tr>
-                    <tr *ngIf="!playerKeys.length">
-                        <td>(empty)</td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </fieldset>
-    </form>
+    <tournamentPlayers *ngIf="activeView == 'players'"
+    [players]="tournamentData.players" [keys]="playerKeys" [canAdd]="!tournamentData.rounds" 
+    (playerAdd)="addPlayer($event)" (playerDelete)="deletePlayer($event)"></tournamentPlayers>
 
     <!-- Setup rounds -->
     <fieldset *ngIf="activeView == 'rounds'" class="form--inline">
