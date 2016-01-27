@@ -51,6 +51,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                             component: dashboard_component_1.DashboardComponent
                         },
                         {
+                            // TODO: Remove this from here and include a router outlet in dashboard route?
                             path: '/dashboard/:tournamentId',
                             name: 'TournamentAdmin',
                             component: tournament_admin_component_1.TournamentAdminComponent

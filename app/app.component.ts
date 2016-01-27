@@ -25,6 +25,7 @@ import { TournamentAdminComponent } from './dashboard/tournament-admin.component
         component: DashboardComponent
     },
     {
+        // TODO: Remove this from here and include a router outlet in dashboard route?
         path: '/dashboard/:tournamentId',
         name: 'TournamentAdmin',
         component: TournamentAdminComponent
