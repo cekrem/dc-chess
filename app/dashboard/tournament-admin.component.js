@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', '../services/score.function'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', './info.component', '../services/score.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, score_function_1;
+    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, info_component_1, score_function_1;
     var TournamentAdminComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             },
             function (roundrobin_function_1_1) {
                 roundrobin_function_1 = roundrobin_function_1_1;
+            },
+            function (info_component_1_1) {
+                info_component_1 = info_component_1_1;
             },
             function (score_function_1_1) {
                 score_function_1 = score_function_1_1;
@@ -122,7 +125,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     core_1.Component({
                         selector: 'tournamentAdmin',
                         templateUrl: 'app/dashboard/tournament-admin.component.html',
-                        directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES]
+                        directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, user_data_service_1.UserDataService])
                 ], TournamentAdminComponent);

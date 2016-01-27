@@ -6,12 +6,14 @@ import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
+
+import { InfoComponent } from './info.component';
 import { getScore } from '../services/score.function';
 
 @Component({
     selector: 'tournamentAdmin',
     templateUrl: 'app/dashboard/tournament-admin.component.html',
-    directives: [NgIf, NgFor, ROUTER_DIRECTIVES]
+    directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent]
 })
 
 export class TournamentAdminComponent implements OnInit {

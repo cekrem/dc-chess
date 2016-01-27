@@ -1,0 +1,19 @@
+<form class="form--inline">
+    <fieldset>
+        <legend>Tournament info</legend>
+        <p>
+            <label>Name:</label>
+            <input #name [value]="tournament.name" type="text" (keyup)="dataChange.emit({name: name.value})" />
+        </p>
+
+        <p>
+            <label>Description:</label>
+            <input #desc [value]="tournament.desc || ''" type="text" (keyup)="dataChange.emit({desc: desc.value})" />
+        </p>
+
+        <p>
+            <label>Tournament ID:</label>
+            <input type="text" readonly [value]="id">
+        </p>
+    </fieldset>
+</form>
