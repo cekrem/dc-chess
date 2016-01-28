@@ -47,6 +47,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         // If coming from dashboard (which we usually are!), we don't wait for data
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
                         this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
+                        this.playersArray = this.playerKeys.map(function (key) { return data.userData.tournaments[_this.tournamentId].players[key]; });
                     }
                     catch (error) {
                         console.warn('No tournament data available yet, waiting for subscription...');
@@ -61,6 +62,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         _this.tournamentData = data || {};
                         try {
                             _this.playerKeys = Object.keys(data.players);
+                            _this.playersArray = _this.playerKeys.map(function (key) { return data.players[key]; });
                         }
                         catch (error) {
                             _this.playerKeys = [];

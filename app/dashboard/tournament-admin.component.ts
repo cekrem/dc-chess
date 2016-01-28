@@ -24,6 +24,7 @@ export class TournamentAdminComponent implements OnInit {
     public tournamentId: string;
     public tournamentData: any;
     public playerKeys: Array<string>;
+    public playersArray: Array<any>;
     public activeView: string;
 
     constructor(params: RouteParams, data: UserDataService) {
@@ -35,6 +36,7 @@ export class TournamentAdminComponent implements OnInit {
             // If coming from dashboard (which we usually are!), we don't wait for data
             this.tournamentData = data.userData.tournaments[this.tournamentId];
             this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
+            this.playersArray = this.playerKeys.map(key => data.userData.tournaments[this.tournamentId].players[key]);
         } catch (error) {
             console.warn('No tournament data available yet, waiting for subscription...');
             this.playerKeys = [];
@@ -50,6 +52,7 @@ export class TournamentAdminComponent implements OnInit {
 
                 try {
                     this.playerKeys = Object.keys(data.players);
+                    this.playersArray = this.playerKeys.map(key => data.players[key]);
                 } catch (error) {
                     this.playerKeys = [];
                 }
