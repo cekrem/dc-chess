@@ -44,7 +44,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.tournamentId = params.get('tournamentId');
                     this.activeView = 'info';
                     try {
-                        // If coming from dashboard (which we usually are!), we don't wait for data
+                        // If coming from dashboard (which we usually are!), data is already stored and won't emit:
                         this.tournamentData = data.userData.tournaments[this.tournamentId];
                         this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
                         this.playersArray = this.playerKeys.map(function (key) { return data.userData.tournaments[_this.tournamentId].players[key]; });
@@ -52,6 +52,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     catch (error) {
                         console.warn('No tournament data available yet, waiting for subscription...');
                         this.playerKeys = [];
+                        this.playersArray = [];
                     }
                     // Subscribe to the tournament object
                     this._subscription = data.subscription
@@ -66,6 +67,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         }
                         catch (error) {
                             _this.playerKeys = [];
+                            _this.playersArray = [];
                         }
                     });
                 }

@@ -125,12 +125,12 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="#key of playerKeys">
+                    <tr *ngFor="#player of playersArray">
                         <td>
-                            {{tournamentData.players[key].name}}
+                            {{player.name}}
                         </td>
                         <td>
-                            {{tournamentData.players[key].points || 0}}
+                            {{player.points || 0}}
                         </td>
                     </tr>
                 </tbody>

@@ -33,13 +33,14 @@ export class TournamentAdminComponent implements OnInit {
         this.activeView = 'info';
 
         try {
-            // If coming from dashboard (which we usually are!), we don't wait for data
+            // If coming from dashboard (which we usually are!), data is already stored and won't emit:
             this.tournamentData = data.userData.tournaments[this.tournamentId];
             this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
             this.playersArray = this.playerKeys.map(key => data.userData.tournaments[this.tournamentId].players[key]);
         } catch (error) {
             console.warn('No tournament data available yet, waiting for subscription...');
             this.playerKeys = [];
+            this.playersArray = [];
         }
         
         // Subscribe to the tournament object
@@ -55,6 +56,7 @@ export class TournamentAdminComponent implements OnInit {
                     this.playersArray = this.playerKeys.map(key => data.players[key]);
                 } catch (error) {
                     this.playerKeys = [];
+                    this.playersArray = [];
                 }
             });
     }
