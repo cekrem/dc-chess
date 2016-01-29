@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TournamentAdminComponent } from './dashboard/tournament-admin.component';
+import { SearchComponent } from './search/search.component';
 
 @Component({
     selector: 'app',
@@ -25,10 +26,15 @@ import { TournamentAdminComponent } from './dashboard/tournament-admin.component
         component: DashboardComponent
     },
     {
-        // TODO: Remove this from here and include a router outlet in dashboard route?
+        // TODO: Remove this from here and include a router outlet in dashboard route? NOOO :D
         path: '/dashboard/:tournamentId',
         name: 'TournamentAdmin',
         component: TournamentAdminComponent
+    },
+    {
+        path: '/search',
+        name: 'Search',
+        component: SearchComponent
     }
 ])
 

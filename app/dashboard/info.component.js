@@ -27,10 +27,6 @@ System.register(['angular2/core'], function(exports_1) {
                     __metadata('design:type', Object)
                 ], InfoComponent.prototype, "tournament", void 0);
                 __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], InfoComponent.prototype, "id", void 0);
-                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], InfoComponent.prototype, "dataChange", void 0);

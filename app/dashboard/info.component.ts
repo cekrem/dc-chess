@@ -7,7 +7,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core';
 
 export class InfoComponent implements OnInit {
     @Input() public tournament: any;
-    @Input() public id: string;
     @Output() public dataChange: EventEmitter<any>;
     
     constructor() {

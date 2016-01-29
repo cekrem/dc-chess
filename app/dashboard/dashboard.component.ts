@@ -44,7 +44,11 @@ export class DashboardComponent implements OnInit {
     }
     
     addTournament() {
-        this._data.push('tournaments/', {name: 'Blank tournament'});
+        let time = Date.now();
+        time = time - 1454060000000;
+        let id = time.toString(36); // is this safe for large number of tournaments? I think so.
+        
+        this._data.push('tournaments/', {name: 'Blank tournament', id: id});
     }
 
     confirmDelete(key) {

@@ -25,7 +25,7 @@ export class TournamentAdminComponent implements OnInit {
     private _data: UserDataService;
     private _subscription: any;
 
-    public tournamentId: string;
+    public tournamentKey: string;
     public tournamentData: any;
     public playerKeys: Array<string>;
     public playersArray: Array<any>;
@@ -33,14 +33,14 @@ export class TournamentAdminComponent implements OnInit {
 
     constructor(params: RouteParams, data: UserDataService) {
         this._data = data;
-        this.tournamentId = params.get('tournamentId');
+        this.tournamentKey = params.get('tournamentId');
         this.activeView = 'info';
 
         try {
             // If coming from dashboard (which we usually are!), data is already stored and won't emit:
-            this.tournamentData = data.userData.tournaments[this.tournamentId];
-            this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
-            this.playersArray = this.playerKeys.map(key => data.userData.tournaments[this.tournamentId].players[key]);
+            this.tournamentData = data.userData.tournaments[this.tournamentKey];
+            this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentKey].players);
+            this.playersArray = this.playerKeys.map(key => data.userData.tournaments[this.tournamentKey].players[key]);
         } catch (error) {
             console.warn('No tournament data available yet, waiting for subscription...');
             this.playerKeys = [];
@@ -50,7 +50,7 @@ export class TournamentAdminComponent implements OnInit {
         // Subscribe to the tournament object
         this._subscription = data.subscription
             .map(data => {
-                return data.tournaments[this.tournamentId];
+                return data.tournaments[this.tournamentKey];
             })
             .subscribe(data => {
                 this.tournamentData = data || {};
@@ -66,7 +66,7 @@ export class TournamentAdminComponent implements OnInit {
     }
 
     submit(data: any = this.tournamentData) {
-        this._data.save('tournaments/' + this.tournamentId, data);
+        this._data.save('tournaments/' + this.tournamentKey, data);
 
         if (data.rounds) {
             console.log('Rounds saved! Trying to update score...');
@@ -95,11 +95,11 @@ export class TournamentAdminComponent implements OnInit {
     }
 
     addPlayer(player) {
-        this._data.push('tournaments/' + this.tournamentId + '/players/', player);
+        this._data.push('tournaments/' + this.tournamentKey + '/players/', player);
     }
 
     deletePlayer(key) {
-        this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
+        this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
     }
     
     routerOnDeactivate() {

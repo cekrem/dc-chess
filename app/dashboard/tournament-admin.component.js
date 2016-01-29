@@ -50,13 +50,13 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 function TournamentAdminComponent(params, data) {
                     var _this = this;
                     this._data = data;
-                    this.tournamentId = params.get('tournamentId');
+                    this.tournamentKey = params.get('tournamentId');
                     this.activeView = 'info';
                     try {
                         // If coming from dashboard (which we usually are!), data is already stored and won't emit:
-                        this.tournamentData = data.userData.tournaments[this.tournamentId];
-                        this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentId].players);
-                        this.playersArray = this.playerKeys.map(function (key) { return data.userData.tournaments[_this.tournamentId].players[key]; });
+                        this.tournamentData = data.userData.tournaments[this.tournamentKey];
+                        this.playerKeys = Object.keys(data.userData.tournaments[this.tournamentKey].players);
+                        this.playersArray = this.playerKeys.map(function (key) { return data.userData.tournaments[_this.tournamentKey].players[key]; });
                     }
                     catch (error) {
                         console.warn('No tournament data available yet, waiting for subscription...');
@@ -66,7 +66,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     // Subscribe to the tournament object
                     this._subscription = data.subscription
                         .map(function (data) {
-                        return data.tournaments[_this.tournamentId];
+                        return data.tournaments[_this.tournamentKey];
                     })
                         .subscribe(function (data) {
                         _this.tournamentData = data || {};
@@ -82,7 +82,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 }
                 TournamentAdminComponent.prototype.submit = function (data) {
                     if (data === void 0) { data = this.tournamentData; }
-                    this._data.save('tournaments/' + this.tournamentId, data);
+                    this._data.save('tournaments/' + this.tournamentKey, data);
                     if (data.rounds) {
                         console.log('Rounds saved! Trying to update score...');
                         var undecidedMatches = score_function_1.getScore(data.rounds, this.tournamentData.players);
@@ -103,10 +103,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.submit({ rounds: null });
                 };
                 TournamentAdminComponent.prototype.addPlayer = function (player) {
-                    this._data.push('tournaments/' + this.tournamentId + '/players/', player);
+                    this._data.push('tournaments/' + this.tournamentKey + '/players/', player);
                 };
                 TournamentAdminComponent.prototype.deletePlayer = function (key) {
-                    this._data.remove('tournaments/' + this.tournamentId + '/players/' + key);
+                    this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
                 };
                 TournamentAdminComponent.prototype.routerOnDeactivate = function () {
                     console.log('leaving tournament admin route!');

@@ -17,7 +17,7 @@
 
     <!-- Tournament info -->
     <tournamentInfo *ngIf="activeView =='info'" 
-    [tournament]="tournamentData" [id]="tournamentId" 
+    [tournament]="tournamentData" 
     (dataChange)="submit($event)"></tournamentInfo>
 
     <!-- Player list -->

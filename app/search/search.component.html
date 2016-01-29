@@ -1,0 +1,20 @@
+<h1>Search</h1>
+<input #id type="text" (keyup)="search(id.value)">
+<table class="text--center">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Id</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="hits.length < 10">
+        <tr *ngFor="#tournament of hits">
+            <td>{{tournament.name}}</td>
+            <td>
+                <span>Ongoing</span>
+            </td>
+            <td>{{tournament.id}}</td>
+        </tr>
+    </tbody>
+</table>
