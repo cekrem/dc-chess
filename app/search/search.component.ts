@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
                 let userKey = snapshot.key();
                 snapshot.child('tournaments').ref() // get the tournaments ref
                 .orderByChild('id')
-                .endAt(id)
+                .startAt(id)
                 .on('child_added', snapshot => {
                     let hit = snapshot.val();
                     hit.key = snapshot.key();

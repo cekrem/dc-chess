@@ -29,7 +29,7 @@ System.register(['angular2/core'], function(exports_1) {
                         var userKey = snapshot.key();
                         snapshot.child('tournaments').ref() // get the tournaments ref
                             .orderByChild('id')
-                            .endAt(id)
+                            .startAt(id)
                             .on('child_added', function (snapshot) {
                             var hit = snapshot.val();
                             hit.key = snapshot.key();
