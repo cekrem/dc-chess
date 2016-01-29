@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         }]);
                 };
                 DashboardComponent.prototype.addTournament = function () {
-                    this._data.push('tournaments/', { name: 'New Tournament' });
+                    this._data.push('tournaments/', { name: 'Blank tournament' });
                 };
                 DashboardComponent.prototype.confirmDelete = function (key) {
                     var _this = this;

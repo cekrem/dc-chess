@@ -8,21 +8,29 @@
             matches.</p>
     </div>
 
-    <table class="table--border table--hoverRow table--responsive">
+    <table class="table--border table--hoverRow table--responsive dc-score-table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Points</th>
+                <th>Black matches</th>
+                <th>Wins</th>
             </tr>
         </thead>
 
         <tbody>
-            <tr *ngFor="#player of players | asArray">
+            <tr *ngFor="#player of players | asArray : 'sort'">
                 <td>
                     {{player.name}}
                 </td>
                 <td>
                     {{player.points || 0}}
+                </td>
+                <td>
+                    {{player.blackMatches || 0}}
+                </td>
+                <td>
+                    {{player.wins}}
                 </td>
             </tr>
         </tbody>

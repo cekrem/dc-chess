@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
     }
     
     addTournament() {
-        this._data.push('tournaments/', {name: 'New Tournament'});
+        this._data.push('tournaments/', {name: 'Blank tournament'});
     }
 
     confirmDelete(key) {

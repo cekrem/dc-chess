@@ -1,37 +1,41 @@
 <form class="form--inline">
-        <fieldset>
-            <legend>
-                Player list
-                <span *ngIf="((players | asArray).length > 2)" class="badge bg--success">{{players | asArray: 'length'}}</span>
-                <span *ngIf="((players | asArray).length < 3)" class="badge bg--muted">{{players | asArray: 'length'}}</span>
-            </legend>
-            <p>
-                <label>Add player:</label>
-                <input [disabled]="!canAdd" #player type="text" placeholder="Player name">
-                <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--xsm">Add player</button>
-            </p>
+    <fieldset>
+        <legend>
+            Player list
+            <span *ngIf="((players | asArray).length > 2)" class="badge bg--success">{{players | asArray: 'length'}}</span>
+            <span *ngIf="((players | asArray).length < 3)" class="badge bg--muted">{{players | asArray: 'length'}}</span>
+        </legend>
+        <p>
+            <label>Add player:</label>
+            <input [disabled]="!canAdd" #player type="text" placeholder="Player name">
+            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--xsm">Add player</button>
+        </p>
+        
+        <div class="alert" *ngIf="players">
+            <p><strong>Hint:</strong> Right click twice to delete player.</p>
+        </div>
 
-            <table class="table--border table--hoverRow table--responsive">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                </thead>
+        <table class="table--border table--hoverRow table--responsive">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    <tr *ngFor="#player of players | asArray">
-                        <td *ngIf="confirmKey != player.key" (contextmenu)="confirmDelete(player.key)">
-                            {{player.name}}
-                        </td>
-                        <td *ngIf="confirmKey == player.key" (contextmenu)="deletePlayer(player.key)">
-                            Right click again do delete player
-                        </td>
-                    </tr>
-                    <tr *ngIf="!(players)">
-                        <td>(empty)</td>
-                    </tr>
-                </tbody>
+            <tbody>
+                <tr *ngFor="#player of players | asArray">
+                    <td *ngIf="confirmKey != player.key" (contextmenu)="confirmDelete(player.key)">
+                        {{player.name}}
+                    </td>
+                    <td *ngIf="confirmKey == player.key" (contextmenu)="deletePlayer(player.key)">
+                        Right click again do delete player
+                    </td>
+                </tr>
+                <tr *ngIf="!(players)">
+                    <td>(empty)</td>
+                </tr>
+            </tbody>
 
-            </table>
-        </fieldset>
-    </form>
+        </table>
+    </fieldset>
+</form>

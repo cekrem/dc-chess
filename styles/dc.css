@@ -2,15 +2,13 @@
     max-width: 640px;
 }
 
-table {
+/* Rounds, match view */
+.dc-player-table {
     table-layout: fixed;
-}
-
-.dc-border {
     border-width: 10px;
 }
 
-.dc-border th, .dc-border td {
+.dc-player-table th, .dc-border td {
     border-right:0;
 }
 
@@ -25,4 +23,10 @@ table {
 .dc-black {
     background: #555;
     color: #fff;
+}
+
+/* Score */
+.dc-score-table th, .dc-score-table, td {
+    text-align: center;
+    padding: 0;
 }
