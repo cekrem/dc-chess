@@ -3,16 +3,16 @@
     
     <!-- Nav -->
     <ul class="breadcrumbs">
-        <li><a (click)="activeView='info'">Info</a></li>
-        <li *ngIf="!tournamentData.rounds"><a (click)="activeView='players'">Players</a></li>
+        <li><a class="text--success" (click)="activeView='info'">Info</a></li>
+        <li *ngIf="!tournamentData.rounds"><a class="text--success" (click)="activeView='players'">Players</a></li>
         <li>
-            <a (click)="activeView='rounds'">
+            <a class="text--success" (click)="activeView='rounds'">
                 <span [hidden]="tournamentData.rounds">Match setup</span>
                 <span [hidden]="!tournamentData.rounds">Rounds & matches</span>
             </a>
         </li>
-        <li *ngIf="tournamentData.rounds"><a (click)="activeView='score'">Score</a></li>
-        <a class="float--right" [routerLink]="[ '/Dashboard' ]">Dashboard</a>
+        <li *ngIf="tournamentData.rounds"><a class="text--success" (click)="activeView='score'">Score</a></li>
+        <a class="float--right text--success" [routerLink]="[ '/Dashboard' ]">Dashboard</a>
     </ul>
 
     <!-- Tournament info -->
@@ -45,7 +45,7 @@
             </button>
         </p>
         <p [hidden]="!tournamentData.rounds">
-            <button data-hint="Remove all rounds and matches (irreversible!)" (click)="clearRounds()" class="button--error button--full tooltip--bottom">Clear rounds!</button>
+            <button data-hint="Remove all rounds and matches (irreversible!)" (click)="clearRounds()" class="button--success button--full tooltip--bottom">Clear rounds!</button>
         </p>
     </fieldset>
 
@@ -56,30 +56,36 @@
 
             <div *ngFor="#match of round; #m = index">
                 <legend class="text--center">Table {{m+1}}</legend>
-                <table class="table--responsive">
+                <table class="table--responsive dc-border">
 
                     <tbody>
                         <tr class="text--center">
-                            <td>{{tournamentData.players[match.white].name}}</td>
-                            <td style="width: 120px">
+                            <td class="dc-white">{{tournamentData.players[match.white].name}}</td>
+                            <td class="dc-gray">
                                 <span [hidden]="match.result">vs</span>
-                                <a (click)="match.result = 0; submit({rounds: tournamentData.rounds})">
+                                <a class="text--success" (click)="match.result = 0; submit({rounds: tournamentData.rounds})">
                                     <strong *ngIf="match.result == 'white'">White!</strong>
                                     <strong *ngIf="match.result == 'draw'">Draw!</strong>
                                     <strong *ngIf="match.result == 'black'">Black!</strong>
                                 </a>
                             </td>
-                            <td>{{tournamentData.players[match.black].name}}</td>
+                            <td class="dc-black">{{tournamentData.players[match.black].name}}</td>
                         </tr>
-                        <tr class="text--center">
-                            <td class="button button--full button--primary" (click)="match.result = 'white'; submit({rounds: tournamentData.rounds})">
-                                White
+                        <tr *ngIf="!match.result" class="text--center">
+                            <td class="dc-gray" (click)="match.result = 'white'; submit({rounds: tournamentData.rounds})">
+                                <a class="text--success">
+                                    <strong>White</strong>
+                                </a>
                             </td>
-                            <td class="button--muted" (click)="match.result = 'draw'; submit({rounds: tournamentData.rounds})">
-                                Draw
+                            <td class="dc-gray" (click)="match.result = 'draw'; submit({rounds: tournamentData.rounds})">
+                                <a class="text--success">
+                                    <strong>Draw</strong>
+                                </a>
                             </td>
-                            <td class="button button--full button--primary" (click)="match.result = 'black'; submit({rounds: tournamentData.rounds})">
-                                Black
+                            <td class="dc-gray" (click)="match.result = 'black'; submit({rounds: tournamentData.rounds})">
+                                <a class="text--success">
+                                    <strong>Black</strong>
+                                </a>
                             </td>
                         </tr>
                     </tbody>

@@ -1,7 +1,28 @@
 [container] {
-    max-width: 800px;
+    max-width: 640px;
 }
 
 table {
     table-layout: fixed;
+}
+
+.dc-border {
+    border-width: 10px;
+}
+
+.dc-border th, .dc-border td {
+    border-right:0;
+}
+
+.dc-white {
+    background: #fff;
+}
+
+.dc-gray {
+    background: #e0e0e0
+}
+
+.dc-black {
+    background: #555;
+    color: #fff;
 }
