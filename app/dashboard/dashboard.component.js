@@ -47,7 +47,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 }
                 DashboardComponent.prototype.openTournament = function (key) {
                     this._router.navigate(['../TournamentAdmin', {
-                            tournamentId: key
+                            tournamentKey: key
                         }]);
                 };
                 DashboardComponent.prototype.addTournament = function () {

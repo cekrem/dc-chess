@@ -50,7 +50,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 function TournamentAdminComponent(params, data) {
                     var _this = this;
                     this._data = data;
-                    this.tournamentKey = params.get('tournamentId');
+                    this.tournamentKey = params.get('tournamentKey');
                     this.activeView = 'info';
                     try {
                         // If coming from dashboard (which we usually are!), data is already stored and won't emit:

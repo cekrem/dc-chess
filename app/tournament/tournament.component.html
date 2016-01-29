@@ -1,0 +1,46 @@
+<div class="text--center" *ngIf="tournamentData">
+    <h1>{{tournamentData.name}}</h1>
+    <p>{{tournamentData.desc || 'No description added!'}}</p>
+
+    <form class="form--inline">
+        <fieldset>
+            <legend>
+                Player list
+            </legend>
+            <p>
+                <label>Add player:</label>
+                <input [disabled]="tournamentData.private || tournamentData.rounds" #player type="text" placeholder="Your name">
+                <button [disabled]="tournamentData.private || tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed');" class="button--success button--xsm">
+                    Join
+                </button>
+            </p>
+
+            <table class="table--border table--hoverRow table--responsive">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="#player of tournamentData.players | asArray">
+                        <td>
+                            {{player.name}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="!(tournamentData.players)">
+                        <td>(empty)</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </fieldset>
+    </form>
+</div>
+
+<div class="alert" *ngIf="error">
+    <strong>Error: </strong> {{error}}
+</div>
+<div class="center--all" *ngIf="!error && !tournamentData">
+    <div class="spinner"></div>
+</div>

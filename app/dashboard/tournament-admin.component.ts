@@ -33,7 +33,7 @@ export class TournamentAdminComponent implements OnInit {
 
     constructor(params: RouteParams, data: UserDataService) {
         this._data = data;
-        this.tournamentKey = params.get('tournamentId');
+        this.tournamentKey = params.get('tournamentKey');
         this.activeView = 'info';
 
         try {

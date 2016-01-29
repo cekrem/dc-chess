@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
     openTournament(key) {
         this._router.navigate(['../TournamentAdmin', {
-            tournamentId: key
+            tournamentKey: key
         }]);
     }
     

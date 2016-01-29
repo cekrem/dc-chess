@@ -12,8 +12,15 @@
         </p>
 
         <p>
-            <label>Tournament ID:</label>
-            <input type="text" readonly [value]="tournament.id">
+            <label>Private:</label>
+            <input type="checkbox">
+        </p>
+
+        <p>
+            <label>Tournament URL:</label>
+            <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.id">
+                {{'http://dc-chess.com/tournament/' + tournament.id}}
+            </a>
         </p>
     </fieldset>
 </form>
