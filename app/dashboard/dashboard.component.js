@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/as-array.pipe'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, user_data_service_1;
+    var core_1, common_1, router_1, user_data_service_1, as_array_pipe_1;
     var DashboardComponent;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             },
             function (user_data_service_1_1) {
                 user_data_service_1 = user_data_service_1_1;
+            },
+            function (as_array_pipe_1_1) {
+                as_array_pipe_1 = as_array_pipe_1_1;
             }],
         execute: function() {
             DashboardComponent = (function () {
@@ -34,22 +37,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     try {
                         // If coming from a tournament , we don't wait for data
                         this.userData = data.userData;
-                        this.tournamentKeys = Object.keys(this.userData.tournaments);
                     }
                     catch (error) {
                         console.warn('User data not available yet, waiting for subscription...');
                     }
                     // Subscribe to user data 
                     data.subscription
-                        .map(function (data) {
-                        try {
-                            _this.tournamentKeys = Object.keys(data.tournaments);
-                        }
-                        catch (error) {
-                            _this.tournamentKeys = [];
-                        }
-                        return data;
-                    })
                         .subscribe(function (data) { return _this.userData = data || {}; });
                 }
                 DashboardComponent.prototype.openTournament = function (key) {
@@ -84,7 +77,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     core_1.Component({
                         selector: 'dashboard',
                         templateUrl: 'app/dashboard/dashboard.component.html',
-                        directives: [common_1.NgIf, common_1.NgFor]
+                        directives: [common_1.NgIf, common_1.NgFor],
+                        pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, user_data_service_1.UserDataService])
                 ], DashboardComponent);

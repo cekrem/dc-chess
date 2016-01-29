@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', '../services/as-array.pipe'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,12 +8,15 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, as_array_pipe_1;
     var PlayersComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (as_array_pipe_1_1) {
+                as_array_pipe_1 = as_array_pipe_1_1;
             }],
         execute: function() {
             PlayersComponent = (function () {
@@ -24,9 +27,10 @@ System.register(['angular2/core'], function(exports_1) {
                 }
                 PlayersComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
+                    var keys = Object.keys(this.players || {});
                     var player = { name: playerName };
                     var duplicate = false;
-                    this.keys.forEach(function (key) {
+                    keys.forEach(function (key) {
                         if (_this.players[key].name == playerName) {
                             duplicate = true;
                         }
@@ -57,10 +61,6 @@ System.register(['angular2/core'], function(exports_1) {
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Array)
-                ], PlayersComponent.prototype, "keys", void 0);
-                __decorate([
-                    core_1.Input(), 
                     __metadata('design:type', Object)
                 ], PlayersComponent.prototype, "players", void 0);
                 __decorate([
@@ -78,7 +78,8 @@ System.register(['angular2/core'], function(exports_1) {
                 PlayersComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentPlayers',
-                        templateUrl: 'app/dashboard/players.component.html'
+                        templateUrl: 'app/dashboard/players.component.html',
+                        pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], PlayersComponent);

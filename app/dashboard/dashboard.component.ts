@@ -3,11 +3,13 @@ import { NgIf, NgFor } from 'angular2/common';
 import { Router, RouteParams } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
+import { AsArrayPipe } from '../services/as-array.pipe';
 
 @Component({
     selector: 'dashboard',
     templateUrl: 'app/dashboard/dashboard.component.html',
-    directives: [NgIf, NgFor]
+    directives: [NgIf, NgFor],
+    pipes: [AsArrayPipe]
 })
 
 export class DashboardComponent implements OnInit {
@@ -17,7 +19,6 @@ export class DashboardComponent implements OnInit {
 
     public confirmKey: string;
     public userData: any;
-    public tournamentKeys: Array<string>;
 
     constructor(router: Router, params: RouteParams, data: UserDataService) {
         this._router = router;
@@ -27,21 +28,12 @@ export class DashboardComponent implements OnInit {
         try {
             // If coming from a tournament , we don't wait for data
             this.userData = data.userData;
-            this.tournamentKeys = Object.keys(this.userData.tournaments);
         } catch (error) {
             console.warn('User data not available yet, waiting for subscription...');
         }
         
         // Subscribe to user data 
         data.subscription
-            .map(data => {
-                try {
-                    this.tournamentKeys = Object.keys(data.tournaments);
-                } catch (error) {
-                    this.tournamentKeys = [];
-                }
-                return data;
-            })
             .subscribe(data => this.userData = data || {});
     }
 

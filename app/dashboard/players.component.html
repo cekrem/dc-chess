@@ -2,8 +2,8 @@
         <fieldset>
             <legend>
                 Player list
-                <span *ngIf="(keys.length > 2)" class="badge bg--success">{{keys.length}}</span>
-                <span *ngIf="(keys.length < 3)" class="badge bg--muted">{{keys.length}}</span>
+                <span *ngIf="((players | asArray).length > 2)" class="badge bg--success">{{players | asArray: 'length'}}</span>
+                <span *ngIf="((players | asArray).length < 3)" class="badge bg--muted">{{players | asArray: 'length'}}</span>
             </legend>
             <p>
                 <label>Add player:</label>
@@ -19,15 +19,15 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="#key of keys">
-                        <td *ngIf="confirmKey != key" (contextmenu)="confirmDelete(key)">
-                            {{players[key].name}}
+                    <tr *ngFor="#player of players | asArray">
+                        <td *ngIf="confirmKey != player.key" (contextmenu)="confirmDelete(player.key)">
+                            {{player.name}}
                         </td>
-                        <td *ngIf="confirmKey == key" (contextmenu)="deletePlayer(key)">
+                        <td *ngIf="confirmKey == player.key" (contextmenu)="deletePlayer(player.key)">
                             Right click again do delete player
                         </td>
                     </tr>
-                    <tr *ngIf="!keys.length">
+                    <tr *ngIf="!(players)">
                         <td>(empty)</td>
                     </tr>
                 </tbody>

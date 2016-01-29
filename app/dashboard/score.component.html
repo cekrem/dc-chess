@@ -1,0 +1,31 @@
+<fieldset>
+    <legend>
+        Score
+    </legend>
+
+    <div class="alert">
+        <p><strong>Status:</strong> You have played {{playedMatches[0]}} of {{playedMatches[1]}}
+            matches.</p>
+    </div>
+
+    <table class="table--border table--hoverRow table--responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="#player of players | asArray">
+                <td>
+                    {{player.name}}
+                </td>
+                <td>
+                    {{player.points || 0}}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</fieldset>

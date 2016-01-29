@@ -1,14 +1,16 @@
 import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core';
 
+import {AsArrayPipe} from '../services/as-array.pipe';
+
 @Component({
     selector: 'tournamentPlayers',
-    templateUrl: 'app/dashboard/players.component.html'
+    templateUrl: 'app/dashboard/players.component.html',
+    pipes: [AsArrayPipe]
 })
 
 export class PlayersComponent implements OnInit {
     private _timeout: any;
 
-    @Input() public keys: Array<string>;
     @Input() public players: any;
     @Input() public canAdd: boolean;
 
@@ -25,14 +27,16 @@ export class PlayersComponent implements OnInit {
     }
 
     addPlayer(playerName) {
+        let keys = Object.keys(this.players || {});
         let player = { name: playerName };
         let duplicate = false;
 
-        this.keys.forEach(key => {
+        keys.forEach(key => {
             if (this.players[key].name == playerName) {
                 duplicate = true;
             }
         });
+        
 
         if (duplicate) {
             this.addPlayer(playerName + '*');

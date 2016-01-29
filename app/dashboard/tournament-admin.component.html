@@ -22,127 +22,16 @@
 
     <!-- Player list -->
     <tournamentPlayers *ngIf="activeView == 'players'"
-    [players]="tournamentData.players" [keys]="playerKeys" [canAdd]="!tournamentData.rounds" 
+    [players]="tournamentData.players" [canAdd]="!tournamentData.rounds" 
     (playerAdd)="addPlayer($event)" (playerDelete)="deletePlayer($event)"></tournamentPlayers>
 
-    <!-- Setup rounds -->
-    <fieldset *ngIf="activeView == 'rounds'" class="form--inline">
-        <legend>Match setup</legend>
-        <p [hidden]="tournamentData.rounds">
-            <button (click)="setupRounds()" [disabled]="(playerKeys.length < 3) || tournamentData.rounds" class="button--success button--full tooltip--bottom"
-            data-hint="All play all. 3-30 players">
-                Setup roundrobin
-            </button>
-        </p>
-        <p [hidden]="tournamentData.rounds">
-            <button (click)="setupRounds()" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
-                Setup swiss
-            </button>
-        </p>
-        <p [hidden]="tournamentData.rounds">
-            <button (click)="setupRounds()" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
-                Setup cup
-            </button>
-        </p>
-        <p [hidden]="!tournamentData.rounds">
-            <button data-hint="Remove all rounds and matches (irreversible!)" (click)="clearRounds()" class="button--success button--full tooltip--bottom">Clear rounds!</button>
-        </p>
-    </fieldset>
-
-    <!-- Rounds / matches -->
-    <div *ngIf="activeView =='rounds' && tournamentData.rounds">
-        <fieldset *ngFor="#round of tournamentData.rounds; #r = index">
-            <legend>Round {{r+1}}</legend>
-
-            <div *ngFor="#match of round; #m = index">
-                <legend class="text--center">Table {{m+1}}</legend>
-                <table class="table--responsive dc-border">
-
-                    <tbody>
-                        <tr class="text--center">
-                            <td class="dc-white">{{tournamentData.players[match.white].name}}</td>
-                            <td class="dc-gray">
-                                <span [hidden]="match.result">vs</span>
-                                <a class="text--success" (click)="match.result = 0; submit({rounds: tournamentData.rounds})">
-                                    <strong *ngIf="match.result == 'white'">White!</strong>
-                                    <strong *ngIf="match.result == 'draw'">Draw!</strong>
-                                    <strong *ngIf="match.result == 'black'">Black!</strong>
-                                </a>
-                            </td>
-                            <td class="dc-black">{{tournamentData.players[match.black].name}}</td>
-                        </tr>
-                        <tr *ngIf="!match.result" class="text--center">
-                            <td class="dc-gray" (click)="match.result = 'white'; submit({rounds: tournamentData.rounds})">
-                                <a class="text--success">
-                                    <strong>White</strong>
-                                </a>
-                            </td>
-                            <td class="dc-gray" (click)="match.result = 'draw'; submit({rounds: tournamentData.rounds})">
-                                <a class="text--success">
-                                    <strong>Draw</strong>
-                                </a>
-                            </td>
-                            <td class="dc-gray" (click)="match.result = 'black'; submit({rounds: tournamentData.rounds})">
-                                <a class="text--success">
-                                    <strong>Black</strong>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
-        </fieldset>
-
-    </div>
+    <!-- TODO: Make setup rounds and rounds / matches a component -->
+    <tournamentRounds *ngIf="activeView == 'rounds'"
+    [rounds]="tournamentData.rounds" [players]="tournamentData.players"
+    (roundsAction)="setupRounds($event)" (dataChange)="submit($event)"></tournamentRounds>
 
     <!-- Score -->
-    <div *ngIf="activeView == 'score'">
-        <fieldset>
-            <legend>Some actions</legend>
-            <p>
-                <button class="button--success button--full tooltip--bottom" data-hint="This is a placeholder button!">
-                    Some action
-                </button>
-            </p>
-            <p>
-                <button class="button--success button--full tooltip--bottom" data-hint="This is a placeholder button!">
-                    Some action
-                </button>
-            </p>
-        </fieldset>
-
-        <fieldset>
-            <legend>
-                Score
-            </legend>
-            
-            <div class="alert">
-                <p><strong>Status:</strong> You have played {{tournamentData.playedMatches[0]}} of {{tournamentData.playedMatches[1]}} matches.</p>
-            </div>
-            
-            <table class="table--border table--hoverRow table--responsive">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="#player of playersArray">
-                        <td>
-                            {{player.name}}
-                        </td>
-                        <td>
-                            {{player.points || 0}}
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </fieldset>
-    </div>
+    <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
 
 </div>
 

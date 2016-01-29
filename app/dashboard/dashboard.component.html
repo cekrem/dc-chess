@@ -6,12 +6,12 @@
         New tournament
     </button>
     <p></p>
-    <div *ngFor="#key of tournamentKeys">
+    <div *ngFor="#tournament of userData.tournaments | asArray">
         <p></p>
-        <button class="button--muted" [hidden]="confirmKey == key" (contextmenu)="confirmDelete(key)" (click)="openTournament(key)">
-            {{userData.tournaments[key].name}}
+        <button class="button--muted" [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
+            {{tournament.name}}
         </button>
-        <button class="button--error" [hidden]="confirmKey != key" (contextmenu)="deleteTournament(key)">
+        <button class="button--error" [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
             Right click again to delete!
         </button>
         <p></p>

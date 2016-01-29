@@ -7,14 +7,18 @@ import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 import { UserDataService } from '../services/user-data.service';
 import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
 import { getScore } from '../services/score.function';
+import { AsArrayPipe } from '../services/as-array.pipe';
 
 import { InfoComponent } from './info.component';
 import { PlayersComponent } from './players.component';
+import { RoundsComponent } from './rounds.component';
+import { ScoreComponent } from './score.component';
 
 @Component({
     selector: 'tournamentAdmin',
     templateUrl: 'app/dashboard/tournament-admin.component.html',
-    directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent, PlayersComponent]
+    directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent, PlayersComponent, RoundsComponent, ScoreComponent],
+    pipes: [AsArrayPipe]
 })
 
 export class TournamentAdminComponent implements OnInit {
@@ -72,8 +76,12 @@ export class TournamentAdminComponent implements OnInit {
         }
     }
 
-    setupRounds(system: string = 'roundrobin') {
+    setupRounds(system: string) {
         let rounds;
+        
+        if(system == 'clear') {
+            rounds = null;
+        }
 
         if (system == 'roundrobin') {
             rounds = setupRoundRobin(this.playerKeys);
