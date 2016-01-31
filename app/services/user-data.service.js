@@ -8,20 +8,22 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Observable_1;
+    var core_1, core_2, Observable_1;
     var UserDataService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+                core_2 = core_1_1;
             },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
             }],
         execute: function() {
             UserDataService = (function () {
-                function UserDataService() {
+                function UserDataService(app) {
                     var _this = this;
+                    this._app = app;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
                     this._baseRef = new Firebase(this._baseUrl);
                     this.subscription = new Observable_1.Observable(function (observer) {
@@ -86,13 +88,8 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                     // and setup subscription as well
                     this._userRef.on('value', function (snapshot) {
                         _this._observer.next(snapshot.val());
+                        _this._app.tick(); // I THINK THIS WORKS! :D
                     });
-                    // this fixes some WEIRD(!) Firebase bug:
-                    var crapObservable = new Observable_1.Observable(function (observer) {
-                        setInterval(function () { return observer.next(Math.random()); }, 1000);
-                    });
-                    crapObservable
-                        .subscribe();
                 };
                 UserDataService.prototype.remove = function (path) {
                     if (path === void 0) { path = 'failsafe'; }
@@ -109,7 +106,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 };
                 UserDataService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [core_2.ApplicationRef])
                 ], UserDataService);
                 return UserDataService;
             })();

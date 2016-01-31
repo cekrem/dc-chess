@@ -1,10 +1,12 @@
 declare const Firebase;
 
 import {Injectable} from 'angular2/core';
+import { ApplicationRef } from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserDataService {
+    private _app: ApplicationRef;
     private _baseUrl: string;
     private _baseRef: Firebase;
     private _userRef: Firebase;
@@ -14,7 +16,8 @@ export class UserDataService {
     public userData: any;
     public subscription: Observable<any>;
 
-    constructor() {
+    constructor(app: ApplicationRef) {
+        this._app = app;
         this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
         this._baseRef = new Firebase(this._baseUrl);
 
@@ -86,15 +89,8 @@ export class UserDataService {
         // and setup subscription as well
         this._userRef.on('value', snapshot => {
             this._observer.next(snapshot.val());
+            this._app.tick(); // I THINK THIS WORKS! :D
         });
-        
-        // this fixes some WEIRD(!) Firebase bug:
-        let crapObservable = new Observable(observer => {
-            setInterval(() => observer.next(Math.random()), 1000);
-        });
-
-        crapObservable
-            .subscribe();
     }
 
     remove(path: string = 'failsafe') {
