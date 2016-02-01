@@ -2,10 +2,14 @@
     max-width: 640px;
 }
 
+fieldset {
+    background: #f9f9f9;
+}
+
 /* Rounds, match view */
 .dc-player-table {
     table-layout: fixed;
-    border-width: 10px;
+    border: none;
 }
 
 .dc-player-table th, .dc-border td {

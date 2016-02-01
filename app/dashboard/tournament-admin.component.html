@@ -3,23 +3,23 @@
 
     <!-- Nav -->
     <div class="row">
-        <a column="3" [class.button--success]="activeView == 'info'" class="button button--muted" (click)="activeView='info'">
+        <button column="3" [disabled]="activeView == 'info'" class="button--success" (click)="activeView='info'">
             Info
-        </a>
-        <a column="3" [class.button--success]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button button--muted"
+        </button>
+        <button column="3" [disabled]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button--success"
         (click)="activeView='players'">
             Players
-        </a>
-        <a column="3" [class.button--success]="activeView == 'rounds'" class="button button--muted" (click)="activeView='rounds'">
+        </button>
+        <button column="3" [disabled]="activeView == 'rounds'" class="button--success" (click)="activeView='rounds'">
             Match setup
-        </a>
-        <a column="3" [class.button--success]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button button--muted"
+        </button>
+        <button column="3" [disabled]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--success"
         (click)="activeView='score'">
             Score
-        </a>
-        <a column="3" class="button button--muted" [routerLink]="[ '/Dashboard' ]">
+        </button>
+        <button column="3" class="button--success" [routerLink]="[ '/Dashboard' ]">
             Dashboard
-        </a>
+        </button>
     </div>
     <!-- Tournament info -->
     <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" (dataChange)="submit($event)"></tournamentInfo>

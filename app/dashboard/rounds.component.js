@@ -24,7 +24,9 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     this.dataChange = new core_1.EventEmitter();
                     this.roundsAction = new core_1.EventEmitter();
                 }
-                RoundsComponent.prototype.ngOnInit = function () { };
+                RoundsComponent.prototype.ngOnInit = function () {
+                    this.visibleRound = 0;
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)

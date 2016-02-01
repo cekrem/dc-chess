@@ -13,11 +13,15 @@ export class RoundsComponent implements OnInit {
     @Input() public players: any;
     @Output() public dataChange: EventEmitter<any>
     @Output() public roundsAction: EventEmitter<string>
+    
+    public visibleRound: number;
 
     constructor() {
         this.dataChange = new EventEmitter();
         this.roundsAction = new EventEmitter();
      }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.visibleRound = 0;
+     }
 }
