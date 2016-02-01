@@ -14,7 +14,7 @@
                     Join
                 </button>
             </p>
-            <p [hidden]="!playerKey">You have joined this tournament as "<span class="text--success">{{tournamentData.players[playerKey].name}}</span>"</p>
+            <p *ngIf="playerKey">You have joined this tournament as "<span class="text--success">{{tournamentData.players[playerKey].name}}</span>"</p>
         </fieldset>
     </form>
     
