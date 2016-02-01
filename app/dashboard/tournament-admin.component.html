@@ -11,7 +11,7 @@
             Players
         </button>
         <button column="3" [disabled]="activeView == 'rounds'" class="button--success" (click)="activeView='rounds'">
-            Rounds & matches
+            Match setup
         </button>
         <button column="3" [disabled]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--success"
         (click)="activeView='score'">

@@ -21,6 +21,7 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
         execute: function() {
             ScoreComponent = (function () {
                 function ScoreComponent() {
+                    this.showFullscreen = false;
                 }
                 ScoreComponent.prototype.ngOnInit = function () { };
                 __decorate([

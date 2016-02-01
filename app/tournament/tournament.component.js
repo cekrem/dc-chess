@@ -29,18 +29,30 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
             }],
         execute: function() {
             TournamentComponent = (function () {
-                function TournamentComponent(params) {
+                function TournamentComponent(app, params) {
                     var _this = this;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
-                    var safePath = params.get('tournamentPath');
-                    this.tournamentPath = atob(safePath);
+                    this._safePath = params.get('tournamentPath');
+                    this.tournamentPath = atob(this._safePath);
                     console.log(this.tournamentPath);
                     this.activeRef = new Firebase(this.tournamentPath);
-                    this.activeRef.on('value', function (snapshot) { return _this.tournamentData = snapshot.val(); });
+                    this.activeRef.on('value', function (snapshot) {
+                        _this.tournamentData = snapshot.val();
+                        app.tick();
+                        console.log('data loaded!');
+                    });
                 }
                 TournamentComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
+                    if (localStorage[this._safePath]) {
+                        alert('You can only join once!');
+                        return false;
+                    }
                     var keys = Object.keys(this.tournamentData.players || {});
+                    if (keys.length > 29) {
+                        alert('We’re only supporting 30 players so far.');
+                        return false;
+                    }
                     var player = { name: playerName };
                     var duplicate = false;
                     keys.forEach(function (key) {
@@ -54,6 +66,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                     else {
                         var child = this.activeRef.child('players');
                         this.player = child.push(player, function (error) { return console.log(error); });
+                        localStorage[this._safePath] = true;
                     }
                 };
                 TournamentComponent.prototype.ngOnInit = function () { };
@@ -65,7 +78,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                         pipes: [as_array_pipe_1.AsArrayPipe],
                         styleUrls: ['app/tournament/tournament.styles.css']
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams])
+                    __metadata('design:paramtypes', [core_1.ApplicationRef, router_1.RouteParams])
                 ], TournamentComponent);
                 return TournamentComponent;
             })();

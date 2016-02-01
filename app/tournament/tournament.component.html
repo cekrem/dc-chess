@@ -8,7 +8,7 @@
                 Player list
             </legend>
             <p>
-                <label>Add player:</label>
+                <label>Join tournament:</label>
                 <input [disabled]="tournamentData.private || tournamentData.rounds" #player type="text" placeholder="Your name">
                 <button [disabled]="tournamentData.private || tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed');" class="button--success button--xsm">
                     Join
@@ -36,7 +36,10 @@
             </table>
         </fieldset>
     </form>
+    
+    <tournamentScore *ngIf="tournamentData.rounds" [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
 </div>
+
 
 <div class="alert" *ngIf="error">
     <strong>Error: </strong> {{error}}

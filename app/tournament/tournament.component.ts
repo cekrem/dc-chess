@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, ApplicationRef} from 'angular2/core';
 import { NgIf, NgFor } from 'angular2/common';
 import { RouteParams } from 'angular2/router';
 
@@ -18,6 +18,7 @@ import { AsArrayPipe } from '../services/as-array.pipe';
 
 export class TournamentComponent implements OnInit {
     private _baseUrl: string;
+    private _safePath: string;
 
     public tournamentPath: string;
     public activeRef: Firebase;
@@ -25,19 +26,33 @@ export class TournamentComponent implements OnInit {
     public error: string;
     public player: any;
 
-    constructor(params: RouteParams) {
+    constructor(app: ApplicationRef, params: RouteParams) {
         this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
 
-        let safePath = params.get('tournamentPath');
-        this.tournamentPath = atob(safePath);
+        this._safePath = params.get('tournamentPath');
+        this.tournamentPath = atob(this._safePath);
         console.log(this.tournamentPath)
-        
+
         this.activeRef = new Firebase(this.tournamentPath);
-        this.activeRef.on('value', snapshot => this.tournamentData = snapshot.val());
+        this.activeRef.on('value', snapshot => {
+            this.tournamentData = snapshot.val();
+            app.tick();
+            console.log('data loaded!');
+        });
     }
 
     addPlayer(playerName: string) {
+        if (localStorage[this._safePath]) {
+            alert('You can only join once!');
+            return false;
+        }
+
         let keys = Object.keys(this.tournamentData.players || {});
+        if (keys.length > 29) {
+            alert('We’re only supporting 30 players so far.')
+            return false;
+        }
+
         let player = { name: playerName };
         let duplicate = false;
 
@@ -45,7 +60,7 @@ export class TournamentComponent implements OnInit {
             if (this.tournamentData.players[key].name == playerName) {
                 duplicate = true;
             }
-        });  
+        });
 
         if (duplicate) {
             this.addPlayer(playerName + '*');
@@ -53,6 +68,7 @@ export class TournamentComponent implements OnInit {
         else {
             let child = this.activeRef.child('players');
             this.player = child.push(player, (error) => console.log(error));
+            localStorage[this._safePath] = true;
         }
     }
 
