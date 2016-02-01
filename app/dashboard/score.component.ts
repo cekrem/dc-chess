@@ -11,6 +11,7 @@ import { AsArrayPipe } from '../services/as-array.pipe';
 export class ScoreComponent implements OnInit {
     @Input() public players: any;
     @Input() public playedMatches: Array<number>;
+    @Input() public rounds: Array<Array<any>>;
 
     constructor() { }
 

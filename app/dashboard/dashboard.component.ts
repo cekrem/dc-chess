@@ -44,11 +44,13 @@ export class DashboardComponent implements OnInit {
     }
     
     addTournament() {
-        let time = Date.now();
-        time = time - 1454060000000;
-        let id = time.toString(36); // is this safe for large number of tournaments? I think so.
+        let newRef = this._data.push('tournaments/');
+        let path = newRef.toString();
+        let safePath = btoa(path);
         
-        this._data.push('tournaments/', {name: 'Blank tournament', id: id});
+        console.log(path);
+        
+        newRef.set({name: 'Blank tournament', path: safePath}); 
     }
 
     confirmDelete(key) {

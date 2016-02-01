@@ -11,7 +11,7 @@
             Players
         </button>
         <button column="3" [disabled]="activeView == 'rounds'" class="button--success" (click)="activeView='rounds'">
-            Match setup
+            Rounds & matches
         </button>
         <button column="3" [disabled]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--success"
         (click)="activeView='score'">
@@ -21,6 +21,9 @@
             Dashboard
         </button>
     </div>
+    
+    <button class="button--full button--success"></button>
+    
     <!-- Tournament info -->
     <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" (dataChange)="submit($event)"></tournamentInfo>
 
@@ -33,7 +36,7 @@
     (dataChange)="submit($event)"></tournamentRounds>
 
     <!-- Score -->
-    <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
+    <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches" [rounds]="tournamentData.rounds"></tournamentScore>
 
 </div>
 

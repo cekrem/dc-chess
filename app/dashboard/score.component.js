@@ -31,6 +31,10 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     core_1.Input(), 
                     __metadata('design:type', Array)
                 ], ScoreComponent.prototype, "playedMatches", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Array)
+                ], ScoreComponent.prototype, "rounds", void 0);
                 ScoreComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentScore',

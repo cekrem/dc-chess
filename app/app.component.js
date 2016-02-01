@@ -68,7 +68,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                             component: search_component_1.SearchComponent
                         },
                         {
-                            path: '/tournament/:tournamentId',
+                            path: '/tournament/:tournamentPath',
                             name: 'Tournament',
                             component: tournament_component_1.TournamentComponent
                         }

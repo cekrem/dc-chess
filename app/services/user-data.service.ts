@@ -67,7 +67,7 @@ export class UserDataService {
         this._baseRef.unauth();
     }
 
-    getAuthAsync() {
+    getAuthAsync():Promise<any> {
         return new Promise((resolve, reject) => {
             this._baseRef.onAuth(authData => {
                 if(authData) {
@@ -105,10 +105,10 @@ export class UserDataService {
         child.update(data);
     }
 
-    push(path: string, data) {
+    push(path: string, data?) {
         let child = this._userRef.child(path);
 
-        child.push(data);
+        return child.push(data);
     }
 
 }

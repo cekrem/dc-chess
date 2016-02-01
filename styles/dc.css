@@ -2,10 +2,6 @@
     max-width: 640px;
 }
 
-fieldset {
-    background: #f9f9f9;
-}
-
 /* Rounds, match view */
 .dc-player-table {
     table-layout: fixed;
@@ -30,7 +26,7 @@ fieldset {
 }
 
 /* Score */
-.dc-score-table th, .dc-score-table, td {
+.dc-score-table th, .dc-score-table td {
     text-align: center;
-    padding: 0;
+    white-space: nowrap;
 }

@@ -1,3 +1,11 @@
+<div class="alert">
+    <p><strong>Hint:</strong> This is where you name your tournament and enter basic info. 
+    The Tournament URL can be used to share the tournament, and if your tournament
+    is not private, people can join via the link as well.
+    </p>
+    <p>When you're ready, proceed to "Players" (top navigation).</p>
+</div>
+
 <form class="form--inline">
     <fieldset>
         <legend>Tournament info</legend>
@@ -13,13 +21,13 @@
 
         <p>
             <label>Private:</label>
-            <input type="checkbox">
+            <input #private [value]="tournament.private" type="checkbox">
         </p>
 
         <p>
             <label>Tournament URL:</label>
-            <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.id">
-                {{'http://dc-chess.com/tournament/' + tournament.id}}
+            <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.path">
+                Tournament URL (right click and copy link)
             </a>
         </p>
     </fieldset>

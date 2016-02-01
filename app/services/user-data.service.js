@@ -102,7 +102,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 };
                 UserDataService.prototype.push = function (path, data) {
                     var child = this._userRef.child(path);
-                    child.push(data);
+                    return child.push(data);
                 };
                 UserDataService = __decorate([
                     core_1.Injectable(), 

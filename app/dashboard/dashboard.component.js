@@ -51,10 +51,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         }]);
                 };
                 DashboardComponent.prototype.addTournament = function () {
-                    var time = Date.now();
-                    time = time - 1454060000000;
-                    var id = time.toString(36); // is this safe for large number of tournaments? I think so.
-                    this._data.push('tournaments/', { name: 'Blank tournament', id: id });
+                    var newRef = this._data.push('tournaments/');
+                    var path = newRef.toString();
+                    var safePath = btoa(path);
+                    console.log(path);
+                    newRef.set({ name: 'Blank tournament', path: safePath });
                 };
                 DashboardComponent.prototype.confirmDelete = function (key) {
                     var _this = this;

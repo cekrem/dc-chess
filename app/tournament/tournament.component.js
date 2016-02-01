@@ -32,35 +32,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                 function TournamentComponent(params) {
                     var _this = this;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
-                    this._baseRef = new Firebase(this._baseUrl);
-                    this.tournamentId = params.get('tournamentId');
-                    this.search(this.tournamentId)
-                        .then(function (ref) {
-                        _this.activeRef = ref;
-                        _this.activeRef.on('value', function (snapshot) { return _this.tournamentData = snapshot.val(); });
-                    }, function (error) { return _this.error = error; });
+                    var safePath = params.get('tournamentPath');
+                    this.tournamentPath = atob(safePath);
+                    console.log(this.tournamentPath);
+                    this.activeRef = new Firebase(this.tournamentPath);
+                    this.activeRef.on('value', function (snapshot) { return _this.tournamentData = snapshot.val(); });
                 }
-                TournamentComponent.prototype.search = function (id) {
-                    var _this = this;
-                    var promise = new Promise(function (resolve, reject) {
-                        _this._baseRef
-                            .on('child_added', function (snapshot) {
-                            snapshot.child('tournaments').ref() // get the tournaments ref
-                                .orderByChild('id')
-                                .equalTo(id)
-                                .on('child_added', function (snapshot) {
-                                // Success case:
-                                _this.error = null;
-                                clearTimeout(timer);
-                                _this._baseRef.off();
-                                resolve(snapshot.ref());
-                            });
-                        });
-                        // no error case, so 5 sec timeout
-                        var timer = setTimeout(function () { return reject('No tournament found!'); }, 5000);
-                    });
-                    return promise;
-                };
                 TournamentComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
                     var keys = Object.keys(this.tournamentData.players || {});
@@ -85,7 +62,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                         selector: 'tournament',
                         templateUrl: 'app/tournament/tournament.component.html',
                         directives: [common_1.NgIf, common_1.NgFor, score_component_1.ScoreComponent],
-                        pipes: [as_array_pipe_1.AsArrayPipe]
+                        pipes: [as_array_pipe_1.AsArrayPipe],
+                        styleUrls: ['app/tournament/tournament.styles.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams])
                 ], TournamentComponent);

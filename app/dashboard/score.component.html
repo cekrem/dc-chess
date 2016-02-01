@@ -1,21 +1,18 @@
-<fieldset>
-    <legend>
-        Score
-    </legend>
+<div class="alert">
+    <p><strong>Status:</strong> You have played {{playedMatches[0]}} of {{playedMatches[1]}} matches.
+    </p>
+</div>
 
-    <div class="alert">
-        <p><strong>Status:</strong> You have played {{playedMatches[0]}} of {{playedMatches[1]}}
-            matches.</p>
-    </div>
+<div class="table--responsive">
+    <table class="table table--border table--hoverRow dc-score-table">
 
-    <table class="table--border table--hoverRow table--responsive dc-score-table">
-        
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Points</th>
                 <th>Black matches</th>
                 <th>Wins</th>
+                <th *ngFor="#round of rounds; #r = index;">Match {{r+1}}</th>
             </tr>
         </thead>
 
@@ -33,14 +30,14 @@
                 <td>
                     {{player.wins}}
                 </td>
+                <td *ngFor="#match of player.matches; #m = index">
+                    <span *ngIf="match">
+                        <span [hidden]="match[0] != 'win'">1</span>
+                    <span [hidden]="match[0] != 'draw'">1/2</span>
+                    <span [hidden]="match[0] != 'lose'">0</span>
+                    </span>
+                </td>
             </tr>
         </tbody>
-
     </table>
-    
-    <table class="table--border table--hoverRow table--responsive">
-        <tbody>
-            
-        </tbody>
-    </table>
-</fieldset>
+</div>

@@ -38,7 +38,7 @@ import { TournamentComponent } from './tournament/tournament.component';
         component: SearchComponent
     },
     {
-        path: '/tournament/:tournamentId', // this is the short id
+        path: '/tournament/:tournamentPath',
         name: 'Tournament',
         component: TournamentComponent
     }

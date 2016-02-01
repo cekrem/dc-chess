@@ -12,14 +12,14 @@ import { AsArrayPipe } from '../services/as-array.pipe';
     selector: 'tournament',
     templateUrl: 'app/tournament/tournament.component.html',
     directives: [NgIf, NgFor, ScoreComponent],
-    pipes: [AsArrayPipe]
+    pipes: [AsArrayPipe],
+    styleUrls: ['app/tournament/tournament.styles.css']
 })
 
 export class TournamentComponent implements OnInit {
     private _baseUrl: string;
-    private _baseRef: Firebase;
 
-    public tournamentId: string;
+    public tournamentPath: string;
     public activeRef: Firebase;
     public tournamentData: any;
     public error: string;
@@ -27,37 +27,13 @@ export class TournamentComponent implements OnInit {
 
     constructor(params: RouteParams) {
         this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
-        this._baseRef = new Firebase(this._baseUrl);
 
-        this.tournamentId = params.get('tournamentId')
-        this.search(this.tournamentId)
-            .then((ref) => {
-                this.activeRef = ref;
-                this.activeRef.on('value', snapshot => this.tournamentData = snapshot.val());
-            }, (error) => this.error = error);
-    }
-
-    search(id: string) {
-        let promise: Promise<Firebase> = new Promise((resolve, reject) => {
-            this._baseRef
-                .on('child_added', snapshot => { // for each user
-                    snapshot.child('tournaments').ref() // get the tournaments ref
-                        .orderByChild('id')
-                        .equalTo(id)
-                        .on('child_added', snapshot => {
-                            // Success case:
-                            this.error = null;
-                            clearTimeout(timer);
-                            this._baseRef.off();
-                            resolve(snapshot.ref());
-                        });
-                });
-                
-            // no error case, so 5 sec timeout
-            let timer = setTimeout(() => reject('No tournament found!'), 5000);
-        });
-
-        return promise;
+        let safePath = params.get('tournamentPath');
+        this.tournamentPath = atob(safePath);
+        console.log(this.tournamentPath)
+        
+        this.activeRef = new Firebase(this.tournamentPath);
+        this.activeRef.on('value', snapshot => this.tournamentData = snapshot.val());
     }
 
     addPlayer(playerName: string) {

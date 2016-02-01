@@ -1,3 +1,16 @@
+<div class="alert" [hidden]="rounds">
+    <p><strong>Hint:</strong> This is where you setup matches. Roundrobin uses berger tables to setup matches between <strong>all</strong>        players, while swiss sets up a predetermined number of rounds where players of equal strength meet.
+    </p>
+    <p>When you're ready, click one of the buttons below to setup matches.</p>
+</div>
+
+<div class="alert" [hidden]="!rounds">
+    <p><strong>Hint:</strong> You have now setup matches! When using roundrobin system, all players are matched immidiately,
+        while swiss sets up one round at the time. Click on "white", "draw" or "black" to enter results.
+    </p>
+    <p>Check out current score at any time on the "Score" tab (top navigation).</p>
+</div>
+
 <fieldset class="form--inline">
     <legend>Match setup</legend>
     <p [hidden]="rounds">
@@ -11,62 +24,63 @@
             Setup swiss
         </button>
     </p>
-    <p [hidden]="rounds">
-        <button (click)="roundsAction.emit('cup')" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
-            Setup cup
-        </button>
-    </p>
     <p [hidden]="!rounds">
         <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--success button--full tooltip--bottom">Clear rounds!</button>
     </p>
 </fieldset>
 
-<ul class="group">
-    <li *ngFor="#round of rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
-        Round {{r+1}}
-    </li>
-</ul>
+<fieldset [hidden]="!rounds">
 
-<div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
+    <legend>Matches and results</legend>
 
-    <fieldset *ngFor="#match of round; #m = index">
-        
-        <legend>
-            Table {{m+1}}:
-            <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
-                <small>(clear result)</small>
-            </a>
-        </legend>
+    <ul class="group">
+        <li *ngFor="#round of rounds; #r = index;" [class.text--success]="visibleRound == r" class="group-item" (click)="visibleRound = r">
+            Round {{r+1}}
+        </li>
+    </ul>
 
-        <div class="row">
-            <button [disabled]="match.result == 'white'" column="4" class="button--xsm button--success" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
-                White
-            </button>
-            <button [disabled]="match.result == 'draw'" column="4" class="button--xsm button--success" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
-                Draw
-            </button>
-            <button [disabled]="match.result == 'black'" column="4" class="button--xsm button--success" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
-                Black
-            </button>
-        </div>
-        
+    <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
 
-        <table class="table--full dc-player-table">
-            <tbody>
-                <tr class="text--center">
-                    <td class="dc-white">
-                        {{players[match.white].name}}
-                        <small [hidden]="match.result != 'white'"><br>Winner!</small>
-                        <small [hidden]="match.result != 'draw'"><br>Draw!</small>
-                    </td>
-                    <td class="dc-black">
-                        {{players[match.black].name}}
-                        <small [hidden]="match.result != 'black'"><br>Winner!</small>
-                        <small [hidden]="match.result != 'draw'"><br>Draw!</small>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-    </fieldset>
-</div>
+        <fieldset *ngFor="#match of round; #m = index">
+
+            <legend>
+                Table {{m+1}}:
+                <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
+                    <small>(clear result)</small>
+                </a>
+            </legend>
+
+            <div class="row">
+                <button [disabled]="match.result == 'white'" column="4" class="button--xsm button--success" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
+                    White
+                </button>
+                <button [disabled]="match.result == 'draw'" column="4" class="button--xsm button--success" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
+                    Draw
+                </button>
+                <button [disabled]="match.result == 'black'" column="4" class="button--xsm button--success" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
+                    Black
+                </button>
+            </div>
+
+
+            <table class="table--full dc-player-table">
+                <tbody>
+                    <tr class="text--center">
+                        <td class="dc-white">
+                            {{players[match.white].name}}
+                            <small [hidden]="match.result != 'white'"><br>Winner!</small>
+                            <small [hidden]="match.result != 'draw'"><br>Draw!</small>
+                        </td>
+                        <td class="dc-black">
+                            {{players[match.black].name}}
+                            <small [hidden]="match.result != 'black'"><br>Winner!</small>
+                            <small [hidden]="match.result != 'draw'"><br>Draw!</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </fieldset>
+    </div>
+
+</fieldset>
