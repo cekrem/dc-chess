@@ -1,34 +1,36 @@
 <!-- TODO: Separate each view into component? -->
 <div *ngIf="tournamentData">
-    
-    <!-- Nav -->
-    <ul class="breadcrumbs">
-        <li><a class="text--success" (click)="activeView='info'">Info</a></li>
-        <li *ngIf="!tournamentData.rounds"><a class="text--success" (click)="activeView='players'">Players</a></li>
-        <li>
-            <a class="text--success" (click)="activeView='rounds'">
-                <span [hidden]="tournamentData.rounds">Match setup</span>
-                <span [hidden]="!tournamentData.rounds">Rounds & matches</span>
-            </a>
-        </li>
-        <li *ngIf="tournamentData.rounds"><a class="text--success" (click)="activeView='score'">Score</a></li>
-        <a class="float--right text--success" [routerLink]="[ '/Dashboard' ]">Dashboard</a>
-    </ul>
 
+    <!-- Nav -->
+    <div class="row">
+        <a column="3" [class.button--success]="activeView == 'info'" class="button button--muted" (click)="activeView='info'">
+            Info
+        </a>
+        <a column="3" [class.button--success]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button button--muted"
+        (click)="activeView='players'">
+            Players
+        </a>
+        <a column="3" [class.button--success]="activeView == 'rounds'" class="button button--muted" (click)="activeView='rounds'">
+            Match setup
+        </a>
+        <a column="3" [class.button--success]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button button--muted"
+        (click)="activeView='score'">
+            Score
+        </a>
+        <a column="3" class="button button--muted" [routerLink]="[ '/Dashboard' ]">
+            Dashboard
+        </a>
+    </div>
     <!-- Tournament info -->
-    <tournamentInfo *ngIf="activeView =='info'" 
-    [tournament]="tournamentData" 
-    (dataChange)="submit($event)"></tournamentInfo>
+    <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" (dataChange)="submit($event)"></tournamentInfo>
 
     <!-- Player list -->
-    <tournamentPlayers *ngIf="activeView == 'players'"
-    [players]="tournamentData.players" [canAdd]="!tournamentData.rounds" 
-    (playerAdd)="addPlayer($event)" (playerDelete)="deletePlayer($event)"></tournamentPlayers>
+    <tournamentPlayers *ngIf="activeView == 'players'" [players]="tournamentData.players" [canAdd]="!tournamentData.rounds" (playerAdd)="addPlayer($event)"
+    (playerDelete)="deletePlayer($event)"></tournamentPlayers>
 
     <!-- TODO: Make setup rounds and rounds / matches a component -->
-    <tournamentRounds *ngIf="activeView == 'rounds'"
-    [rounds]="tournamentData.rounds" [players]="tournamentData.players"
-    (roundsAction)="setupRounds($event)" (dataChange)="submit($event)"></tournamentRounds>
+    <tournamentRounds *ngIf="activeView == 'rounds'" [rounds]="tournamentData.rounds" [players]="tournamentData.players" (roundsAction)="setupRounds($event)"
+    (dataChange)="submit($event)"></tournamentRounds>
 
     <!-- Score -->
     <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
