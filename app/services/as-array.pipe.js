@@ -41,6 +41,7 @@ System.register(['angular2/core'], function(exports_1) {
                     if (args[0] == 'sort') {
                         arrayWithKeys.sort(firstBy(function (a, b) { return b.points - a.points; })
                             .thenBy(function (a, b) { return (a.byes || 0) - (b.byes || 0); })
+                            .thenBy(function (a, b) { return (b.buchholz || 0) - (a.buchholz || 0); })
                             .thenBy(function (a, b) { return b.blackMatches - a.blackMatches; })
                             .thenBy(function (a, b) { return (b.wins || 0) - (a.wins || 0); }));
                     }

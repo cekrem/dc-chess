@@ -17,44 +17,44 @@ export function getScore(rounds: Array<Array<any>>, players) {
         //for each MATCH
         round.forEach(match => {
             totalMatches += 1;
-            
+
             switch (match.result) {
                 case 'white':
                     players[match.black].blackMatches += 1;
-                    
+
                     players[match.white].wins += 1;
                     players[match.white].points += 1;
-                    
+
                     playedMatches += 1;
-                    
+
                     players[match.white].matches[roundIndex] = ['win', match.black];
                     players[match.black].matches[roundIndex] = ['lose', match.white];
                     break;
-                
+
                 case 'draw':
                     players[match.black].blackMatches += 1;
-                    
+
                     players[match.white].points += 0.5;
                     players[match.black].points += 0.5
-                    
+
                     playedMatches += 1;
-                    
+
                     players[match.white].matches[roundIndex] = ['draw', match.black];
                     players[match.black].matches[roundIndex] = ['draw', match.white];
                     break;
-                    
+
                 case 'black':
                     players[match.black].blackMatches += 1;
-                    
+
                     players[match.black].wins += 1;
                     players[match.black].points += 1;
-                    
+
                     playedMatches += 1;
-                    
+
                     players[match.white].matches[roundIndex] = ['lose', match.black];
                     players[match.black].matches[roundIndex] = ['win', match.white];
                     break;
-            
+
                 default:
                     players[match.white].matches[roundIndex] = false;
                     players[match.black].matches[roundIndex] = false;
@@ -63,7 +63,20 @@ export function getScore(rounds: Array<Array<any>>, players) {
         });
     });
     
+    // determine buchholz score
+    for (var key in players) {
+        players[key].buchholz = 0; // reset buchholz first
+        
+        players[key].matches.forEach(match => {
+            if (match) { // if match was played at all, could be false!
+                if (match[0] == 'win') {
+                    players[key].buchholz += players[match[1]].points;
+                 }
+            }
+        });
+    }
+
     console.log(players);
-    
+
     return [playedMatches, totalMatches];
 }

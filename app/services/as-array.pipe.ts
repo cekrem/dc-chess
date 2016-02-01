@@ -27,6 +27,7 @@ export class AsArrayPipe implements PipeTransform {
             arrayWithKeys.sort(
                 firstBy((a, b) => b.points - a.points)
                 .thenBy((a, b) => (a.byes || 0) - (b.byes || 0))
+                .thenBy((a, b) => (b.buchholz || 0) - (a.buchholz || 0))
                 .thenBy((a, b) => b.blackMatches - a.blackMatches)
                 .thenBy((a, b) => (b.wins || 0) - (a.wins || 0))
             )

@@ -13,6 +13,8 @@
             <tr>
                 <th>Name</th>
                 <th>Points</th>
+                <th>Byes</th>
+                <th>Buchholz score</th>
                 <th>Black matches</th>
                 <th>Wins</th>
                 <th *ngFor="#round of rounds; #r = index;">Match {{r+1}}</th>
@@ -28,10 +30,16 @@
                     {{player.points || 0}}
                 </td>
                 <td>
+                    {{player.byes || 0}}
+                </td>
+                <td>
+                    {{player.buchholz || 0}}
+                </td>
+                <td>
                     {{player.blackMatches || 0}}
                 </td>
                 <td>
-                    {{player.wins}}
+                    {{player.wins || 0}}
                 </td>
                 <td *ngFor="#match of player.matches; #m = index">
                     <span *ngIf="match">

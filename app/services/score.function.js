@@ -4,11 +4,11 @@ System.register([], function(exports_1) {
         var totalMatches = 0;
         var roundIndex = -1; // for matches array
         // reset score first
-        for (var key in players) {
-            players[key].points = 0;
-            players[key].wins = 0;
-            players[key].blackMatches = 0;
-            players[key].matches = [];
+        for (var key_1 in players) {
+            players[key_1].points = 0;
+            players[key_1].wins = 0;
+            players[key_1].blackMatches = 0;
+            players[key_1].matches = [];
         }
         // for each ROUND
         rounds.forEach(function (round) {
@@ -48,6 +48,17 @@ System.register([], function(exports_1) {
                 }
             });
         });
+        // determine buchholz score
+        for (var key in players) {
+            players[key].buchholz = 0; // reset buchholz first
+            players[key].matches.forEach(function (match) {
+                if (match) {
+                    if (match[0] == 'win') {
+                        players[key].buchholz += players[match[1]].points;
+                    }
+                }
+            });
+        }
         console.log(players);
         return [playedMatches, totalMatches];
     }
