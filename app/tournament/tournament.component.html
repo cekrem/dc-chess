@@ -5,39 +5,37 @@
     <form class="form--inline">
         <fieldset>
             <legend>
-                Player list
+                Join tournament
             </legend>
             <p>
                 <label>Join tournament:</label>
-                <input [disabled]="tournamentData.private || tournamentData.rounds" #player type="text" placeholder="Your name">
-                <button [disabled]="tournamentData.private || tournamentData.rounds" (click)="addPlayer(player.value || 'unnamed');" class="button--success button--xsm">
+                <input [disabled]="tournamentData.private || tournamentData.rounds || joined" #player type="text" placeholder="Your name">
+                <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');" class="button--success button--xsm">
                     Join
                 </button>
             </p>
-
-            <table class="table--border table--hoverRow table--responsive">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="#player of tournamentData.players | asArray">
-                        <td>
-                            {{player.name}}
-                        </td>
-                    </tr>
-                    <tr *ngIf="!(tournamentData.players)">
-                        <td>(empty)</td>
-                    </tr>
-                </tbody>
-
-            </table>
+            <p [hidden]="!playerKey">You have joined this tournament as "<span class="text--success">{{tournamentData.players[playerKey].name}}</span>"</p>
         </fieldset>
     </form>
     
-    <tournamentScore *ngIf="tournamentData.rounds" [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
+    <table *ngFor="#round of tournamentData.rounds; #r = index;" class="table text--center table--full table--border">
+        <thead>
+            <tr>
+                <th>Round {{r+1}}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="#match of round; #m = index;">
+                <td>Match {{m+1}}</td>
+                <td [class.text--success]="match.white == playerKey">{{tournamentData.players[match.white].name}}</td>
+                <td [class.text--success]="match.black == playerKey" class="dc-black">{{tournamentData.players[match.black].name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <tournamentScore [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
 </div>
 
 

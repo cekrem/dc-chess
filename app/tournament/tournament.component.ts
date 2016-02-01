@@ -24,7 +24,8 @@ export class TournamentComponent implements OnInit {
     public activeRef: Firebase;
     public tournamentData: any;
     public error: string;
-    public player: any;
+    public playerKey: any;
+    public joined: boolean;
 
     constructor(app: ApplicationRef, params: RouteParams) {
         this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
@@ -39,6 +40,11 @@ export class TournamentComponent implements OnInit {
             app.tick();
             console.log('data loaded!');
         });
+        
+        if (localStorage[this._safePath]) {
+            this.joined = true;
+            this.playerKey = localStorage[this._safePath];
+        }
     }
 
     addPlayer(playerName: string) {
@@ -67,8 +73,11 @@ export class TournamentComponent implements OnInit {
         }
         else {
             let child = this.activeRef.child('players');
-            this.player = child.push(player, (error) => console.log(error));
-            localStorage[this._safePath] = true;
+            this.playerKey = child.push(player).key();
+            console.log(this.playerKey);
+            
+            this.joined = true;
+            localStorage[this._safePath] = this.playerKey;
         }
     }
 

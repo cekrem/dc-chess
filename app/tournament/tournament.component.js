@@ -41,6 +41,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                         app.tick();
                         console.log('data loaded!');
                     });
+                    if (localStorage[this._safePath]) {
+                        this.joined = true;
+                        this.playerKey = localStorage[this._safePath];
+                    }
                 }
                 TournamentComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
@@ -65,8 +69,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                     }
                     else {
                         var child = this.activeRef.child('players');
-                        this.player = child.push(player, function (error) { return console.log(error); });
-                        localStorage[this._safePath] = true;
+                        this.playerKey = child.push(player).key();
+                        console.log(this.playerKey);
+                        this.joined = true;
+                        localStorage[this._safePath] = this.playerKey;
                     }
                 };
                 TournamentComponent.prototype.ngOnInit = function () { };
