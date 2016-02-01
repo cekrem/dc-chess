@@ -68,10 +68,8 @@ export function getScore(rounds: Array<Array<any>>, players) {
         players[key].buchholz = 0; // reset buchholz first
         
         players[key].matches.forEach(match => {
-            if (match) { // if match was played at all, could be false!
-                if (match[0] == 'win') {
-                    players[key].buchholz += players[match[1]].points;
-                 }
+            if (match) { // if match was played, could be false!
+                players[key].buchholz += players[match[1]].points;
             }
         });
     }

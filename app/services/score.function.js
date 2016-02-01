@@ -53,9 +53,7 @@ System.register([], function(exports_1) {
             players[key].buchholz = 0; // reset buchholz first
             players[key].matches.forEach(function (match) {
                 if (match) {
-                    if (match[0] == 'win') {
-                        players[key].buchholz += players[match[1]].points;
-                    }
+                    players[key].buchholz += players[match[1]].points;
                 }
             });
         }
