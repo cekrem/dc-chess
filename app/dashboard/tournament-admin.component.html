@@ -1,28 +1,28 @@
 <!-- TODO: Separate each view into component? -->
-<div *ngIf="tournamentData">
+<div container *ngIf="tournamentData">
 
     <!-- Nav -->
     <div class="row">
-        <button column="3" [disabled]="activeView == 'info'" class="button--success" (click)="activeView='info'">
+        <button column="3" [class.border--muted]="activeView == 'info'" class="button--bordered" (click)="activeView='info'">
             Info
         </button>
-        <button column="3" [disabled]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button--success"
+        <button column="3" [class.border--muted]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button--bordered"
         (click)="activeView='players'">
             Players
         </button>
-        <button column="3" [disabled]="activeView == 'rounds'" class="button--success" (click)="activeView='rounds'">
+        <button column="3" [class.border--muted]="activeView == 'rounds'" class="button--bordered" (click)="activeView='rounds'">
             Match setup
         </button>
-        <button column="3" [disabled]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--success"
+        <button column="3" [class.border--muted]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--bordered"
         (click)="activeView='score'">
             Score
         </button>
-        <button column="3" class="button--success" [routerLink]="[ '/Dashboard' ]">
+        <button column="3" class="button--bordered" [routerLink]="[ '/Dashboard' ]">
             Dashboard
         </button>
     </div>
     
-    <button class="button--full button--success"></button>
+    <button class="button--full button--bordered" style="visibility: hidden"></button>
     
     <!-- Tournament info -->
     <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" (dataChange)="submit($event)"></tournamentInfo>

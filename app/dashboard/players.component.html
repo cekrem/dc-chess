@@ -15,19 +15,10 @@
         <p>
             <label>Add player:</label>
             <input [disabled]="!canAdd" #player type="text" placeholder="Player name">
-            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--success button--xsm">Add player</button>
+            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered button--xsm">Add player</button>
         </p>
-        
-        <div class="alert" *ngIf="players">
-            <p><strong>Hint:</strong> Right click twice to delete player.</p>
-        </div>
 
         <table class="table--border table--hoverRow table--responsive">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                </tr>
-            </thead>
 
             <tbody>
                 <tr *ngFor="#player of players | asArray">

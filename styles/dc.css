@@ -1,6 +1,39 @@
 [container] {
     max-width: 640px;
+    background: white;
+    margin-top: 80px;
+    padding:20px;
 }
+
+.dc-narrow {
+    max-width: 400px;
+    padding: 50px;
+    padding-bottom: 40px;
+}
+
+.alert {
+    border: none;
+}
+
+.alert p {
+    color: #aaa;
+}
+
+.alert p strong {
+    color: #000;
+}
+
+legend {
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    width: 150px;
+    display: inline-block !important;
+}
+
+
 
 /* Rounds, match view */
 .dc-player-table {

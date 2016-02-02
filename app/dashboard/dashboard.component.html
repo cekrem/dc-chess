@@ -1,9 +1,9 @@
-<div *ngIf="userData" class="text--center">
+<div container *ngIf="userData" class="text--center dc-narrow">
     <p></p>
-    <button (click)="logout()" class="button--xsm button--pill button--success">Logout</button>
+    <a (click)="logout()">Logout</a>
     <h1>Dashboard</h1>
     <p></p>
-    <button class="button--xlg bg--success" (click)="addTournament()">
+    <button class="button--xlg button--bordered" (click)="addTournament()">
         New tournament
     </button>
     <p></p>
@@ -11,14 +11,12 @@
         <p><strong>Hint:</strong> Click on a tournament to manage it, right click twice to delete it.</p>
     </div>
     <div *ngFor="#tournament of userData.tournaments | asArray">
-        <p></p>
-        <button class="button--muted" [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
+        <button class="button--bordered border--muted" [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
             {{tournament.name}}
         </button>
-        <button class="button--error" [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
+        <button class="button--bordered border--error" [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
             Right click again to delete!
         </button>
-        <p></p>
     </div>
     <p></p>
 </div>
