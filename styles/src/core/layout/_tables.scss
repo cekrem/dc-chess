@@ -3,7 +3,7 @@
 // =============================================================================
 
 table {
-  border: 1px solid getColor(base, lines);
+  border: 2px solid getColor(base, lines);
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
@@ -19,18 +19,18 @@ table {
   }
 
   thead {
-    background-color: getColor(background, light);
+    background-color: getColor(state, success);
     text-align: left;
   }
 
   tfoot {
     background-color: lighten(getColor(background, light), 2.5%);
-    border-top: 1px solid getColor(base, lines);
+    border-top: 2px solid getColor(base, lines);
   }
 
   th,
   td {
-    border-right: 1px solid getColor(base, lines);
+    border-right: 2px solid getColor(base, lines);
     line-height: unitSize(3);
     overflow: visible;
     padding: unitSize(1) 1em;
@@ -88,7 +88,7 @@ table {
   &::-webkit-scrollbar-thumb {
     background-color: rgba(50, 50, 50, .2);
     border: 3px solid white;
-    border-radius: 8px;
+    border-radius: 0px;
   }
 
   table { margin-bottom: 0; }
@@ -107,12 +107,12 @@ table {
   border: 2px solid getColor(base, lines);
 
   thead,
-  td { border-bottom: 1px solid getColor(base, lines); }
+  td { border-bottom: 2px solid getColor(base, lines); }
 }
 
 // Border outer
 .table--borderOuter {
-  border: 1px solid getColor(base, lines);
+  border: 2px solid getColor(base, lines);
 
   th,
   td { border-right: none; }
@@ -121,7 +121,7 @@ table {
 // Border horizontal
 .table--borderHorizontal {
   thead,
-  td { border-bottom: 1px solid getColor(base, lines); }
+  td { border-bottom: 2px solid getColor(base, lines); }
 
   th,
   td { border-right: none; }

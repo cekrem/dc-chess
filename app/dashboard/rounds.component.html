@@ -34,10 +34,12 @@
     <legend>Matches and results</legend>
 
     <ul class="group">
-        <li *ngFor="#round of rounds; #r = index;" [class.text--success]="visibleRound == r" class="group-item" (click)="visibleRound = r">
+        <li *ngFor="#round of rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
             Round {{r+1}}
         </li>
     </ul>
+    
+    <button class="button--full" style="visibility: hidden">space, pleace</button>
 
     <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
 
@@ -52,7 +54,7 @@
             <p class="hide--xsm"></p>
 
             <div class="row">
-                <label column="3">Result:</label>
+                <label class="hide--xsm" column="3">Result:</label>
                 <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
                     <tbody>
                         <tr>
@@ -75,7 +77,7 @@
             </div>
 
             <div class="row">
-                <label column="3">Players:</label>
+                <label class="hide--xsm" column="3">Players:</label>
                 <table column="9" class="hide--xsm dc-no-top dc-fixed table--border table--full text--center">
                     <tbody>
                         <tr>

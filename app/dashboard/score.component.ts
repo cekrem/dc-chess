@@ -12,12 +12,16 @@ export class ScoreComponent implements OnInit {
     @Input() public players: any;
     @Input() public playedMatches: Array<number>;
     @Input() public rounds: Array<Array<any>>;
-    
+
     public showFullscreen: boolean;
 
     constructor() {
-        this.showFullscreen = false;
-     }
+        
+    }
 
+    fullscreen() {
+        setTimeout(() => this.showFullscreen = true, 5);
+        window.scrollTo(0,0);
+    }
     ngOnInit() { }
 }

@@ -21,8 +21,12 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
         execute: function() {
             ScoreComponent = (function () {
                 function ScoreComponent() {
-                    this.showFullscreen = false;
                 }
+                ScoreComponent.prototype.fullscreen = function () {
+                    var _this = this;
+                    setTimeout(function () { return _this.showFullscreen = true; }, 5);
+                    window.scrollTo(0, 0);
+                };
                 ScoreComponent.prototype.ngOnInit = function () { };
                 __decorate([
                     core_1.Input(), 

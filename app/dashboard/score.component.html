@@ -3,11 +3,11 @@
     </p>
 </div>
 
-<div class="table--responsive">
-    <a (click)="showFullscreen = true" class="text--success dc-fullscreen-switch">
+<div (click)="showFullscreen = false" class="table--responsive" [class.dc-fullscreen]="showFullscreen">
+    <a (click)="fullscreen()" [hidden]="showFullscreen" class="text--success dc-fullscreen-switch">
         <small>Fullscreen</small>
     </a>
-    <table (click)="showFullscreen = false" [class.dc-fullscreen]="showFullscreen" class="table table--border table--hoverRow dc-score-table">
+    <table class="table table--border table--hoverRow dc-score-table">
 
         <thead>
             <tr>

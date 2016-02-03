@@ -340,7 +340,7 @@ textarea {
 
 select {
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 0px;
   padding: 0; }
   select[disabled] {
     color: #eee; }
@@ -809,7 +809,7 @@ dd {
     visibility: hidden; } }
 
 table {
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
@@ -822,14 +822,14 @@ table {
     line-height: 48px;
     text-align: center; }
   table thead {
-    background-color: #fff;
+    background-color: #31ed5d;
     text-align: left; }
   table tfoot {
     background-color: white;
-    border-top: 1px solid #000; }
+    border-top: 2px solid #000; }
   table th,
   table td {
-    border-right: 1px solid #000;
+    border-right: 2px solid #000;
     line-height: 24px;
     overflow: visible;
     padding: 8px 1em; }
@@ -870,7 +870,7 @@ table {
   .table--responsive::-webkit-scrollbar-thumb {
     background-color: rgba(50, 50, 50, 0.2);
     border: 3px solid white;
-    border-radius: 8px; }
+    border-radius: 0px; }
   .table--responsive table {
     margin-bottom: 0; }
 
@@ -881,17 +881,17 @@ table {
   border: 2px solid #000; }
   .table--border thead,
   .table--border td {
-    border-bottom: 1px solid #000; }
+    border-bottom: 2px solid #000; }
 
 .table--borderOuter {
-  border: 1px solid #000; }
+  border: 2px solid #000; }
   .table--borderOuter th,
   .table--borderOuter td {
     border-right: none; }
 
 .table--borderHorizontal thead,
 .table--borderHorizontal td {
-  border-bottom: 1px solid #000; }
+  border-bottom: 2px solid #000; }
 
 .table--borderHorizontal th,
 .table--borderHorizontal td {
@@ -1693,7 +1693,8 @@ ol.dropdown-content {
 .group {
   display: inline-block;
   margin-bottom: 24px;
-  padding: 0; }
+  padding: 0;
+  width: 100%; }
   .group:before, .group:after {
     content: "";
     display: table; }
@@ -1703,7 +1704,9 @@ ol.dropdown-content {
     margin-top: 0; }
 
 .group-item {
-  border: 1px solid #000;
+  width: 7em;
+  border: 2px solid #31ed5d;
+  color: #31ed5d;
   display: inline-block;
   float: left;
   font-size: 0.7em;
@@ -1711,16 +1714,17 @@ ol.dropdown-content {
   list-style: none;
   padding: 0 1em;
   transition: background-color 150ms; }
-  .group-item:not(:first-child) {
-    margin: 0 0 0 -1px; }
   .group-item:hover {
-    background-color: #fff; }
+    background-color: #31ed5d;
+    color: white; }
   .group-item:first-child {
-    border-radius: 3px 0 0 3px; }
+    border-radius: 0; }
   .group-item:last-child {
-    border-radius: 0 3px 3px 0; }
+    border-radius: 0; }
   .group-item.is-active {
-    background-color: #fff; }
+    border: 2px solid #000 !important;
+    background: none;
+    color: black; }
 
 .label {
   background-color: #31ed5d;
