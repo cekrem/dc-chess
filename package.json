@@ -6,9 +6,10 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "concurrent \"npm run scss:watch\" \"npm run tsc:w\" \"npm run lite\" ",
-    "scss": "node-sass node_modules/concise.css/src/concise.scss styles/concise.css",
-    "scss:watch": "watch \"npm run scss\" node_modules/concise.css/src"
+    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+    "start:scss": "concurrent \"npm run scss:watch\" \"npm run tsc:w \" \" npm run lite\" ",
+    "scss": "node-sass styles/src/concise.scss styles/concise.css",
+    "scss:watch": "watch \"npm run scss\" styles/src"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,6 @@
   "homepage": "https://github.com/dc-apps/dc-chess2",
   "dependencies": {
     "angular2": "2.0.0-beta.2",
-    "concise.css": "^3.3.0",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "reflect-metadata": "0.1.2",

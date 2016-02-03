@@ -16,8 +16,8 @@ form [row] {
 input:not([type="submit"]),
 select,
 textarea {
-  border: 1px solid getColor(base, lines);
-  border-radius: 3px;
+  border: 2px solid getColor(base, lines);
+  border-radius: 0px;
   font-size: pxToEm(14);
   height: unitSize(4);
   padding: 0 .75em;
@@ -63,19 +63,19 @@ input[type="submit"] {
 
 label {
   display: block;
-  font-size: pxToEm(14);
+  //font-size: pxToEm(14);
 }
 
 fieldset {
-  border: 1px solid getColor(base, lines);
-  border-radius: 3px;
+  border: 2px solid getColor(base, lines);
+  border-radius: 0px;
   padding: unitSize(3) 1em;
   margin-bottom: unitSize(3);
 }
 
 legend {
-  font-size: pxToEm(14);
-  font-weight: bold;
+  //font-size: pxToEm(14);
+  font-weight: normal;
   padding: 0 1em;
 }
 
@@ -206,7 +206,7 @@ input[type="range"] {
   color: getColor(text, secondary);
   display: block;
   font-size: pxToEm(12);
-  font-weight: bold;
+  font-weight: normal;
   margin-top: unitSize(1);
 }
 

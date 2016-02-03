@@ -1,4 +1,4 @@
-<div class="text--center" *ngIf="tournamentData">
+<div container class="text--center" *ngIf="tournamentData">
     <h1>{{tournamentData.name}}</h1>
     <p>{{tournamentData.desc || 'No description added!'}}</p>
 
@@ -10,7 +10,7 @@
             <p>
                 <label>Join tournament:</label>
                 <input [disabled]="tournamentData.private || tournamentData.rounds || joined" #player type="text" placeholder="Your name">
-                <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');" class="button--success button--xsm">
+                <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');" class="button--bordered border--muted button--xsm">
                     Join
                 </button>
             </p>

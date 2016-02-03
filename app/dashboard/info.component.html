@@ -21,7 +21,8 @@
 
         <p>
             <label>Private:</label>
-            <input #private [value]="tournament.private" type="checkbox">
+            <button (click)="dataChange.emit({private: true})" [disabled]="tournament.private" class="button--bordered border--muted button--xsm">Yes</button>
+            <button (click)="dataChange.emit({private: false})" [disabled]="!tournament.private" class="button--bordered border--muted button--xsm">No</button>
         </p>
 
         <p>

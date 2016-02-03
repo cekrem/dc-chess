@@ -14,7 +14,7 @@
 <fieldset class="form--inline">
     <legend>Match setup</legend>
     <p [hidden]="rounds">
-        <button (click)="roundsAction.emit('roundrobin')" [disabled]="((players | asArray).length < 3) || rounds" class="button--success button--full tooltip--bottom"
+        <button (click)="roundsAction.emit('roundrobin')" [disabled]="((players | asArray).length < 3) || rounds" class="button--bordered button--full tooltip--bottom"
         data-hint="All play all. 3-30 players">
             Setup roundrobin
         </button>
@@ -25,7 +25,7 @@
         </button>
     </p>
     <p [hidden]="!rounds">
-        <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--success button--full tooltip--bottom">Clear rounds!</button>
+        <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--bordered button--full tooltip--bottom">Clear rounds!</button>
     </p>
 </fieldset>
 
@@ -41,46 +41,62 @@
 
     <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
 
-        <fieldset *ngFor="#match of round; #m = index">
+        <div *ngFor="#match of round; #m = index">
 
-            <legend>
+            <div class="text--center">
                 Table {{m+1}}:
                 <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
                     <small>(clear result)</small>
                 </a>
-            </legend>
+            </div>
+            <p class="hide--xsm"></p>
 
             <div class="row">
-                <button [disabled]="match.result == 'white'" column="4" class="button--xsm button--success" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
-                    White
-                </button>
-                <button [disabled]="match.result == 'draw'" column="4" class="button--xsm button--success" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
-                    Draw
-                </button>
-                <button [disabled]="match.result == 'black'" column="4" class="button--xsm button--success" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
-                    Black
-                </button>
+                <label column="3">Result:</label>
+                <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
+                    <tbody>
+                        <tr>
+                            <td [class.bg--success]="match.result == 'white'" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
+                                <div class="right" [hidden]="match.result != 'white'">↓</div>
+                                White
+                            </td>
+                            <td [class.bg--success]="match.result == 'draw'" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
+                                <div [hidden]="match.result != 'draw'">↓</div>
+                                <div [hidden]="match.result != 'draw'" class="right">↓</div>
+                                Draw
+                            </td>
+                            <td [class.bg--success]="match.result == 'black'" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
+                                <div [hidden]="match.result != 'black'">↓</div>
+                                Black
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
+            <div class="row">
+                <label column="3">Players:</label>
+                <table column="9" class="hide--xsm dc-no-top dc-fixed table--border table--full text--center">
+                    <tbody>
+                        <tr>
+                            <td>{{players[match.white].name}}</td>
+                            <td>{{players[match.black].name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table column="9" class="show--xsm dc-fixed table--border table--full text--center">
+                    <tbody>
+                        <tr>
+                            <td>{{players[match.white].name}}</td>
+                            <td>{{players[match.black].name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="button--full" style="visibility: hidden">space, pleace</button>
 
-            <table class="table--full dc-player-table">
-                <tbody>
-                    <tr class="text--center">
-                        <td class="dc-white">
-                            {{players[match.white].name}}
-                            <small [hidden]="match.result != 'white'"><br>Winner!</small>
-                            <small [hidden]="match.result != 'draw'"><br>Draw!</small>
-                        </td>
-                        <td class="dc-black">
-                            {{players[match.black].name}}
-                            <small [hidden]="match.result != 'black'"><br>Winner!</small>
-                            <small [hidden]="match.result != 'draw'"><br>Draw!</small>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </fieldset>
+        </div>
     </div>
 
 </fieldset>

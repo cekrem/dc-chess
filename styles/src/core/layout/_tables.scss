@@ -104,7 +104,7 @@ table {
 
 // Border all
 .table--border {
-  border: 1px solid getColor(base, lines);
+  border: 2px solid getColor(base, lines);
 
   thead,
   td { border-bottom: 1px solid getColor(base, lines); }
@@ -149,10 +149,16 @@ table {
 
 // Row hover
 .table--hoverRow {
-  tbody tr:hover { background-color: getColor(background, light); }
+  tbody tr:hover { 
+      background-color: black;
+      color: white;
+      }
 }
 
 // Cell hover
 .table--hoverCell {
-  tbody td:hover { background-color: getColor(background, light); }
+  tbody td:hover { 
+      background-color: black;
+      color: white;
+      }
 }

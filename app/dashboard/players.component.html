@@ -15,7 +15,7 @@
         <p>
             <label>Add player:</label>
             <input [disabled]="!canAdd" #player type="text" placeholder="Player name">
-            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered button--xsm">Add player</button>
+            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered border--muted button--xsm">Add player</button>
         </p>
 
         <table class="table--border table--hoverRow table--responsive">

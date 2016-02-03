@@ -3,21 +3,23 @@
     <a (click)="logout()">Logout</a>
     <h1>Dashboard</h1>
     <p></p>
-    <button class="button--xlg button--bordered" (click)="addTournament()">
+    <button class="button--full button--bordered" (click)="addTournament()">
         New tournament
     </button>
     <p></p>
     <div class="alert" *ngIf="userData.tournaments">
         <p><strong>Hint:</strong> Click on a tournament to manage it, right click twice to delete it.</p>
     </div>
-    <div *ngFor="#tournament of userData.tournaments | asArray">
-        <button class="button--bordered border--muted" [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
-            {{tournament.name}}
-        </button>
-        <button class="button--bordered border--error" [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
-            Right click again to delete!
-        </button>
-    </div>
+    <table class="table--full text--center table--border table--hoverRow">
+        <tr *ngFor="#tournament of userData.tournaments | asArray">
+            <td [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
+                {{tournament.name}}
+            </td>
+            <td [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
+                Right click again to delete!
+            </td>
+        </tr>
+    </table>
     <p></p>
 </div>
 

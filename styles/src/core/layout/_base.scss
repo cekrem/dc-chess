@@ -7,9 +7,9 @@
 // ---------
 
 // Font families
-$font-family:          "Helvetica", "Arial", sans-serif !default;
+$font-family:          "Calibre-Medium", "Helvetica", "Arial", sans-serif !default;
 $font-family-mono:     "Consolas", monospace !default;
-$font-base-size:       16 !default;
+$font-base-size:       20 !default;
 
 
 //
@@ -65,7 +65,7 @@ template,
   cursor: default;
   font-family: $font-family;
   font-size: ($font-base-size * .875) + px;
-  line-height: 1.5;
+  line-height: 1.3;
   text-rendering: optimizeLegibility;
   vertical-align: top;
 

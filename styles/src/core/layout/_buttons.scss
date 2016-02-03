@@ -33,7 +33,8 @@ button,
 
   &[disabled] {
     background-color: darken(getColor(background, light), 10%);
-    color: getColor(text, ui);
+    color: black;
+    text-decoration: underline;
     cursor: not-allowed;
   }
 }
@@ -66,7 +67,7 @@ button,
 // Extra small
 .button--xsm {
   font-size: pxToEm(12);
-  line-height: unitSize(4);
+  line-height: unitSize(3.5);
   padding: 0 1.5em;
 }
 

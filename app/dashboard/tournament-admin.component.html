@@ -2,28 +2,58 @@
 <div container *ngIf="tournamentData">
 
     <!-- Nav -->
-    <div class="row">
-        <button column="3" [class.border--muted]="activeView == 'info'" class="button--bordered" (click)="activeView='info'">
+    <div class="row hide--xsm">
+        <button column="3" [class.border--muted]="activeView == 'info'" [class.dc-no-right]="activeView != 'info'"
+        class="button--bordered" (click)="activeView='info'">
             Info
         </button>
-        <button column="3" [class.border--muted]="activeView == 'players'" *ngIf="!tournamentData.rounds" class="button--bordered"
+        <button column="3" [class.border--muted]="activeView == 'players'" [class.dc-no-right]="activeView != 'players'" [class.dc-no-left]="activeView != 'players'"
+        *ngIf="!tournamentData.rounds" class="button--bordered"
         (click)="activeView='players'">
             Players
         </button>
-        <button column="3" [class.border--muted]="activeView == 'rounds'" class="button--bordered" (click)="activeView='rounds'">
+        <button column="3" [class.border--muted]="activeView == 'rounds'" [class.dc-no-right]="activeView != 'rounds'" [class.dc-no-left]="activeView != 'rounds'"
+        class="button--bordered" (click)="activeView='rounds'">
             Match setup
         </button>
-        <button column="3" [class.border--muted]="activeView == 'score'" *ngIf="tournamentData.rounds" class="button--bordered"
-        (click)="activeView='score'">
+        <button column="3" [class.border--muted]="activeView == 'score'" [class.dc-no-right]="activeView != 'score'" [class.dc-no-left]="activeView != 'score'"
+        *ngIf="tournamentData.rounds" class="button--bordered" (click)="activeView='score'">
             Score
         </button>
-        <button column="3" class="button--bordered" [routerLink]="[ '/Dashboard' ]">
+        <button column="3" class="button--bordered dc-no-left" [routerLink]="[ '/Dashboard' ]">
             Dashboard
         </button>
     </div>
     
+    <div class="show--xsm">
+        <button [class.border--muted]="activeView == 'info'"
+        class="button--full button--bordered" (click)="activeView='info'">
+            Info
+        </button>
+        <p></p>
+        <button [class.border--muted]="activeView == 'players'" 
+        *ngIf="!tournamentData.rounds" class="button--full button--bordered"
+        (click)="activeView='players'">
+            Players
+        </button>
+        <p></p>
+        <button [class.border--muted]="activeView == 'rounds'" 
+        class="button--full button--bordered" (click)="activeView='rounds'">
+            Match setup
+        </button>
+        <p></p>
+        <button [class.border--muted]="activeView == 'score'" 
+        *ngIf="tournamentData.rounds" class="button--full button--bordered" (click)="activeView='score'">
+            Score
+        </button>
+        <p></p>
+        <button class="button--full button--bordered" [routerLink]="[ '/Dashboard' ]">
+            Dashboard
+        </button>
+    </div>
+
     <button class="button--full button--bordered" style="visibility: hidden"></button>
-    
+
     <!-- Tournament info -->
     <tournamentInfo *ngIf="activeView =='info'" [tournament]="tournamentData" (dataChange)="submit($event)"></tournamentInfo>
 
@@ -36,7 +66,8 @@
     (dataChange)="submit($event)"></tournamentRounds>
 
     <!-- Score -->
-    <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches" [rounds]="tournamentData.rounds"></tournamentScore>
+    <tournamentScore *ngIf="activeView == 'score'" [players]="tournamentData.players" [playedMatches]="tournamentData.playedMatches"
+    [rounds]="tournamentData.rounds"></tournamentScore>
 
 </div>
 
