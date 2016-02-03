@@ -1704,6 +1704,7 @@ ol.dropdown-content {
     margin-top: 0; }
 
 .group-item {
+  text-align: center;
   width: 7em;
   border: 2px solid #31ed5d;
   color: #31ed5d;
@@ -1713,6 +1714,7 @@ ol.dropdown-content {
   line-height: 32px;
   list-style: none;
   padding: 0 1em;
+  margin: 0.4em;
   transition: background-color 150ms; }
   .group-item:hover {
     background-color: #31ed5d;

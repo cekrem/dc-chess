@@ -48,14 +48,29 @@ System.register([], function(exports_1) {
                 }
             });
         });
-        // determine buchholz score
+        // determine buchholz and neustadtl score
         for (var key in players) {
             players[key].buchholz = 0; // reset buchholz first
-            players[key].matches.forEach(function (match) {
-                if (match) {
-                    players[key].buchholz += players[match[1]].points;
-                }
-            });
+            players[key].neustadtl = 0;
+            // put inside try/catch in case I forgot something...
+            try {
+                players[key].matches.forEach(function (match) {
+                    if (match) {
+                        // determine buchholz
+                        players[key].buchholz += players[match[1]].points;
+                        // determine neustadtl
+                        if (match[0] == 'win') {
+                            players[key].neustadtl += players[match[1]].points;
+                        }
+                        if (match[0] == 'draw') {
+                            players[key].neustadtl += (players[match[1]].points * 0.5);
+                        }
+                    }
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
         }
         console.log(players);
         return [playedMatches, totalMatches];
