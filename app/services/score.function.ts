@@ -6,6 +6,7 @@ export function getScore(rounds: Array<Array<any>>, players) {
     // reset score first
     for (let key in players) {
         players[key].points = 0;
+        players[key].byes = 0;
         players[key].wins = 0;
         players[key].blackMatches = 0;
         players[key].matches = [];
@@ -19,6 +20,18 @@ export function getScore(rounds: Array<Array<any>>, players) {
             totalMatches += 1;
 
             switch (match.result) {
+                case 'bye':
+                    if (match.white == 'BYE') {
+                        players[match.black].byes += 1;
+                        players[match.black].points += 1;
+                    }
+                    if (match.black == 'BYE') {
+                        players[match.white].byes += 1;
+                        players[match.white].points += 1;
+                    }
+
+                    break;
+
                 case 'white':
                     players[match.black].blackMatches += 1;
 
@@ -86,7 +99,7 @@ export function getScore(rounds: Array<Array<any>>, players) {
                 }
             });
         } catch (error) {
-            console.error(error);
+            console.warn(error);
         }
     }
 

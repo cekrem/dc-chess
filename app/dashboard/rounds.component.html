@@ -1,12 +1,12 @@
 <div class="alert" [hidden]="rounds">
-    <p><strong>Hint:</strong> This is where you setup matches. Roundrobin uses berger tables to setup matches between <strong>all</strong>        players, while swiss sets up a predetermined number of rounds where players of equal strength meet.
+    <p><strong>Hint:</strong> This is where you setup matches. Roundrobin uses berger tables to setup matches between <strong>all</strong>        players, while monrad sets up a predetermined number of rounds where players of equal strength meet.
     </p>
     <p>When you're ready, click one of the buttons below to setup matches.</p>
 </div>
 
 <div class="alert" [hidden]="!rounds">
     <p><strong>Hint:</strong> You have now setup matches! When using roundrobin system, all players are matched immidiately,
-        while swiss sets up one round at the time. Click on "white", "draw" or "black" to enter results.
+        while monrad sets up one round at the time. Click on "white", "draw" or "black" to enter results.
     </p>
     <p>Check out current score at any time on the "Score" tab (top navigation).</p>
 </div>
@@ -20,8 +20,8 @@
         </button>
     </p>
     <p [hidden]="rounds">
-        <button (click)="roundsAction.emit('swiss')" disabled class="button--muted button--full tooltip--bottom" data-hint="Coming soon!">
-            Setup swiss
+        <button (click)="roundsAction.emit('firstMonrad')" class="button--bordered button--full">
+            Setup monrad
         </button>
     </p>
     <p [hidden]="!rounds">
@@ -38,65 +38,67 @@
             Round {{r+1}}
         </li>
     </ul>
-    
+
     <button class="button--full" style="visibility: hidden">space, pleace</button>
 
     <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
 
         <div *ngFor="#match of round; #m = index">
+            <div *ngIf="match.result != 'bye'">
+                
+                <div class="text--center">
+                    Table {{m+1}}:
+                    <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
+                        <small>(clear result)</small>
+                    </a>
+                </div>
+                <p class="hide--xsm"></p>
 
-            <div class="text--center">
-                Table {{m+1}}:
-                <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
-                    <small>(clear result)</small>
-                </a>
-            </div>
-            <p class="hide--xsm"></p>
+                <div class="row">
+                    <label class="hide--xsm" column="3">Result:</label>
+                    <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
+                        <tbody>
+                            <tr>
+                                <td [class.bg--success]="match.result == 'white'" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
+                                    <div class="right" [hidden]="match.result != 'white'">↓</div>
+                                    White
+                                </td>
+                                <td [class.bg--success]="match.result == 'draw'" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
+                                    <div [hidden]="match.result != 'draw'">↓</div>
+                                    <div [hidden]="match.result != 'draw'" class="right">↓</div>
+                                    Draw
+                                </td>
+                                <td [class.bg--success]="match.result == 'black'" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
+                                    <div [hidden]="match.result != 'black'">↓</div>
+                                    Black
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div class="row">
-                <label class="hide--xsm" column="3">Result:</label>
-                <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
-                    <tbody>
-                        <tr>
-                            <td [class.bg--success]="match.result == 'white'" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
-                                <div class="right" [hidden]="match.result != 'white'">↓</div>
-                                White
-                            </td>
-                            <td [class.bg--success]="match.result == 'draw'" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
-                                <div [hidden]="match.result != 'draw'">↓</div>
-                                <div [hidden]="match.result != 'draw'" class="right">↓</div>
-                                Draw
-                            </td>
-                            <td [class.bg--success]="match.result == 'black'" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
-                                <div [hidden]="match.result != 'black'">↓</div>
-                                Black
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="row">
+                    <label class="hide--xsm" column="3">Players:</label>
+                    <table column="9" class="hide--xsm dc-no-top dc-fixed table--border table--full text--center">
+                        <tbody>
+                            <tr>
+                                <td>{{players[match.white].name}}</td>
+                                <td class="dc-black">{{players[match.black].name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table column="9" class="show--xsm dc-fixed table--border table--full text--center">
+                        <tbody>
+                            <tr>
+                                <td>{{players[match.white].name}}</td>
+                                <td class="dc-black">{{players[match.black].name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div class="row">
-                <label class="hide--xsm" column="3">Players:</label>
-                <table column="9" class="hide--xsm dc-no-top dc-fixed table--border table--full text--center">
-                    <tbody>
-                        <tr>
-                            <td>{{players[match.white].name}}</td>
-                            <td>{{players[match.black].name}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table column="9" class="show--xsm dc-fixed table--border table--full text--center">
-                    <tbody>
-                        <tr>
-                            <td>{{players[match.white].name}}</td>
-                            <td>{{players[match.black].name}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <button class="button--full" style="visibility: hidden">space, pleace</button>
             </div>
-            
-            <button class="button--full" style="visibility: hidden">space, pleace</button>
 
         </div>
     </div>

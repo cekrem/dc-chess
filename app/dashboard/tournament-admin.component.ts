@@ -5,7 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
-import { setupRoundRobin } from '../services/roundrobin.function'; // is this cool? Function?
+
+import { setupRoundRobin } from '../services/roundrobin.function';
+import { setupFirstMonrad } from '../services/monrad.function';
+
 import { getScore } from '../services/score.function';
 import { AsArrayPipe } from '../services/as-array.pipe';
 
@@ -85,6 +88,11 @@ export class TournamentAdminComponent implements OnInit {
 
         if (system == 'roundrobin') {
             rounds = setupRoundRobin(this.playerKeys);
+        }
+        
+        if (system == 'firstMonrad') {
+            rounds = [];
+            rounds[0] = setupFirstMonrad(this.playerKeys);
         }
 
         this.submit({ rounds: rounds });

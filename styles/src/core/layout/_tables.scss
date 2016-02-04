@@ -39,7 +39,7 @@ table {
       line-height: unitSize(6);
     }
 
-    &:last-child { border-right: none; }
+    //&:last-child { border-right: none; } // TRY TO DO WITHOUT THIS BECAUSE OF ROUND ROBIN LAST ROUND!
   }
 
   tr,

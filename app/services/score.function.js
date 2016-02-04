@@ -6,6 +6,7 @@ System.register([], function(exports_1) {
         // reset score first
         for (var key_1 in players) {
             players[key_1].points = 0;
+            players[key_1].byes = 0;
             players[key_1].wins = 0;
             players[key_1].blackMatches = 0;
             players[key_1].matches = [];
@@ -17,6 +18,16 @@ System.register([], function(exports_1) {
             round.forEach(function (match) {
                 totalMatches += 1;
                 switch (match.result) {
+                    case 'bye':
+                        if (match.white == 'BYE') {
+                            players[match.black].byes += 1;
+                            players[match.black].points += 1;
+                        }
+                        if (match.black == 'BYE') {
+                            players[match.white].byes += 1;
+                            players[match.white].points += 1;
+                        }
+                        break;
                     case 'white':
                         players[match.black].blackMatches += 1;
                         players[match.white].wins += 1;
@@ -69,7 +80,7 @@ System.register([], function(exports_1) {
                 });
             }
             catch (error) {
-                console.error(error);
+                console.warn(error);
             }
         }
         console.log(players);

@@ -17,7 +17,6 @@
     background: white;
     margin-top: 80px;
     padding:20px;
-    position: relative;
 }
 
 [container]:after {
@@ -127,8 +126,8 @@ label {
 }
 
 .dc-black {
-    background: #555;
-    color: #fff;
+    background: #000 !important;
+    color: #fff !important;
 }
 
 /* Score */
@@ -139,13 +138,10 @@ label {
 
 .dc-fullscreen {
     top:0;
-    padding-top: 5em;
-    padding-left: 5em;
     left: 0;
     position: absolute;
     overflow: scroll;
     width:100%;
-    height:100%;
     
     background: rgba(255,255,255,0.9);
 }
