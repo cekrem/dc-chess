@@ -11,6 +11,7 @@ import { AsArrayPipe } from '../services/as-array.pipe';
 export class RoundsComponent implements OnInit {
     @Input() public rounds: Array<Array<any>>;
     @Input() public players: any;
+    @Input() public system: string;
     @Output() public dataChange: EventEmitter<any>
     @Output() public roundsAction: EventEmitter<string>
     

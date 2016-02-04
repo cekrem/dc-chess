@@ -96,6 +96,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     var rounds;
                     if (system == 'clear') {
                         rounds = null;
+                        system = null;
                     }
                     if (system == 'roundrobin') {
                         rounds = roundrobin_function_1.setupRoundRobin(this.playerKeys);
@@ -103,8 +104,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     if (system == 'firstMonrad') {
                         rounds = [];
                         rounds[0] = monrad_function_1.setupFirstMonrad(this.playerKeys);
+                        system = 'monrad';
                     }
-                    this.submit({ rounds: rounds });
+                    if (system == 'nextMonrad') {
+                        rounds = this.tournamentData.rounds;
+                        var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players);
+                        system = 'monrad';
+                    }
+                    this.submit({ rounds: rounds, system: system });
                 };
                 TournamentAdminComponent.prototype.clearRounds = function () {
                     this.submit({ rounds: null });

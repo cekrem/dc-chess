@@ -1,6 +1,9 @@
 System.register([], function(exports_1) {
     function setupFirstMonrad(playerKeys) {
         // Push bye if odd number of players
+        //  NOTE:
+        // 'BYE' = player key for bye
+        // 'bye' = match result for bye
         if (playerKeys.length % 2 !== 0) {
             playerKeys.push('BYE');
         }
@@ -16,10 +19,20 @@ System.register([], function(exports_1) {
             }
             round.push(match);
         }
-        console.warn(round);
         return round;
     }
     exports_1("setupFirstMonrad", setupFirstMonrad);
+    function setupNextMonrad(players) {
+        var playersWithKeys = Object.keys(players).map(function (key) {
+            var player = players[key];
+            player.key = key;
+            return player;
+        });
+        var sortedPlayers = playersWithKeys.sort(function (a, b) { return b.points - a.points; }); // should we sort by quality as well?
+        console.log(sortedPlayers);
+        // Should return a new round with no rematches
+    }
+    exports_1("setupNextMonrad", setupNextMonrad);
     return {
         setters:[],
         execute: function() {

@@ -24,8 +24,13 @@
             Setup monrad
         </button>
     </p>
+    <p *ngIf="system == 'monrad'">
+        <button (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">
+            Setup next round
+        </button>
+    </p>
     <p [hidden]="!rounds">
-        <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--bordered button--full tooltip--bottom">Clear rounds!</button>
+        <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--bordered border--error button--full tooltip--bottom">Clear rounds!</button>
     </p>
 </fieldset>
 
@@ -38,8 +43,6 @@
             Round {{r+1}}
         </li>
     </ul>
-
-    <button class="button--full" style="visibility: hidden">space, pleace</button>
 
     <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
 

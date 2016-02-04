@@ -36,6 +36,10 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     __metadata('design:type', Object)
                 ], RoundsComponent.prototype, "players", void 0);
                 __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], RoundsComponent.prototype, "system", void 0);
+                __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], RoundsComponent.prototype, "dataChange", void 0);

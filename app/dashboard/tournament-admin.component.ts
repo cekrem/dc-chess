@@ -7,7 +7,7 @@ import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 import { UserDataService } from '../services/user-data.service';
 
 import { setupRoundRobin } from '../services/roundrobin.function';
-import { setupFirstMonrad } from '../services/monrad.function';
+import { setupFirstMonrad, setupNextMonrad } from '../services/monrad.function';
 
 import { getScore } from '../services/score.function';
 import { AsArrayPipe } from '../services/as-array.pipe';
@@ -84,6 +84,7 @@ export class TournamentAdminComponent implements OnInit {
         
         if(system == 'clear') {
             rounds = null;
+            system = null;
         }
 
         if (system == 'roundrobin') {
@@ -93,9 +94,18 @@ export class TournamentAdminComponent implements OnInit {
         if (system == 'firstMonrad') {
             rounds = [];
             rounds[0] = setupFirstMonrad(this.playerKeys);
+            
+            system = 'monrad';
+        }
+        
+        if (system == 'nextMonrad') {
+            rounds = this.tournamentData.rounds;
+            let nextRound = setupNextMonrad(this.tournamentData.players);
+            
+            system = 'monrad';
         }
 
-        this.submit({ rounds: rounds });
+        this.submit({ rounds: rounds, system: system });
     }
 
     clearRounds() {

@@ -62,7 +62,7 @@
     (playerDelete)="deletePlayer($event)"></tournamentPlayers>
 
     <!-- TODO: Make setup rounds and rounds / matches a component -->
-    <tournamentRounds *ngIf="activeView == 'rounds'" [rounds]="tournamentData.rounds" [players]="tournamentData.players" (roundsAction)="setupRounds($event)"
+    <tournamentRounds *ngIf="activeView == 'rounds'" [system]="tournamentData.system || ''" [rounds]="tournamentData.rounds" [players]="tournamentData.players" (roundsAction)="setupRounds($event)"
     (dataChange)="submit($event)"></tournamentRounds>
 
     <!-- Score -->
