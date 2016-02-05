@@ -24,6 +24,9 @@ export class DashboardComponent implements OnInit {
         this._router = router;
         this._data = data;
         this.confirmKey = '';
+        
+        data.getAuthAsync()
+            .catch(() => router.navigate(['Home']));
                 
         try {
             // If coming from a tournament , we don't wait for data

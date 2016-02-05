@@ -49,14 +49,21 @@ System.register(['angular2/core', 'angular2/router', '../services/user-data.serv
                         return false;
                     }
                 };
-                HomeComponent.prototype.login = function () {
+                HomeComponent.prototype.login = function (demo) {
+                    var _this = this;
                     console.log('logging in as ' + this.userEntry);
-                    var creds = {
-                        user: this.userEntry,
-                        license: this.licenseEntry
-                    };
-                    this._data.login(creds);
-                    this._router.navigate(['/Dashboard']);
+                    this.loading = true;
+                    if (!demo) {
+                        var creds = {
+                            user: this.userEntry,
+                            license: this.licenseEntry
+                        };
+                    }
+                    this._data.login(creds)
+                        .then(function () { return _this._router.navigate(['/Dashboard']); }, function (error) {
+                        alert(error);
+                        _this.loading = null;
+                    });
                 };
                 HomeComponent = __decorate([
                     core_1.Component({

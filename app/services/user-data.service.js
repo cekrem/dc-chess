@@ -48,18 +48,28 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         _this.userData = data || {};
                     });
                 }
-                UserDataService.prototype.login = function (cred) {
-                    // Don't login twice! :)
-                    if (this._userRef) {
-                        return;
-                    }
-                    // only anonymous login for now! Fine for demo mode :)
-                    this._baseRef.authAnonymously(function (error, authData) {
-                        if (error) {
-                            console.error(error);
+                UserDataService.prototype.login = function (creds) {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        // Don't login twice! :)
+                        if (_this._userRef) {
+                            resolve('already logged in!');
+                        }
+                        // Login anonymously for demo mode
+                        if (!creds) {
+                            _this._baseRef.authAnonymously(function (error, authData) {
+                                if (error) {
+                                    reject(error);
+                                }
+                                else {
+                                    console.log('Logged in anonymously');
+                                    resolve('anonymous login');
+                                }
+                            });
                         }
                         else {
-                            console.log('Logged in anonymously');
+                            var FireBaseTokenGenerator = require('firebase-token-generator');
+                            var tokGen = new FireBaseTokenGenerator('37JOim6ntPJNthyJ5sfrylxDBcsco3DJWkxX6qwX');
                         }
                     });
                 };

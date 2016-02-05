@@ -50,11 +50,13 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             }],
         execute: function() {
             TournamentAdminComponent = (function () {
-                function TournamentAdminComponent(params, data) {
+                function TournamentAdminComponent(router, params, data) {
                     var _this = this;
                     this._data = data;
                     this.tournamentKey = params.get('tournamentKey');
                     this.activeView = 'info';
+                    data.getAuthAsync()
+                        .catch(function () { return router.navigate(['Home']); });
                     try {
                         // If coming from dashboard (which we usually are!), data is already stored and won't emit:
                         this.tournamentData = data.userData.tournaments[this.tournamentKey];
@@ -146,7 +148,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent, players_component_1.PlayersComponent, rounds_component_1.RoundsComponent, score_component_1.ScoreComponent],
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, user_data_service_1.UserDataService])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, user_data_service_1.UserDataService])
                 ], TournamentAdminComponent);
                 return TournamentAdminComponent;
             })();

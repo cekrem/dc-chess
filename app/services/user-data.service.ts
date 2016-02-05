@@ -24,9 +24,9 @@ export class UserDataService {
         this.subscription = new Observable(observer => {
             this._observer = observer;
         }).share();
-        
+
         this._baseRef.onAuth((authData) => {
-            if(authData) {
+            if (authData) {
                 console.log('User is logged in: ' + authData.uid);
                 this.setUser(authData.uid);
                 this._user = authData;
@@ -46,31 +46,44 @@ export class UserDataService {
             });
     }
 
-    login(cred) {
-        // Don't login twice! :)
-        if(this._userRef) {
-            return;
-        }
-        
-        // only anonymous login for now! Fine for demo mode :)
-        this._baseRef.authAnonymously((error, authData) => {
-            if (error) {
-                console.error(error);
+    login(creds) {
+        return new Promise((resolve, reject) => {
+            // Don't login twice! :)
+            if (this._userRef) {
+                resolve('already logged in!');
             }
+            
+            // Login anonymously for demo mode
+            if (!creds) {
+                this._baseRef.authAnonymously((error, authData) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        console.log('Logged in anonymously');
+                        resolve('anonymous login');
+                    }
+                });
+            }
+            
+            // or login with account
             else {
-                console.log('Logged in anonymously');
+                let FireBaseTokenGenerator = require('firebase-token-generator');
+                let tokGen = new FireBaseTokenGenerator('37JOim6ntPJNthyJ5sfrylxDBcsco3DJWkxX6qwX');
             }
-        });
+            
+            
+        })
     }
-    
+
     logout() {
         this._baseRef.unauth();
     }
 
-    getAuthAsync():Promise<any> {
+    getAuthAsync(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._baseRef.onAuth(authData => {
-                if(authData) {
+                if (authData) {
                     resolve(authData);
                 }
                 else {
@@ -101,7 +114,7 @@ export class UserDataService {
 
     save(path: string, data) {
         let child = this._userRef.child(path);
-        
+
         child.update(data);
     }
 

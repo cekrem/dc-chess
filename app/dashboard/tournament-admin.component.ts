@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import { NgIf, NgFor } from 'angular2/common';
 
 import { Observable } from 'rxjs/Observable';
-import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
+import { Router, RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 
@@ -34,10 +34,13 @@ export class TournamentAdminComponent implements OnInit {
     public playersArray: Array<any>;
     public activeView: string;
 
-    constructor(params: RouteParams, data: UserDataService) {
+    constructor(router: Router, params: RouteParams, data: UserDataService) {
         this._data = data;
         this.tournamentKey = params.get('tournamentKey');
         this.activeView = 'info';
+        
+        data.getAuthAsync()
+            .catch(() => router.navigate(['Home']));
 
         try {
             // If coming from dashboard (which we usually are!), data is already stored and won't emit:

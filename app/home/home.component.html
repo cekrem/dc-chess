@@ -3,7 +3,7 @@
         <img src="./img/dc-chess-squares.png" alt="DC Chess" width="146">
     </figure>
     <p></p>
-    <button (click)="login()" class="button--bordered button--full">Try demo</button>
+    <button (click)="login('demo')" class="button--bordered button--full">Try demo</button>
     <p></p>
     <form (submit)="login()">
         <fieldset>
@@ -17,4 +17,7 @@
             <button [hidden]="!licenseMatch()">Login</button>
         </fieldset>
     </form>
+</div>
+<div [hidden]="!loading" class="center--all">
+    <div class="spinner"></div>
 </div>

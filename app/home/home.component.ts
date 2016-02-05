@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
     private _data: UserDataService;
 
     public licenseEntry: string;
+    public loading: boolean;
 
     constructor(router: Router, data: UserDataService) {
         this._router = router;
@@ -43,16 +44,21 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    login() {
+    login(demo: string) {
         console.log('logging in as ' + this.userEntry);
-
-        let creds = {
-            user: this.userEntry,
-            license: this.licenseEntry
-        }
+        this.loading = true;
         
-        this._data.login(creds);
+        if (!demo) {
+            var creds = {
+                user: this.userEntry,
+                license: this.licenseEntry
+            }
+        }
 
-        this._router.navigate(['/Dashboard']);
+        this._data.login(creds)
+            .then(() => this._router.navigate(['/Dashboard']), (error)=> {
+                alert(error);
+                this.loading = null;
+            });
     }
 }
