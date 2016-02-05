@@ -19,19 +19,6 @@
     padding:20px;
 }
 
-[container]:after {
-    content: 'DC';
-    color: white;
-    text-align: center;
-    line-height: 36px;
-    width:30px;
-    height: 30px;
-    background: black;
-    position: absolute;
-    top: 20px;
-    right:-30px;
-}
-
 .dc-narrow {
     max-width: 400px;
     padding: 50px;
