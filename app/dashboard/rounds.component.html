@@ -19,14 +19,24 @@
             Setup roundrobin
         </button>
     </p>
-    <p [hidden]="rounds">
-        <button (click)="roundsAction.emit('firstMonrad')" class="button--bordered button--full">
+    <p [hidden]="rounds || (players | asArray).length < 7">
+        <button (click)="roundsAction.emit(monradRounds)" class="button--bordered button--affix button--full">
             Setup monrad
+            <span class="affix">{{monradRounds || 4 }} rounds</span>
         </button>
     </p>
-    <p *ngIf="system == 'monrad'">
-        <button (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">
+    <p [hidden]="rounds || (players | asArray).length < 8">
+        <label>Number of rounds:</label>
+        <input #range min="4" value="4" [max]="(players | asArray).length - 3" type="range" (change)="monradRounds = range.value">
+    </p>
+    <p *ngIf="system > 0">
+        <button [disabled]="system == rounds.length" (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">
             Setup next round
+        </button>
+    </p>
+    <p *ngIf="system > 0">
+        <button [disabled]="rounds.length == 1" (click)="roundsAction.emit('clearLast')" class="button--bordered border--error button--full">
+            Clear last round
         </button>
     </p>
     <p [hidden]="!rounds">

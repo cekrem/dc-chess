@@ -16,6 +16,7 @@ export class RoundsComponent implements OnInit {
     @Output() public roundsAction: EventEmitter<string>
     
     public visibleRound: number;
+    public monradRounds: number;
 
     constructor() {
         this.dataChange = new EventEmitter();
@@ -24,5 +25,6 @@ export class RoundsComponent implements OnInit {
 
     ngOnInit() {
         this.visibleRound = 0;
+        this.monradRounds = 4;
      }
 }

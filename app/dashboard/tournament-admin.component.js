@@ -100,16 +100,24 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         for (var key in this.tournamentData.players) {
                             this.tournamentData.players[key].byes = 0;
                         }
+                        this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
+                        return;
+                    }
+                    if (system == 'clearLast') {
+                        monrad_function_1.removeLastBye(this.tournamentData.players, this.tournamentData.rounds.length);
+                        this.tournamentData.rounds.pop();
+                        this.submit({ rounds: this.tournamentData.rounds, players: this.tournamentData.players });
                     }
                     if (system == 'roundrobin') {
                         rounds = roundrobin_function_1.setupRoundRobin(this.playerKeys);
                         this.submit({ rounds: rounds, system: system });
                         return;
                     }
-                    if (system == 'firstMonrad') {
+                    if (system > 3) {
                         rounds = [];
                         rounds[0] = monrad_function_1.setupFirstMonrad(this.tournamentData.players);
-                        system = 'monrad';
+                        this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
+                        return;
                     }
                     if (system == 'nextMonrad') {
                         rounds = this.tournamentData.rounds;
@@ -117,8 +125,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
                         rounds.push(nextRound);
                         system = 'monrad';
+                        this.submit({ rounds: rounds, players: this.tournamentData.players });
+                        return;
                     }
-                    this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
                 };
                 TournamentAdminComponent.prototype.clearRounds = function () {
                     this.submit({ rounds: null });

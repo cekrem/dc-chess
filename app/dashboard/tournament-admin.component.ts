@@ -7,7 +7,7 @@ import { RouteParams, ROUTER_DIRECTIVES, OnDeactivate } from 'angular2/router';
 import { UserDataService } from '../services/user-data.service';
 
 import { setupRoundRobin } from '../services/roundrobin.function';
-import { setupFirstMonrad, setupNextMonrad } from '../services/monrad.function';
+import { setupFirstMonrad, setupNextMonrad, removeLastBye } from '../services/monrad.function';
 
 import { getScore } from '../services/score.function';
 import { AsArrayPipe } from '../services/as-array.pipe';
@@ -79,16 +79,26 @@ export class TournamentAdminComponent implements OnInit {
         }
     }
 
-    setupRounds(system: string) {
+    setupRounds(system) {
         let rounds;
 
         if (system == 'clear') {
             rounds = null;
             system = null;
-            
+
             for (let key in this.tournamentData.players) {
                 this.tournamentData.players[key].byes = 0;
             }
+
+            this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
+            return;
+        }
+
+        if (system == 'clearLast') {
+            removeLastBye(this.tournamentData.players, this.tournamentData.rounds.length);
+            this.tournamentData.rounds.pop();
+
+            this.submit({ rounds: this.tournamentData.rounds, players: this.tournamentData.players });
         }
 
         if (system == 'roundrobin') {
@@ -97,11 +107,12 @@ export class TournamentAdminComponent implements OnInit {
             return;
         }
 
-        if (system == 'firstMonrad') {
+        if (system > 3) { // this means first round of monrad
             rounds = [];
             rounds[0] = setupFirstMonrad(this.tournamentData.players);
-            
-            system = 'monrad';
+
+            this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
+            return;
         }
 
         if (system == 'nextMonrad') {
@@ -110,11 +121,11 @@ export class TournamentAdminComponent implements OnInit {
             // setup next round, pass length of rounds as roundIndex (smooth)
             let nextRound = setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
             rounds.push(nextRound);
-            
+
             system = 'monrad';
+            this.submit({ rounds: rounds, players: this.tournamentData.players });
+            return;
         }
-        
-        this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
     }
 
     clearRounds() {

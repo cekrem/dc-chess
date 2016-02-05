@@ -26,6 +26,7 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                 }
                 RoundsComponent.prototype.ngOnInit = function () {
                     this.visibleRound = 0;
+                    this.monradRounds = 4;
                 };
                 __decorate([
                     core_1.Input(), 

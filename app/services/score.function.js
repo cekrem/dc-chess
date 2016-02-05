@@ -5,10 +5,16 @@ System.register([], function(exports_1) {
         var roundIndex = -1; // for matches array
         // reset score first
         for (var key_1 in players) {
-            players[key_1].points = players[key_1].byes.length || 0;
             players[key_1].wins = 0;
             players[key_1].blackMatches = 0;
             players[key_1].matches = [];
+            try {
+                players[key_1].points = players[key_1].byes.length || 0;
+            }
+            catch (error) {
+                alert(error);
+                players[key_1].points = 0;
+            }
         }
         // for each ROUND
         rounds.forEach(function (round) {

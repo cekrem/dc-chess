@@ -28,6 +28,13 @@ System.register([], function(exports_1) {
     function setupNextMonrad(players, roundIndex) {
         var playersWithKeys = makeArrayWithKeys(players);
         var sortedPlayers = playersWithKeys.sort(function (a, b) { return b.points - a.points; });
+        // If player leaves tournament, remove from matching, not from score or player list
+        for (var index = 0; index < sortedPlayers.length; index++) {
+            var player = sortedPlayers[index];
+            if (player.hasLeft) {
+                sortedPlayers.splice(index, 1);
+            }
+        }
         // Give bye to player with lowest score
         if (sortedPlayers.length % 2 !== 0) {
             for (var index = (sortedPlayers.length - 1); index > 0; index--) {
@@ -51,6 +58,18 @@ System.register([], function(exports_1) {
         return round;
     }
     exports_1("setupNextMonrad", setupNextMonrad);
+    function removeLastBye(players, roundsLength) {
+        var lastRoundIndex = roundsLength - 1;
+        var playersWithKeys = makeArrayWithKeys(players);
+        playersWithKeys.forEach(function (player) {
+            if (player.byes) {
+                if (player.byes[0] == lastRoundIndex) {
+                    players[player.key].byes = null;
+                }
+            }
+        });
+    }
+    exports_1("removeLastBye", removeLastBye);
     function makeArrayWithKeys(object) {
         var arrayWithKeys = Object.keys(object).map(function (key) {
             var instance = object[key];

@@ -5,10 +5,16 @@ export function getScore(rounds: Array<Array<any>>, players) {
     
     // reset score first
     for (let key in players) {
-        players[key].points = players[key].byes.length || 0;
         players[key].wins = 0;
         players[key].blackMatches = 0;
         players[key].matches = [];
+        
+        try {
+            players[key].points = players[key].byes.length || 0;
+        } catch (error) {
+            alert(error);
+            players[key].points = 0;
+        }
     }
     
     // for each ROUND
