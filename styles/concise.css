@@ -809,7 +809,6 @@ dd {
     visibility: hidden; } }
 
 table {
-  border: 2px solid #000;
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
@@ -825,14 +824,14 @@ table {
     background-color: #31ed5d;
     text-align: left; }
   table tfoot {
-    background-color: white;
-    border-top: 2px solid #000; }
+    background-color: white; }
   table th,
   table td {
-    border-right: 2px solid #000;
+    border: 2px solid #000;
     line-height: 24px;
     overflow: visible;
-    padding: 8px 1em; }
+    padding: 8px 1em;
+    background-clip: padding-box; }
     @media (min-width: 30em) {
       table th,
       table td {
@@ -873,12 +872,6 @@ table {
 
 .table--full {
   width: 100%; }
-
-.table--border {
-  border: 2px solid #000; }
-  .table--border thead,
-  .table--border td {
-    border-bottom: 2px solid #000; }
 
 .table--borderOuter {
   border: 2px solid #000; }

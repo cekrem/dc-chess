@@ -97,21 +97,28 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     if (system == 'clear') {
                         rounds = null;
                         system = null;
+                        for (var key in this.tournamentData.players) {
+                            this.tournamentData.players[key].byes = 0;
+                        }
                     }
                     if (system == 'roundrobin') {
                         rounds = roundrobin_function_1.setupRoundRobin(this.playerKeys);
+                        this.submit({ rounds: rounds, system: system });
+                        return;
                     }
                     if (system == 'firstMonrad') {
                         rounds = [];
-                        rounds[0] = monrad_function_1.setupFirstMonrad(this.playerKeys);
+                        rounds[0] = monrad_function_1.setupFirstMonrad(this.tournamentData.players);
                         system = 'monrad';
                     }
                     if (system == 'nextMonrad') {
                         rounds = this.tournamentData.rounds;
-                        var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players);
+                        // setup next round, pass length of rounds as roundIndex (smooth)
+                        var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+                        rounds.push(nextRound);
                         system = 'monrad';
                     }
-                    this.submit({ rounds: rounds, system: system });
+                    this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
                 };
                 TournamentAdminComponent.prototype.clearRounds = function () {
                     this.submit({ rounds: null });

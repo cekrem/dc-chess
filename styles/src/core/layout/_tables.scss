@@ -3,7 +3,7 @@
 // =============================================================================
 
 table {
-  border: 2px solid getColor(base, lines);
+  //border: 2px solid getColor(base, lines);
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
@@ -25,15 +25,16 @@ table {
 
   tfoot {
     background-color: lighten(getColor(background, light), 2.5%);
-    border-top: 2px solid getColor(base, lines);
+    //border-top: 2px solid getColor(base, lines);
   }
 
   th,
   td {
-    border-right: 2px solid getColor(base, lines);
+    border: 2px solid getColor(base, lines);
     line-height: unitSize(3);
     overflow: visible;
     padding: unitSize(1) 1em;
+    background-clip: padding-box;
 
     @media (min-width: $bp-extra-small) {
       line-height: unitSize(6);
@@ -104,10 +105,10 @@ table {
 
 // Border all
 .table--border {
-  border: 2px solid getColor(base, lines);
+  //border: 2px solid getColor(base, lines);
 
-  thead,
-  td { border-bottom: 2px solid getColor(base, lines); }
+  //thead,
+  //td { border-bottom: 2px solid getColor(base, lines); }
 }
 
 // Border outer

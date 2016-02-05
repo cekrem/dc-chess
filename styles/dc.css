@@ -117,12 +117,8 @@ label {
 }
 
 
-.dc-white {
-    background: #fff;
-}
-
-.dc-gray {
-    background: #e0e0e0
+.dc-white, dc-black {
+    border-top: none;
 }
 
 .dc-black {

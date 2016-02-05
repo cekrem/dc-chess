@@ -81,31 +81,40 @@ export class TournamentAdminComponent implements OnInit {
 
     setupRounds(system: string) {
         let rounds;
-        
-        if(system == 'clear') {
+
+        if (system == 'clear') {
             rounds = null;
             system = null;
+            
+            for (let key in this.tournamentData.players) {
+                this.tournamentData.players[key].byes = 0;
+            }
         }
 
         if (system == 'roundrobin') {
             rounds = setupRoundRobin(this.playerKeys);
+            this.submit({ rounds: rounds, system: system });
+            return;
         }
-        
+
         if (system == 'firstMonrad') {
             rounds = [];
-            rounds[0] = setupFirstMonrad(this.playerKeys);
-            
-            system = 'monrad';
-        }
-        
-        if (system == 'nextMonrad') {
-            rounds = this.tournamentData.rounds;
-            let nextRound = setupNextMonrad(this.tournamentData.players);
+            rounds[0] = setupFirstMonrad(this.tournamentData.players);
             
             system = 'monrad';
         }
 
-        this.submit({ rounds: rounds, system: system });
+        if (system == 'nextMonrad') {
+            rounds = this.tournamentData.rounds;
+            
+            // setup next round, pass length of rounds as roundIndex (smooth)
+            let nextRound = setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+            rounds.push(nextRound);
+            
+            system = 'monrad';
+        }
+        
+        this.submit({ rounds: rounds, system: system, players: this.tournamentData.players });
     }
 
     clearRounds() {
@@ -119,7 +128,7 @@ export class TournamentAdminComponent implements OnInit {
     deletePlayer(key) {
         this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
     }
-    
+
     routerOnDeactivate() {
         console.log('leaving tournament admin route!');
         this._subscription.unsubscribe();
