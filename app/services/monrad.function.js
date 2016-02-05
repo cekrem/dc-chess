@@ -79,10 +79,10 @@ System.register([], function(exports_1) {
         return arrayWithKeys;
     }
     function findNextMatch(sortedPlayers, players) {
-        // Establish current top player (black)
+        // Establish current top player (usually black)
         var blackKey = sortedPlayers[0].key;
         var black = players[blackKey];
-        // And find best match (white) (This loops through remaining players, #for-op)
+        // And find best match (usually white) (This loops through remaining players, #for-op)
         for (var index = 1; index < sortedPlayers.length; index++) {
             var potentialWhiteKey = sortedPlayers[index].key;
             var potentialWhite = players[potentialWhiteKey];
@@ -110,8 +110,16 @@ System.register([], function(exports_1) {
                 result: 0,
                 white: potentialWhiteKey
             };
+            console.log(black.blackMatches);
+            console.log(potentialWhite.blackMatches);
+            // override color if neccessary
+            if (black.blackMatches > (potentialWhite.blackMatches || 0)) {
+                console.warn('doing color override');
+                match.white = blackKey;
+                match.white = potentialWhiteKey;
+            }
             //... and removing players from sortedPlayers
-            sortedPlayers.splice(index, 1); //white
+            sortedPlayers.splice(index, 1); // white
             sortedPlayers.splice(0, 1); // black
             console.warn('Found a match, remaining players not matched: ');
             console.warn(sortedPlayers);

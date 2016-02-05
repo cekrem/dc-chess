@@ -11,9 +11,9 @@ import { AsArrayPipe } from '../services/as-array.pipe';
 export class RoundsComponent implements OnInit {
     @Input() public rounds: Array<Array<any>>;
     @Input() public players: any;
-    @Input() public system: string;
-    @Output() public dataChange: EventEmitter<any>
-    @Output() public roundsAction: EventEmitter<string>
+    @Input() public system: any;
+    @Output() public dataChange: EventEmitter<any>;
+    @Output() public roundsAction: EventEmitter<string>;
     
     public visibleRound: number;
     public monradRounds: number;
@@ -21,10 +21,22 @@ export class RoundsComponent implements OnInit {
     constructor() {
         this.dataChange = new EventEmitter();
         this.roundsAction = new EventEmitter();
+        
+        this.roundsAction
+            .subscribe((emit) => {
+                if(emit == 'nextMonrad') {
+                    setTimeout(() => this.visibleRound = this.rounds.length -1, 500);
+                }
+            })
      }
 
     ngOnInit() {
-        this.visibleRound = 0;
+        if (this.system > 0) {
+            this.visibleRound = this.rounds.length -1;
+        }
+        else {
+            this.visibleRound = 0;
+        }
         this.monradRounds = 4;
      }
 }

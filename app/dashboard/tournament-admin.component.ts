@@ -140,10 +140,5 @@ export class TournamentAdminComponent implements OnInit {
         this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
     }
 
-    routerOnDeactivate() {
-        console.log('leaving tournament admin route!');
-        this._subscription.unsubscribe();
-    }
-
     ngOnInit() { }
 }

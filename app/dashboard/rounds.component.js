@@ -21,11 +21,23 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
         execute: function() {
             RoundsComponent = (function () {
                 function RoundsComponent() {
+                    var _this = this;
                     this.dataChange = new core_1.EventEmitter();
                     this.roundsAction = new core_1.EventEmitter();
+                    this.roundsAction
+                        .subscribe(function (emit) {
+                        if (emit == 'nextMonrad') {
+                            setTimeout(function () { return _this.visibleRound = _this.rounds.length - 1; }, 500);
+                        }
+                    });
                 }
                 RoundsComponent.prototype.ngOnInit = function () {
-                    this.visibleRound = 0;
+                    if (this.system > 0) {
+                        this.visibleRound = this.rounds.length - 1;
+                    }
+                    else {
+                        this.visibleRound = 0;
+                    }
                     this.monradRounds = 4;
                 };
                 __decorate([
@@ -38,7 +50,7 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                 ], RoundsComponent.prototype, "players", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', String)
+                    __metadata('design:type', Object)
                 ], RoundsComponent.prototype, "system", void 0);
                 __decorate([
                     core_1.Output(), 
