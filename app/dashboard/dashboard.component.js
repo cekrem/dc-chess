@@ -35,7 +35,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.confirmKey = '';
                     data.getAuthAsync()
-                        .catch(function () { return router.navigate(['Home']); });
+                        .then(function (auth) { return _this.user = auth.uid; }, function () { return router.navigate(['Home']); });
                     try {
                         // If coming from a tournament , we don't wait for data
                         this.userData = data.userData;

@@ -14,7 +14,7 @@
             <p>
                 <input #license (keyup)="licenseEntry = license.value" type="text" placeholder="License key" />
             </p>
-            <button [hidden]="!licenseMatch()">Login</button>
+            <button class="button--bordered" *ngIf="licenseMatch()">Login</button>
         </fieldset>
     </form>
 </div>

@@ -28,10 +28,6 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                 PlayersComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
                     var keys = Object.keys(this.players || {});
-                    if (keys.length > 29) {
-                        alert('We’re only supporting 30 players so far.');
-                        return false;
-                    }
                     var player = { name: playerName };
                     var duplicate = false;
                     keys.forEach(function (key) {

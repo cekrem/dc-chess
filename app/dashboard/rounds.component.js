@@ -39,6 +39,12 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                         this.visibleRound = 0;
                     }
                     this.monradRounds = 4;
+                    if (this.players) {
+                        this.roundrobinRounds = Object.keys(this.players).length;
+                        if (this.roundrobinRounds % 2 === 0) {
+                            this.roundrobinRounds--;
+                        }
+                    }
                 };
                 __decorate([
                     core_1.Input(), 

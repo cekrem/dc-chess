@@ -1,4 +1,5 @@
 declare const Firebase;
+declare const tokGen;
 
 import {Injectable} from 'angular2/core';
 import { ApplicationRef } from 'angular2/core';
@@ -67,9 +68,21 @@ export class UserDataService {
             }
             
             // or login with account
-            else {
-                let FireBaseTokenGenerator = require('firebase-token-generator');
-                let tokGen = new FireBaseTokenGenerator('37JOim6ntPJNthyJ5sfrylxDBcsco3DJWkxX6qwX');
+            else { 
+                let payload = {
+                    uid: creds.user
+                }
+                
+                let token =  tokGen.createToken(payload);
+                this._baseRef.authWithCustomToken(token, (error, authData) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        console.log('Logged in as ' + creds.user);
+                        resolve('Logged in as user!');
+                    }
+                });
             }
             
             

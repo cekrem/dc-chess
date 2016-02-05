@@ -14,29 +14,38 @@ export class RoundsComponent implements OnInit {
     @Input() public system: any;
     @Output() public dataChange: EventEmitter<any>;
     @Output() public roundsAction: EventEmitter<string>;
-    
+
     public visibleRound: number;
     public monradRounds: number;
+    public roundrobinRounds: number;
 
     constructor() {
         this.dataChange = new EventEmitter();
         this.roundsAction = new EventEmitter();
-        
+
         this.roundsAction
             .subscribe((emit) => {
-                if(emit == 'nextMonrad') {
-                    setTimeout(() => this.visibleRound = this.rounds.length -1, 500);
+                if (emit == 'nextMonrad') {
+                    setTimeout(() => this.visibleRound = this.rounds.length - 1, 500);
                 }
             })
-     }
+    }
 
     ngOnInit() {
         if (this.system > 0) {
-            this.visibleRound = this.rounds.length -1;
+            this.visibleRound = this.rounds.length - 1;
         }
         else {
             this.visibleRound = 0;
         }
+
         this.monradRounds = 4;
-     }
+
+        if (this.players) {
+            this.roundrobinRounds = Object.keys(this.players).length;
+            if (this.roundrobinRounds % 2 === 0) {
+                this.roundrobinRounds--;
+            }
+        }
+    }
 }

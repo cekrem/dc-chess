@@ -14,20 +14,21 @@
 <fieldset class="form--inline">
     <legend>Match setup</legend>
     <p [hidden]="rounds">
-        <button (click)="roundsAction.emit('roundrobin')" [disabled]="((players | asArray).length < 3) || rounds" class="button--bordered button--full tooltip--bottom"
+        <button (click)="roundsAction.emit('roundrobin')" [disabled]="((players | asArray).length < 3) || ((players | asArray).length > 30)" class="button--bordered button--affix button--full tooltip--bottom"
         data-hint="All play all. 3-30 players">
             Setup roundrobin
+            <span class="affix">{{roundrobinRounds || 3}} rounds</span>
         </button>
     </p>
     <p [hidden]="rounds">
         <button [disabled]="(players | asArray).length < 7" (click)="roundsAction.emit(monradRounds)" class="button--bordered button--affix button--full">
             Setup monrad
-            <span class="affix">{{monradRounds || 4 }} rounds</span>
+            <span class="affix">{{monradRounds}} rounds</span>
         </button>
     </p>
     <p [hidden]="rounds">
         <label>Number of rounds:</label>
-        <input [disabled]="(players | asArray).length < 8" #range min="4" value="4" [max]="(players | asArray).length - 3" type="range" (change)="monradRounds = range.value">
+        <input [disabled]="(players | asArray).length < 8" #range min="4" value="4" [max]="((players | asArray).length / 2) +1" type="range" (change)="monradRounds = range.value">
     </p>
     <p *ngIf="system > 0">
         <button [disabled]="system == rounds.length" (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">

@@ -28,10 +28,6 @@ export class PlayersComponent implements OnInit {
 
     addPlayer(playerName) {
         let keys = Object.keys(this.players || {});
-        if(keys.length > 29) {
-            alert('We’re only supporting 30 players so far.')
-            return false;
-        }
         
         let player = { name: playerName };
         let duplicate = false;

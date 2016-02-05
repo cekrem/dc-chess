@@ -68,8 +68,19 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                             });
                         }
                         else {
-                            var FireBaseTokenGenerator = require('firebase-token-generator');
-                            var tokGen = new FireBaseTokenGenerator('37JOim6ntPJNthyJ5sfrylxDBcsco3DJWkxX6qwX');
+                            var payload = {
+                                uid: creds.user
+                            };
+                            var token = tokGen.createToken(payload);
+                            _this._baseRef.authWithCustomToken(token, function (error, authData) {
+                                if (error) {
+                                    reject(error);
+                                }
+                                else {
+                                    console.log('Logged in as ' + creds.user);
+                                    resolve('Logged in as user!');
+                                }
+                            });
                         }
                     });
                 };

@@ -1,4 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
+import { NgIf } from 'angular2/common';
 import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
@@ -6,7 +7,7 @@ import { UserDataService } from '../services/user-data.service';
 @Component({
     selector: 'home',
     templateUrl: './app/home/home.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, NgIf]
 })
 
 export class HomeComponent implements OnInit {
@@ -34,8 +35,8 @@ export class HomeComponent implements OnInit {
     }
 
     licenseMatch() {
-        if (this.licenseEntry == btoa(this.userEntry)
-            && this.licenseEntry !== '') {
+        if (this.licenseEntry == btoa(this.userEntry + 'dc')
+            && this.licenseEntry.length > 3) {
             console.log('Match!');
             return true;
         }

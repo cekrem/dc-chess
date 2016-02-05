@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     private _timeout: any;
     private _data: UserDataService;
 
+    public user;
     public confirmKey: string;
     public userData: any;
 
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit {
         this.confirmKey = '';
         
         data.getAuthAsync()
-            .catch(() => router.navigate(['Home']));
+            .then((auth) => this.user = auth.uid, () => router.navigate(['Home']));
                 
         try {
             // If coming from a tournament , we don't wait for data
