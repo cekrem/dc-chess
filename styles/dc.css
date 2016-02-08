@@ -59,6 +59,10 @@ label {
     line-height: 48px;
 }
 
+.dc-spacer {
+    visibility: hidden;
+}
+
 
 /* NAV */
 .dc-no-left {
@@ -79,10 +83,6 @@ label {
 .dc-no-bottom {
     border-bottom: none;
     margin-bottom: none;
-}
-
-.dc-push-up {
-    margin-top: -2px !important;
 }
 
 /* Rounds, match view */
@@ -113,14 +113,17 @@ label {
     right: 1em;
 }
 
-
 .dc-white, dc-black {
-    
+
 }
 
 .dc-black {
     background: #000 !important;
     color: #fff !important;
+}
+
+.dc-push-up {
+    margin-top: -2px !important;
 }
 
 /* Score */
