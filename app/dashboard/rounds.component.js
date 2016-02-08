@@ -26,7 +26,7 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     this.roundsAction = new core_1.EventEmitter();
                     this.roundsAction
                         .subscribe(function (emit) {
-                        if (emit == 'nextMonrad') {
+                        if ((emit == 'nextMonrad') || (emit == 'clearLast')) {
                             setTimeout(function () { return _this.visibleRound = _this.rounds.length - 1; }, 500);
                         }
                     });
@@ -41,9 +41,14 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     this.monradRounds = 4;
                     if (this.players) {
                         this.roundrobinRounds = Object.keys(this.players).length;
+                        this.nPlayers = Object.keys(this.players).length;
                         if (this.roundrobinRounds % 2 === 0) {
                             this.roundrobinRounds--;
                         }
+                    }
+                    else {
+                        this.roundrobinRounds = 0;
+                        this.nPlayers = 0;
                     }
                 };
                 __decorate([

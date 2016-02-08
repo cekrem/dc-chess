@@ -25,10 +25,10 @@ export class DashboardComponent implements OnInit {
         this._router = router;
         this._data = data;
         this.confirmKey = '';
-        
+
         data.getAuthAsync()
             .then((auth) => this.user = auth.uid, () => router.navigate(['Home']));
-                
+
         try {
             // If coming from a tournament , we don't wait for data
             this.userData = data.userData;
@@ -46,15 +46,16 @@ export class DashboardComponent implements OnInit {
             tournamentKey: key
         }]);
     }
-    
+
     addTournament() {
         let newRef = this._data.push('tournaments/');
+        let key = newRef.key();
         let path = newRef.toString();
         let safePath = btoa(path);
-        
+
         console.log(path);
-        
-        newRef.set({name: 'Blank tournament', path: safePath}); 
+
+        newRef.set({ name: 'Blank tournament', path: safePath }, () => this.openTournament(key));
     }
 
     confirmDelete(key) {
@@ -68,16 +69,16 @@ export class DashboardComponent implements OnInit {
 
         return false;
     }
-    
+
     deleteTournament(key) {
         clearTimeout(this._timeout);
         this.confirmKey = '';
-        
+
         this._data.remove('tournaments/' + key);
-        
+
         return false;
     }
-    
+
     logout() {
         this._router.navigate(['/Home'])
         this._data.logout();

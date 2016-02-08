@@ -86,6 +86,10 @@ export class TournamentAdminComponent implements OnInit {
         let rounds;
 
         if (system == 'clear') {
+            let answer = confirm('are you sure?');
+            if (!answer) {
+                return false;
+            }
             rounds = null;
             system = null;
 

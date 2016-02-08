@@ -10,13 +10,19 @@
 /* Overrides */
 
 * {
-    font-weight: normal;
+    font-weight: normal !important;
 }
+
 [container] {
     max-width: 640px;
     background: white;
-    margin-top: 80px;
     padding:20px;
+}
+
+@media (min-width: 40em) {
+    [container] {
+        margin-top: 80px;
+    }
 }
 
 .dc-narrow {

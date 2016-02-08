@@ -21,12 +21,14 @@
 
         <p>
             <label>Private:</label>
+            <button class="button--full show--xsm"></button>
             <button (click)="dataChange.emit({private: true})" [disabled]="tournament.private" class="button--bordered border--muted button--xsm">Yes</button>
             <button (click)="dataChange.emit({private: false})" [disabled]="!tournament.private" class="button--bordered border--muted button--xsm">No</button>
         </p>
 
         <p>
             <label>Tournament URL:</label>
+            <button class="button--full show--xsm"></button>
             <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.path">
                 Tournament URL (right click and copy link)
             </a>

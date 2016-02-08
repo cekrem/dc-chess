@@ -97,6 +97,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 TournamentAdminComponent.prototype.setupRounds = function (system) {
                     var rounds;
                     if (system == 'clear') {
+                        var answer = confirm('are you sure?');
+                        if (!answer) {
+                            return false;
+                        }
                         rounds = null;
                         system = null;
                         for (var key in this.tournamentData.players) {

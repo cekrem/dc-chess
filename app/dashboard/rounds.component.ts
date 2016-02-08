@@ -15,6 +15,7 @@ export class RoundsComponent implements OnInit {
     @Output() public dataChange: EventEmitter<any>;
     @Output() public roundsAction: EventEmitter<string>;
 
+    public nPlayers: number;
     public visibleRound: number;
     public monradRounds: number;
     public roundrobinRounds: number;
@@ -25,7 +26,7 @@ export class RoundsComponent implements OnInit {
 
         this.roundsAction
             .subscribe((emit) => {
-                if (emit == 'nextMonrad') {
+                if ((emit == 'nextMonrad') || (emit == 'clearLast')) {
                     setTimeout(() => this.visibleRound = this.rounds.length - 1, 500);
                 }
             })
@@ -43,9 +44,14 @@ export class RoundsComponent implements OnInit {
 
         if (this.players) {
             this.roundrobinRounds = Object.keys(this.players).length;
+            this.nPlayers = Object.keys(this.players).length;
             if (this.roundrobinRounds % 2 === 0) {
                 this.roundrobinRounds--;
             }
+        }
+        else {
+            this.roundrobinRounds = 0;
+            this.nPlayers = 0;
         }
     }
 }
