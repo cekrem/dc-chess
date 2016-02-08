@@ -2,10 +2,18 @@
     <figure class="text--center">
         <img src="./img/dc-chess-squares.png" alt="DC Chess" width="146">
     </figure>
-    <p></p>
-    <button (click)="login('demo')" class="button--bordered button--full">Try demo</button>
-    <p></p>
-    <form (submit)="login()">
+    <p *ngIf="!loggedIn">
+        <button (click)="login('demo')" class="button--bordered button--full">Try demo</button>
+    </p>
+    <p *ngIf="loggedIn">
+        <button [routerLink]="['Dashboard']" class="button--bordered button--full">Dashboard</button>
+    </p>
+    <p *ngIf="loggedIn">
+        <a (click)="logout()">
+            <small>Logout</small>
+        </a>
+    </p>
+    <form *ngIf="!loggedIn" (submit)="login()">
         <fieldset>
             <legend>Login</legend>
             <p>

@@ -30,7 +30,18 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._router = router;
                     this._data = data;
                 }
-                HomeComponent.prototype.ngOnInit = function () { };
+                HomeComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._data.getAuthAsync()
+                        .then(function (auth) {
+                        if (auth) {
+                            _this.loggedIn = true;
+                        }
+                        else {
+                            _this.loggedIn = false;
+                        }
+                    });
+                };
                 Object.defineProperty(HomeComponent.prototype, "userEntry", {
                     get: function () {
                         return this._safeUserEntry;
@@ -67,6 +78,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         alert(error);
                         _this.loading = null;
                     });
+                };
+                HomeComponent.prototype.logout = function () {
+                    this._data.logout();
+                    this.loggedIn = false;
                 };
                 HomeComponent = __decorate([
                     core_1.Component({

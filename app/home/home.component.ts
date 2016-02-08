@@ -17,13 +17,24 @@ export class HomeComponent implements OnInit {
 
     public licenseEntry: string;
     public loading: boolean;
+    public loggedIn: boolean;
 
     constructor(router: Router, data: UserDataService) {
         this._router = router;
         this._data = data;
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this._data.getAuthAsync()
+            .then(auth => {
+                if (auth) {
+                    this.loggedIn = true;
+                }
+                else {
+                    this.loggedIn = false;
+                }
+            });
+    }
 
     set userEntry(entry) {
         this._safeUserEntry = entry.replace(/\W+/g, '-').toLowerCase();
@@ -48,7 +59,7 @@ export class HomeComponent implements OnInit {
     login(demo: string) {
         console.log('logging in as ' + this.userEntry);
         this.loading = true;
-        
+
         if (!demo) {
             var creds = {
                 user: this.userEntry,
@@ -57,9 +68,14 @@ export class HomeComponent implements OnInit {
         }
 
         this._data.login(creds)
-            .then(() => this._router.navigate(['/Dashboard']), (error)=> {
+            .then(() => this._router.navigate(['/Dashboard']), (error) => {
                 alert(error);
                 this.loading = null;
             });
+    }
+
+    logout() {
+        this._data.logout();
+        this.loggedIn = false;
     }
 }
