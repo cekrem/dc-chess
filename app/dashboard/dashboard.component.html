@@ -23,7 +23,7 @@
     <div class="alert" *ngIf="userData.tournaments">
         <p><strong>Hint:</strong> Click on a tournament to manage it, right click twice to delete it.</p>
     </div>
-    <table class="table--full text--center table--border table--hoverRow">
+    <table *ngIf="userData.tournaments" class="table--full text--center table--border table--hoverRow">
         <tr *ngFor="#tournament of userData.tournaments | asArray">
             <td [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
                 {{tournament.name}}

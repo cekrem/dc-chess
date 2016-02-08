@@ -24,7 +24,7 @@ import { ScoreComponent } from './score.component';
     pipes: [AsArrayPipe]
 })
 
-export class TournamentAdminComponent implements OnInit {
+export class TournamentAdminComponent implements OnDeactivate {
     private _data: UserDataService;
     private _subscription: any;
 
@@ -38,7 +38,7 @@ export class TournamentAdminComponent implements OnInit {
         this._data = data;
         this.tournamentKey = params.get('tournamentKey');
         this.activeView = 'info';
-        
+
         data.getAuthAsync()
             .catch(() => router.navigate(['Home']));
 
@@ -147,5 +147,9 @@ export class TournamentAdminComponent implements OnInit {
         this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
     }
 
-    ngOnInit() { }
+    routerOnDeactivate() {
+        console.log('leaving admin route, cancelling subscription!');
+        this._subscription.unsubscribe();
+    }
+
 }

@@ -144,7 +144,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 TournamentAdminComponent.prototype.deletePlayer = function (key) {
                     this._data.remove('tournaments/' + this.tournamentKey + '/players/' + key);
                 };
-                TournamentAdminComponent.prototype.ngOnInit = function () { };
+                TournamentAdminComponent.prototype.routerOnDeactivate = function () {
+                    console.log('leaving admin route, cancelling subscription!');
+                    this._subscription.unsubscribe();
+                };
                 TournamentAdminComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentAdmin',
