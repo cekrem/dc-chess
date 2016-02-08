@@ -34,6 +34,7 @@ table {
     line-height: unitSize(3);
     overflow: visible;
     padding: unitSize(1) 1em;
+    padding-top: 0.7em;
     background-clip: padding-box;
 
     @media (min-width: $bp-extra-small) {
@@ -51,7 +52,10 @@ table {
       width: auto;
 
       th,
-      td { padding: 0 2.5em; }
+      td { 
+          padding: 0 2.5em; 
+          padding-top: 3px;
+          }
     }
   }
 }

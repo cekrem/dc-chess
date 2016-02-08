@@ -153,6 +153,7 @@ button, input[type="submit"],
   line-height: 48px;
   overflow: visible;
   padding: 0 2.5em;
+  padding-top: 3px !important;
   text-align: center;
   text-decoration: none;
   transition: 150ms;
@@ -830,6 +831,7 @@ table {
     line-height: 24px;
     overflow: visible;
     padding: 8px 1em;
+    padding-top: 0.7em;
     background-clip: padding-box; }
     @media (min-width: 40em) {
       table th,
@@ -843,7 +845,8 @@ table {
       width: auto; }
       table th,
       table td {
-        padding: 0 2.5em; } }
+        padding: 0 2.5em;
+        padding-top: 3px; } }
 
 .nonresponsive {
   width: auto; }

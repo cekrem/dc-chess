@@ -81,6 +81,10 @@ label {
     margin-bottom: none;
 }
 
+.dc-push-up {
+    margin-top: -2px !important;
+}
+
 /* Rounds, match view */
 .dc-player-table {
     table-layout: fixed;
