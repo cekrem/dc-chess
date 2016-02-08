@@ -23,6 +23,7 @@ export class TournamentComponent implements OnInit {
     public tournamentPath: string;
     public activeRef: Firebase;
     public tournamentData: any;
+    public visibleRound: number;
     public error: string;
     public playerKey: any;
     public joined: boolean;
@@ -40,7 +41,7 @@ export class TournamentComponent implements OnInit {
             app.tick();
             console.log('data loaded!');
         });
-        
+
         if (localStorage[this._safePath]) {
             this.joined = true;
             this.playerKey = localStorage[this._safePath];
@@ -75,11 +76,13 @@ export class TournamentComponent implements OnInit {
             let child = this.activeRef.child('players');
             this.playerKey = child.push(player).key();
             console.log(this.playerKey);
-            
+
             this.joined = true;
             localStorage[this._safePath] = this.playerKey;
         }
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+      
+    }
 }

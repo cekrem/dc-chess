@@ -1,0 +1,17 @@
+<div container *ngIf="userData" class="text--center dc-narrow">
+    <h1>{{user}}</h1>
+
+    <p></p>
+
+    <table class="table--full text--center table--border table--hoverRow">
+        <tr *ngFor="#tournament of userData.tournaments | asArray">
+            <td (click)="openTournament(tournament.path)">
+                {{tournament.name}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="!userData" class="center--all">
+    <div class="spinner"></div>
+</div>

@@ -75,7 +75,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                         localStorage[this._safePath] = this.playerKey;
                     }
                 };
-                TournamentComponent.prototype.ngOnInit = function () { };
+                TournamentComponent.prototype.ngOnInit = function () {
+                };
                 TournamentComponent = __decorate([
                     core_1.Component({
                         selector: 'tournament',

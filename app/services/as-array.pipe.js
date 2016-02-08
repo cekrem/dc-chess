@@ -35,6 +35,8 @@ System.register(['angular2/core'], function(exports_1) {
                         prop.key = key;
                         return prop;
                     });
+                    // Newest entry on top by default
+                    arrayWithKeys.reverse();
                     if (args[0] == 'length') {
                         return arrayWithKeys.length;
                     }

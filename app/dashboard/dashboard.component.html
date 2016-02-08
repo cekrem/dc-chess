@@ -1,8 +1,21 @@
 <div container *ngIf="userData" class="text--center dc-narrow">
-    <p><small>License: {{user}}</small></p>
-    <a (click)="logout()">Logout</a>
+    <p class="float--left">
+        <small>User: </small>
+        <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/user/' + user">
+            <small>{{user}}</small>
+        </a>
+    </p>
+    <p class="float--right">
+        <a (click)="logout()">
+            <small>Logout</small>
+        </a>
+    </p>
+    
+    <button class="button--full"></button>
+    
     <h1>Dashboard</h1>
-    <p></p>
+    <p>
+    </p>
     <button class="button--full button--bordered" (click)="addTournament()">
         New tournament
     </button>

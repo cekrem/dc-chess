@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TournamentAdminComponent } from './dashboard/tournament-admin.component';
 import { SearchComponent } from './search/search.component';
 import { TournamentComponent } from './tournament/tournament.component';
+import { UserComponent } from './user/user.component';
 
 @Component({
     selector: 'app',
@@ -27,8 +28,7 @@ import { TournamentComponent } from './tournament/tournament.component';
         component: DashboardComponent
     },
     {
-        // TODO: Remove this from here and include a router outlet in dashboard route? NOOO :D
-        path: '/dashboard/:tournamentKey', // this is the key, not the short id
+        path: '/dashboard/:tournamentKey', // this is the key, not the long path
         name: 'TournamentAdmin',
         component: TournamentAdminComponent
     },
@@ -41,6 +41,11 @@ import { TournamentComponent } from './tournament/tournament.component';
         path: '/tournament/:tournamentPath',
         name: 'Tournament',
         component: TournamentComponent
+    },
+    {
+        path: '/user/:user',
+        name: 'User',
+        component: UserComponent
     }
 ])
 

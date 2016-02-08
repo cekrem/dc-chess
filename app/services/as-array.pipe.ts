@@ -18,6 +18,9 @@ export class AsArrayPipe implements PipeTransform {
 
             return prop;
         });
+        
+        // Newest entry on top by default
+        arrayWithKeys.reverse();
 
         if (args[0] == 'length') {
             return arrayWithKeys.length;

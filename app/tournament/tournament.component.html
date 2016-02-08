@@ -10,7 +10,8 @@
             <p>
                 <label>Join tournament:</label>
                 <input [disabled]="tournamentData.private || tournamentData.rounds || joined" #player type="text" placeholder="Your name">
-                <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');" class="button--bordered border--muted button--xsm">
+                <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');"
+                class="button--bordered border--muted button--xsm">
                     Join
                 </button>
             </p>
@@ -18,24 +19,73 @@
         </fieldset>
     </form>
     
-    <table *ngFor="#round of tournamentData.rounds; #r = index;" class="table text--center table--full table--border">
-        <thead>
-            <tr>
-                <th>Round {{r+1}}</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="#match of round; #m = index;">
-                <td>Match {{m+1}}</td>
-                <td [class.text--success]="match.white == playerKey">{{tournamentData.players[match.white].name}}</td>
-                <td [class.text--success]="match.black == playerKey" class="dc-black">{{tournamentData.players[match.black].name}}</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <tournamentScore [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
+    <fieldset [hidden]="!tournamentData.rounds">
+
+        <legend>Matches and results</legend>
+
+        <ul class="group">
+            <li *ngFor="#round of tournamentData.rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
+                Round {{r+1}}
+            </li>
+        </ul>
+
+        <div [hidden]="r != visibleRound" *ngFor="#round of tournamentData.rounds; #r = index">
+
+            <div *ngFor="#match of round; #m = index">
+                <div *ngIf="match.result != 'bye'">
+
+                    <div class="text--center">
+                        Table {{m+1}}:
+                        <a [hidden]="match.result == 0" class="text--success text--error">
+                            <small>(clear result)</small>
+                        </a>
+                    </div>
+                    <p class="hide--xsm"></p>
+
+                    <div class="row">
+                        <label column="3">Result:</label>
+                        <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
+                            <tbody>
+                                <tr>
+                                    <td [class.bg--success]="match.result == 'white'">
+                                        <div class="right" [hidden]="match.result != 'white'">↓</div>
+                                        White
+                                    </td>
+                                    <td [class.bg--success]="match.result == 'draw'">
+                                        <div [hidden]="match.result != 'draw'">↓</div>
+                                        <div [hidden]="match.result != 'draw'" class="right">↓</div>
+                                        Draw
+                                    </td>
+                                    <td [class.bg--success]="match.result == 'black'">
+                                        <div [hidden]="match.result != 'black'">↓</div>
+                                        Black
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <label column="3">Players:</label>
+                        <table column="9" class="dc-fixed table--full text--center">
+                            <tbody>
+                                <tr>
+                                    <td class="dc-white">{{tournamentData.players[match.white].name}}</td>
+                                    <td class="dc-black">{{tournamentData.players[match.black].name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="button--full" style="visibility: hidden">space, pleace</button>
+                </div>
+
+            </div>
+        </div>
+
+    </fieldset>
+
+    <tournamentScore [hidden]="!tournamentData.players" [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
 </div>
 
 
