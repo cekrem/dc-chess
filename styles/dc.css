@@ -25,6 +25,15 @@
     }
 }
 
+@media (max-width: 40em) {
+    .group-item {
+        width: 60%;
+    }
+    .group-item:nth-child(even) {
+        float: right;
+    }
+}
+
 .dc-narrow {
     max-width: 400px;
     padding: 50px;
