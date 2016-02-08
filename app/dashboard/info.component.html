@@ -1,7 +1,6 @@
 <div class="alert">
-    <p><strong>Hint:</strong> This is where you name your tournament and enter basic info. 
-    The Tournament URL can be used to share the tournament, and if your tournament
-    is not private, people can join via the link as well.
+    <p><strong>Hint:</strong> This is where you name your tournament and enter basic info. The Tournament URL can be used to
+        share the tournament, and if your tournament is not private, people can join via the link as well.
     </p>
     <p>When you're ready, proceed to "Players" (top navigation).</p>
 </div>
@@ -32,6 +31,14 @@
             <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.path">
                 Tournament URL (right click and copy link)
             </a>
+        </p>
+        <p>
+            <label>Embed code:</label>
+            <button class="button--full show--xsm"></button>
+            <a (click)="showEmbed = true" class="text--success">
+                Show / edit embed code
+            </a>
+            <textarea cols="50" rows="6" class="float--right" *ngIf="showEmbed"><iframe src="http://dc-chess.com/tournament/{{tournament.path}}" name="frame1" scrolling="auto" frameborder="no" align="center" height="100%" width="100%"></iframe></textarea>
         </p>
     </fieldset>
 </form>

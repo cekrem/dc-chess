@@ -64,7 +64,7 @@
 
     <ul class="group">
         <li *ngFor="#round of rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
-            Round {{r+1}}<span [hidden]="system < 4">/{{system}}</span>
+            Round {{r+1}}<span *ngIf="(system > 4) && (system < 10)">/{{system}}</span>
         </li>
     </ul>
 
