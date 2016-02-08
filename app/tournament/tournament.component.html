@@ -85,7 +85,7 @@
 
     </fieldset>
 
-    <tournamentScore [hidden]="!tournamentData.players" [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
+    <tournamentScore [hidden]="1 >(tournamentData.players | asArray)" [players]="tournamentData.players" [rounds]="tournamentData.rounds" [playedMatches]="tournamentData.playedMatches"></tournamentScore>
 </div>
 
 
