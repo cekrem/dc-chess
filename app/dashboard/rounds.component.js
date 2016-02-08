@@ -38,7 +38,6 @@ System.register(['angular2/core', '../services/as-array.pipe'], function(exports
                     else {
                         this.visibleRound = 0;
                     }
-                    this.monradRounds = 4;
                     if (this.players) {
                         this.roundrobinRounds = Object.keys(this.players).length;
                         this.nPlayers = Object.keys(this.players).length;

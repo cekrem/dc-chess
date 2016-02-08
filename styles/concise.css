@@ -175,8 +175,7 @@ button, input[type="submit"],
   button[disabled], input[disabled][type="submit"],
   .button[disabled] {
     background-color: #e6e6e6;
-    color: black;
-    text-decoration: underline;
+    color: #999;
     cursor: not-allowed; }
 
 .button--muted {

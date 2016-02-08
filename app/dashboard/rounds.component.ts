@@ -17,7 +17,6 @@ export class RoundsComponent implements OnInit {
 
     public nPlayers: number;
     public visibleRound: number;
-    public monradRounds: number;
     public roundrobinRounds: number;
 
     constructor() {
@@ -39,8 +38,6 @@ export class RoundsComponent implements OnInit {
         else {
             this.visibleRound = 0;
         }
-
-        this.monradRounds = 4;
 
         if (this.players) {
             this.roundrobinRounds = Object.keys(this.players).length;
