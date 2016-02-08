@@ -53,13 +53,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                         }]);
                 };
                 DashboardComponent.prototype.addTournament = function () {
-                    var _this = this;
                     var newRef = this._data.push('tournaments/');
                     var key = newRef.key();
                     var path = newRef.toString();
                     var safePath = btoa(path);
                     console.log(path);
-                    newRef.set({ name: 'Blank tournament', path: safePath }, function () { return _this.openTournament(key); });
+                    newRef.set({ name: 'Blank tournament', path: safePath });
                 };
                 DashboardComponent.prototype.confirmDelete = function (key) {
                     var _this = this;

@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
 
         console.log(path);
 
-        newRef.set({ name: 'Blank tournament', path: safePath }, () => this.openTournament(key));
+        newRef.set({ name: 'Blank tournament', path: safePath });
     }
 
     confirmDelete(key) {
