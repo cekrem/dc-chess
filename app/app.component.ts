@@ -11,12 +11,17 @@ import { UserComponent } from './user/user.component';
 
 let label;
 
-console.warn(window.location.hostname);
 if (window.location.hostname == 'skolesjakken.dc-chess.com') {
     label = '../styles/skolesjakken.css';
+    
+    console.warn(window.location.hostname);
+    console.warn('Doing whitelabel...');
 }
 else {
     label = '../styles/concise.css';
+    
+    console.log(window.location.hostname);
+    console.log('Not doing whitelabel');
 }
 
     @Component({
