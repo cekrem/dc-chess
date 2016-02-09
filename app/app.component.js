@@ -37,6 +37,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                 user_component_1 = user_component_1_1;
             }],
         execute: function() {
+            console.warn(window.location.hostname);
             if (window.location.hostname == 'skolesjakken.dc-chess.com') {
                 label = '../styles/skolesjakken.css';
             }

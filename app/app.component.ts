@@ -10,6 +10,8 @@ import { TournamentComponent } from './tournament/tournament.component';
 import { UserComponent } from './user/user.component';
 
 let label;
+
+console.warn(window.location.hostname);
 if (window.location.hostname == 'skolesjakken.dc-chess.com') {
     label = '../styles/skolesjakken.css';
 }
