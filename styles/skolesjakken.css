@@ -7,6 +7,17 @@
  * http://opensource.org/licenses/MIT
  *
  */
+ 
+ .app-logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 300px;
+    background: url('/img/skolesjakken.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+ 
 .table--hoverRow tbody tr:hover {
   background-color: #4a358b !important;
   color: white; }

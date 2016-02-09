@@ -2046,3 +2046,13 @@ ol.dropdown-content {
 
 .tooltip--always .tooltip--left:before, .tooltip--always .tooltip--left:after {
   transform: translateX(8px); }
+
+.app-logo {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 120px;
+  background: url("/img/dc.png");
+  background-size: 200px;
+  margin-top: 20px;
+  margin-bottom: 40px; }

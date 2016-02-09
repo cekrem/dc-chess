@@ -8,27 +8,13 @@ import { TournamentAdminComponent } from './dashboard/tournament-admin.component
 import { SearchComponent } from './search/search.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { UserComponent } from './user/user.component';
-
-let label;
-
-if (window.location.hostname == 'skolesjakken.dc-chess.com') {
-    label = '../styles/skolesjakken.css';
-    
-    console.warn(window.location.hostname);
-    console.warn('Doing whitelabel...');
-}
-else {
-    label = '../styles/concise.css';
-    
-    console.log(window.location.hostname);
-    console.log('Not doing whitelabel');
-}
+import { setTheme } from './theme.function';
 
     @Component({
         selector: 'app',
         template: '<router-outlet></router-outlet>',
         directives: [ROUTER_DIRECTIVES],
-        styleUrls: [label, '../styles/dc.css'],
+        styleUrls: [setTheme(), '../styles/dc.css'],
         encapsulation: ViewEncapsulation.None
     })
 

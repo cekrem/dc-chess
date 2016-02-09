@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './home/home.component', './dashboard/dashboard.component', './dashboard/tournament-admin.component', './search/search.component', './tournament/tournament.component', './user/user.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './home/home.component', './dashboard/dashboard.component', './dashboard/tournament-admin.component', './search/search.component', './tournament/tournament.component', './user/user.component', './theme.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, home_component_1, dashboard_component_1, tournament_admin_component_1, search_component_1, tournament_component_1, user_component_1;
-    var label, AppComponent;
+    var core_1, router_1, home_component_1, dashboard_component_1, tournament_admin_component_1, search_component_1, tournament_component_1, user_component_1, theme_function_1;
+    var AppComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -35,18 +35,11 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
             },
             function (user_component_1_1) {
                 user_component_1 = user_component_1_1;
+            },
+            function (theme_function_1_1) {
+                theme_function_1 = theme_function_1_1;
             }],
         execute: function() {
-            if (window.location.hostname == 'skolesjakken.dc-chess.com') {
-                label = '../styles/skolesjakken.css';
-                console.warn(window.location.hostname);
-                console.warn('Doing whitelabel...');
-            }
-            else {
-                label = '../styles/concise.css';
-                console.log(window.location.hostname);
-                console.log('Not doing whitelabel');
-            }
             AppComponent = (function () {
                 function AppComponent() {
                 }
@@ -56,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                         selector: 'app',
                         template: '<router-outlet></router-outlet>',
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        styleUrls: [label, '../styles/dc.css'],
+                        styleUrls: [theme_function_1.setTheme(), '../styles/dc.css'],
                         encapsulation: core_1.ViewEncapsulation.None
                     }),
                     router_1.RouteConfig([
