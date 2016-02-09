@@ -9,7 +9,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, home_component_1, dashboard_component_1, tournament_admin_component_1, search_component_1, tournament_component_1, user_component_1;
-    var AppComponent;
+    var label, AppComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -37,6 +37,12 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                 user_component_1 = user_component_1_1;
             }],
         execute: function() {
+            if (window.location.hostname == 'skolesjakken.dc-chess.com') {
+                label = '../styles/skolesjakken.css';
+            }
+            else {
+                label = '../styles/concise.css';
+            }
             AppComponent = (function () {
                 function AppComponent() {
                 }
@@ -45,7 +51,9 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                     core_1.Component({
                         selector: 'app',
                         template: '<router-outlet></router-outlet>',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        styleUrls: [label, '../styles/dc.css'],
+                        encapsulation: core_1.ViewEncapsulation.None
                     }),
                     router_1.RouteConfig([
                         {

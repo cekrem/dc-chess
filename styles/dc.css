@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Calibre-Medium';
-  src: url('calibre/Calibre-Medium.eot?#iefix') format('embedded-opentype'),  url('calibre/Calibre-Medium.otf')  format('opentype'),
-	     url('calibre/Calibre-Medium.woff') format('woff'), url('calibre/Calibre-Medium.ttf')  format('truetype'), url('calibre/Calibre-Medium.svg#calibre/Calibre-Medium') format('svg');
+  src: url('styles/calibre/Calibre-Medium.eot?#iefix') format('embedded-opentype'),  url('styles/calibre/Calibre-Medium.otf')  format('opentype'),
+	     url('styles/calibre/Calibre-Medium.woff') format('woff'), url('styles/calibre/Calibre-Medium.ttf')  format('truetype'), url('styles/calibre/Calibre-Medium.svg#calibre/Calibre-Medium') format('svg');
   font-weight: normal;
   font-style: normal;
 }
