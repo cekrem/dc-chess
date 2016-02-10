@@ -1,8 +1,7 @@
 System.register([], function(exports_1) {
     function setTheme() {
         var themeUrl;
-        if (window.location.hostname == 'skolesjakken.dc-chess.com' ||
-            (window.location.hash.indexOf('#skolesjakken')) > -1) {
+        if ((window.location.hash.indexOf('#skolesjakken')) > -1) {
             themeUrl = '../styles/skolesjakken.css';
             console.warn(window.location.hostname);
             console.warn(window.location.hash);

@@ -68,12 +68,12 @@ export class UserDataService {
             }
             
             // or login with account
-            else { 
+            else {
                 let payload = {
                     uid: creds.user
                 }
-                
-                let token =  tokGen.createToken(payload);
+
+                let token = tokGen.createToken(payload);
                 this._baseRef.authWithCustomToken(token, (error, authData) => {
                     if (error) {
                         reject(error);
@@ -84,8 +84,8 @@ export class UserDataService {
                     }
                 });
             }
-            
-            
+
+
         })
     }
 
@@ -117,6 +117,17 @@ export class UserDataService {
             this._observer.next(snapshot.val());
             this._app.tick(); // I THINK THIS WORKS! :D
         });
+        
+        // set licenseStart
+        let licenseStartRef = this._userRef.child('licenseStart');
+        licenseStartRef.once('value', snapshot => {
+            let licenseStart = snapshot.val();
+            if (!licenseStart) {
+                console.log('First login!');
+                licenseStartRef.set(Date.now());
+            }
+        })
+
     }
 
     remove(path: string = 'failsafe') {

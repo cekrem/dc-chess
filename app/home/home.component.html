@@ -1,9 +1,6 @@
 <div container class="text--center dc-narrow">
     <div class="app-logo"></div>
     
-    <p *ngIf="!loggedIn">
-        <button (click)="login('demo')" class="button--bordered button--full">Try demo</button>
-    </p>
     <p *ngIf="loggedIn">
         <button [routerLink]="['Dashboard']" class="button--bordered button--full">Dashboard</button>
     </p>

@@ -111,6 +111,15 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         _this._observer.next(snapshot.val());
                         _this._app.tick(); // I THINK THIS WORKS! :D
                     });
+                    // set licenseStart
+                    var licenseStartRef = this._userRef.child('licenseStart');
+                    licenseStartRef.once('value', function (snapshot) {
+                        var licenseStart = snapshot.val();
+                        if (!licenseStart) {
+                            console.log('First login!');
+                            licenseStartRef.set(Date.now());
+                        }
+                    });
                 };
                 UserDataService.prototype.remove = function (path) {
                     if (path === void 0) { path = 'failsafe'; }
