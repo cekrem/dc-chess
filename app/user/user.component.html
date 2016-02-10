@@ -12,6 +12,9 @@
     </table>
 </div>
 
-<div *ngIf="!userData" class="center--all">
+<div *ngIf="!userData && !noUser" class="center--all">
     <div class="spinner"></div>
+</div>
+<div *ngIf="noUser" class="center--all">
+    <h1>User not found! :(</h1>
 </div>

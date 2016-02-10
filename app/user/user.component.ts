@@ -16,6 +16,7 @@ export class UserComponent implements OnInit {
 
     public user: string;
     public userData: any;
+    public noUser: boolean;
 
     constructor(router: Router, params: RouteParams, app: ApplicationRef) {
         this._router = router;
@@ -26,8 +27,15 @@ export class UserComponent implements OnInit {
 
         this._userRef.on('value', (snapshot) => {
             this.userData = snapshot.val();
-            app.tick();
             console.log('userData loaded!');
+            
+            if (!this.userData) {
+                this.noUser = true;
+            }
+            else {
+                this.noUser = false;
+            }
+            app.tick();
         });
     }
 

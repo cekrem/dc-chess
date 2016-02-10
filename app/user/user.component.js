@@ -31,8 +31,14 @@ System.register(['angular2/core', 'angular2/router', '../services/as-array.pipe'
                     this._userRef = new Firebase(this._baseUrl + this.user);
                     this._userRef.on('value', function (snapshot) {
                         _this.userData = snapshot.val();
-                        app.tick();
                         console.log('userData loaded!');
+                        if (!_this.userData) {
+                            _this.noUser = true;
+                        }
+                        else {
+                            _this.noUser = false;
+                        }
+                        app.tick();
                     });
                 }
                 UserComponent.prototype.openTournament = function (path) {
