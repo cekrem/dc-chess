@@ -41,6 +41,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             _this.loggedIn = false;
                         }
                     });
+                    if (!!window.chrome) {
+                        this.isChrome = true;
+                    }
+                    else {
+                        this.isChrome = false;
+                    }
                 };
                 Object.defineProperty(HomeComponent.prototype, "userEntry", {
                     get: function () {

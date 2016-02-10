@@ -21,6 +21,15 @@
             <button class="button--bordered" *ngIf="licenseMatch()">Login</button>
         </fieldset>
     </form>
+    
+    <div [hidden]="isChrome" class="alert text--left">
+        <p>
+            <small><small>
+                Note: This app should run fine on any modern browser, but is specifically designed for Google Chrome. <br><br>
+                <a href="https://www.google.com/chrome">Get Chrome</a>
+            </small></small>
+        </p>
+    </div>
 </div>
 <div [hidden]="!loading" class="center--all">
     <div class="spinner"></div>

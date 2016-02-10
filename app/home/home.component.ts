@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     public licenseEntry: string;
     public loading: boolean;
     public loggedIn: boolean;
+    public isChrome: boolean;
 
     constructor(router: Router, data: UserDataService) {
         this._router = router;
@@ -34,6 +35,13 @@ export class HomeComponent implements OnInit {
                     this.loggedIn = false;
                 }
             });
+
+        if (!!window.chrome) {
+            this.isChrome = true;
+        }
+        else {
+            this.isChrome = false;
+        }
     }
 
     set userEntry(entry) {
