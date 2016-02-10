@@ -36,11 +36,6 @@ import { setTheme } from './theme.function';
             component: TournamentAdminComponent
         },
         {
-            path: '/search',
-            name: 'Search',
-            component: SearchComponent
-        },
-        {
             path: '/tournament/:tournamentPath',
             name: 'Tournament',
             component: TournamentComponent
