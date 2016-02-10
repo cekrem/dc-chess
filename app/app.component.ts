@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TournamentAdminComponent } from './dashboard/tournament-admin.component';
-import { SearchComponent } from './search/search.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { UserComponent } from './user/user.component';
 import { setTheme } from './theme.function';

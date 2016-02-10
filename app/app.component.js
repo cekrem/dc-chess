@@ -72,11 +72,6 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                             component: tournament_component_1.TournamentComponent
                         },
                         {
-                            path: '/user/',
-                            name: 'Users',
-                            component: user_component_1.UserComponent
-                        },
-                        {
                             path: '/user/:user',
                             name: 'User',
                             component: user_component_1.UserComponent
