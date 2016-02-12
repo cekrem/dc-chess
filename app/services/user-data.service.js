@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, core_2, Observable_1;
+    var core_1, core_2, http_1, Observable_1;
     var UserDataService;
     return {
         setters:[
@@ -16,14 +16,18 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 core_1 = core_1_1;
                 core_2 = core_1_1;
             },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
             }],
         execute: function() {
             UserDataService = (function () {
-                function UserDataService(app) {
+                function UserDataService(app, http) {
                     var _this = this;
                     this._app = app;
+                    this._http = http;
                     this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
                     this._baseRef = new Firebase(this._baseUrl);
                     this.subscription = new Observable_1.Observable(function (observer) {
@@ -55,33 +59,32 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                         if (_this._userRef) {
                             resolve('already logged in!');
                         }
-                        // Login anonymously for demo mode
-                        if (!creds) {
-                            _this._baseRef.authAnonymously(function (error, authData) {
-                                if (error) {
-                                    reject(error);
-                                }
-                                else {
-                                    console.log('Logged in anonymously');
-                                    resolve('anonymous login');
-                                }
-                            });
-                        }
-                        else {
-                            var payload = {
-                                uid: creds.user
-                            };
-                            var token = tokGen.createToken(payload);
-                            _this._baseRef.authWithCustomToken(token, function (error, authData) {
-                                if (error) {
-                                    reject(error);
-                                }
-                                else {
-                                    console.log('Logged in as ' + creds.user);
-                                    resolve('Logged in as user!');
-                                }
-                            });
-                        }
+                        // login with account
+                        var headers = new http_1.Headers();
+                        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                        var payload = 'user=' + creds.user + '&license=' + creds.license;
+                        var token;
+                        _this._http.post('http://dc-chess.com/login/index.php', payload, {
+                            headers: headers
+                        })
+                            .map(function (res) { return res.json(); })
+                            .subscribe(function (res) {
+                            if (res.length < 25) {
+                                reject(res);
+                            }
+                            else {
+                                // Login with token
+                                _this._baseRef.authWithCustomToken(res, function (error, authData) {
+                                    if (error) {
+                                        reject(error);
+                                    }
+                                    else {
+                                        console.log('Logged in as ' + creds.user);
+                                        resolve('Logged in as user!');
+                                    }
+                                });
+                            }
+                        });
                     });
                 };
                 UserDataService.prototype.logout = function () {
@@ -136,7 +139,7 @@ System.register(['angular2/core', 'rxjs/Observable'], function(exports_1) {
                 };
                 UserDataService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [core_2.ApplicationRef])
+                    __metadata('design:paramtypes', [core_2.ApplicationRef, http_1.Http])
                 ], UserDataService);
                 return UserDataService;
             })();

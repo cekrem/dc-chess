@@ -59,16 +59,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     enumerable: true,
                     configurable: true
                 });
-                HomeComponent.prototype.licenseMatch = function () {
-                    if (this.licenseEntry == btoa(this.userEntry + 'dc')
-                        && this.licenseEntry.length > 3) {
-                        console.log('Match!');
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                };
                 HomeComponent.prototype.login = function (demo) {
                     var _this = this;
                     console.log('logging in as ' + this.userEntry);

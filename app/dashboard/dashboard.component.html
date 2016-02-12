@@ -14,7 +14,7 @@
     <button class="button--full dc-spacer"></button>
 
     <h1>Dashboard</h1>
-    <p><small>License expires: {{userData.licenseStart + 31536000000 | date}}</small></p>
+    <p><small *ngIf="userData.licenseStart">License expires: {{userData.licenseStart + 31536000000 | date}}</small></p>
     <p>
     </p>
     <button class="button--full button--bordered" (click)="addTournament()">

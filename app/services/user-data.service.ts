@@ -1,13 +1,15 @@
 declare const Firebase;
 declare const tokGen;
 
-import {Injectable} from 'angular2/core';
+import { Injectable } from 'angular2/core';
 import { ApplicationRef } from 'angular2/core';
+import { Http, Headers } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserDataService {
     private _app: ApplicationRef;
+    private _http: Http;
     private _baseUrl: string;
     private _baseRef: Firebase;
     private _userRef: Firebase;
@@ -17,8 +19,9 @@ export class UserDataService {
     public userData: any;
     public subscription: Observable<any>;
 
-    constructor(app: ApplicationRef) {
+    constructor(app: ApplicationRef, http: Http) {
         this._app = app;
+        this._http = http;
         this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
         this._baseRef = new Firebase(this._baseUrl);
 
@@ -54,39 +57,35 @@ export class UserDataService {
                 resolve('already logged in!');
             }
             
-            // Login anonymously for demo mode
-            if (!creds) {
-                this._baseRef.authAnonymously((error, authData) => {
-                    if (error) {
-                        reject(error);
+            // login with account
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+            let payload = 'user=' + creds.user + '&license=' + creds.license;
+            let token;
+
+            this._http.post('http://dc-chess.com/login/index.php', payload, {
+                headers: headers
+            })
+                .map(res => res.json())
+                .subscribe(res => {
+                    if (res.length < 25) {
+                        reject(res);
                     }
                     else {
-                        console.log('Logged in anonymously');
-                        resolve('anonymous login');
+                        // Login with token
+                        this._baseRef.authWithCustomToken(res, (error, authData) => {
+                            if (error) {
+                                reject(error);
+                            }
+                            else {
+                                console.log('Logged in as ' + creds.user);
+                                resolve('Logged in as user!');
+                            }
+                        });
                     }
-                });
-            }
-            
-            // or login with account
-            else {
-                let payload = {
-                    uid: creds.user
-                }
-
-                let token = tokGen.createToken(payload);
-                this._baseRef.authWithCustomToken(token, (error, authData) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    else {
-                        console.log('Logged in as ' + creds.user);
-                        resolve('Logged in as user!');
-                    }
-                });
-            }
-
-
-        })
+                })
+        });
     }
 
     logout() {

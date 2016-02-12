@@ -53,17 +53,6 @@ export class HomeComponent implements OnInit {
         return this._safeUserEntry;
     }
 
-    licenseMatch() {
-        if (this.licenseEntry == btoa(this.userEntry + 'dc')
-            && this.licenseEntry.length > 3) {
-            console.log('Match!');
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     login(demo: string) {
         console.log('logging in as ' + this.userEntry);
         this.loading = true;
