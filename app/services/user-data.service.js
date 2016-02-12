@@ -55,6 +55,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                 UserDataService.prototype.login = function (creds) {
                     var _this = this;
                     return new Promise(function (resolve, reject) {
+                        // Ignore empty requests
+                        if (!creds.user || !creds.license) {
+                            reject('');
+                        }
                         // Don't login twice! :)
                         if (_this._userRef) {
                             resolve('already logged in!');

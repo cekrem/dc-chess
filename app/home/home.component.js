@@ -54,7 +54,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     },
                     set: function (entry) {
                         this._safeUserEntry = entry.replace(/\W+/g, '-').toLowerCase();
-                        console.log(this._safeUserEntry);
                     },
                     enumerable: true,
                     configurable: true
@@ -71,7 +70,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     }
                     this._data.login(creds)
                         .then(function () { return _this._router.navigate(['/Dashboard']); }, function (error) {
-                        alert(error);
+                        _this.error = error;
                         _this.loading = null;
                     });
                 };

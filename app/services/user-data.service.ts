@@ -52,6 +52,11 @@ export class UserDataService {
 
     login(creds) {
         return new Promise((resolve, reject) => {
+            // Ignore empty requests
+            if (!creds.user || !creds.license) {
+                reject('');
+            }
+            
             // Don't login twice! :)
             if (this._userRef) {
                 resolve('already logged in!');

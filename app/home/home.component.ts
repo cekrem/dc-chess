@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     private _data: UserDataService;
 
     public licenseEntry: string;
+    public error: string;
     public loading: boolean;
     public loggedIn: boolean;
     public isChrome: boolean;
@@ -46,7 +47,6 @@ export class HomeComponent implements OnInit {
 
     set userEntry(entry) {
         this._safeUserEntry = entry.replace(/\W+/g, '-').toLowerCase();
-        console.log(this._safeUserEntry);
     }
 
     get userEntry() {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
 
         this._data.login(creds)
             .then(() => this._router.navigate(['/Dashboard']), (error) => {
-                alert(error);
+                this.error = error;
                 this.loading = null;
             });
     }

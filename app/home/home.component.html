@@ -13,10 +13,13 @@
         <fieldset>
             <legend>Login</legend>
             <p>
-                <input #user (keyup)="userEntry = user.value" type="text" placeholder="User name" />
+                <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="User name" />
             </p>
             <p>
-                <input #license (keyup)="licenseEntry = license.value" type="text" placeholder="License key" />
+                <input #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="License key" />
+            </p>
+            <p *ngIf="error">
+                <small class="text--error">{{error}}</small>
             </p>
             <button class="button--bordered">Login</button>
         </fieldset>
