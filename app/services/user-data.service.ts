@@ -67,7 +67,6 @@ export class UserDataService {
             headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
             let payload = 'user=' + creds.user + '&license=' + creds.license;
-            let token;
 
             this._http.post('http://dc-chess.com/login/index.php', payload, {
                 headers: headers

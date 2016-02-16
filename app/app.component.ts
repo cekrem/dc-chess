@@ -7,6 +7,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TournamentAdminComponent } from './dashboard/tournament-admin.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { UserComponent } from './user/user.component';
+import { LicenseComponent } from './license/license.component';
+
 import { setTheme } from './theme.function';
 
     @Component({
@@ -43,6 +45,11 @@ import { setTheme } from './theme.function';
             path: '/user/:user',
             name: 'User',
             component: UserComponent
+        },
+        {
+            path: '/license/',
+            name: 'License',
+            component: LicenseComponent
         }
     ])
 

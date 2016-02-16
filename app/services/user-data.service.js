@@ -67,7 +67,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                         var headers = new http_1.Headers();
                         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
                         var payload = 'user=' + creds.user + '&license=' + creds.license;
-                        var token;
                         _this._http.post('http://dc-chess.com/login/index.php', payload, {
                             headers: headers
                         })

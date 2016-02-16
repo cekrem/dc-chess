@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './home/home.component', './dashboard/dashboard.component', './dashboard/tournament-admin.component', './tournament/tournament.component', './user/user.component', './theme.function'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './home/home.component', './dashboard/dashboard.component', './dashboard/tournament-admin.component', './tournament/tournament.component', './user/user.component', './license/license.component', './theme.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, home_component_1, dashboard_component_1, tournament_admin_component_1, tournament_component_1, user_component_1, theme_function_1;
+    var core_1, router_1, home_component_1, dashboard_component_1, tournament_admin_component_1, tournament_component_1, user_component_1, license_component_1, theme_function_1;
     var AppComponent;
     return {
         setters:[
@@ -32,6 +32,9 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
             },
             function (user_component_1_1) {
                 user_component_1 = user_component_1_1;
+            },
+            function (license_component_1_1) {
+                license_component_1 = license_component_1_1;
             },
             function (theme_function_1_1) {
                 theme_function_1 = theme_function_1_1;
@@ -75,6 +78,11 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                             path: '/user/:user',
                             name: 'User',
                             component: user_component_1.UserComponent
+                        },
+                        {
+                            path: '/license/',
+                            name: 'License',
+                            component: license_component_1.LicenseComponent
                         }
                     ]), 
                     __metadata('design:paramtypes', [])
