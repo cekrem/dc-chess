@@ -1,29 +1,3 @@
-<div class="center--all">
-    <!-- New license -->
-    <form class="form--inline text--left" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
-        <fieldset>
-            <legend>
-                Buy License
-            </legend>
-            
-            <p>
-                <input type="email" placeholder="Email">
-            </p>
-            <p>
-                <input type="text" placeholder="Username">
-            </p>
-            <hr>
-            <p>
-                <input ngControl="number" type="text" placeholder="Card number">
-            </p>
-            <p>
-                <input ngControl="exp_month" type="number" min="01" max="12" placeholder="Month">
-                <input ngControl="exp_year" type="number" min="2016" max="2040" placeholder="Year">
-            </p>
-            <p>
-                <input ngControl="cvc" type="number" placeholder="CVC">
-            </p>
-            <button class="button--bordered button--full">Buy</button>
-        </fieldset>
-    </form>
-</div>
+<button (click)="buy()" class="button--bordered button--xsm">
+    Buy license
+</button>

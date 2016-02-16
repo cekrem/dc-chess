@@ -1,45 +1,55 @@
-declare const Stripe;
+declare const StripeCheckout;
 
-import { Component, OnInit } from 'angular2/core';
-import { FORM_DIRECTIVES } from 'angular2/common';
+import { Component, OnInit, EventEmitter, Output } from 'angular2/core';
 import { Http, Headers } from 'angular2/http';
 
 @Component({
     selector: 'license',
-    templateUrl: '/app/license/license.component.html',
-    directives: [FORM_DIRECTIVES]
+    templateUrl: '/app/license/license.component.html'
 })
 
 export class LicenseComponent implements OnInit {
     private _http: Http;
+    private _handler: any;
+    
+    @Output() public response: EventEmitter<Array<string>>;
 
     constructor(http: Http) {
+        this.response = new EventEmitter();
+        
         this._http = http;
-        Stripe.setPublishableKey('pk_test_MW11sALBW0Sbkf4slADJvX6U');
-    }
-
-    ngOnInit() { }
-    onSubmit(value) {
-        console.log(value);
-        Stripe.card.createToken(value, (status, response) => {
-            if (response.error) {
-                alert(response.error.message);
-            }
-            else {
-                console.log(response.id);
+        this._handler = StripeCheckout.configure({
+            key: 'pk_test_MW11sALBW0Sbkf4slADJvX6U',
+            image: 'https://s3.amazonaws.com/stripe-uploads/acct_17et1FEqcpzC3Dk3merchant-icon-1455617968443-dc.png',
+            locale: 'auto',
+            token: (token) => {
                 let headers = new Headers();
                 headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+         
+                let username = token.email.replace(/\W+/g, '-').toLowerCase();
+                let payload = 'stripeToken=' + token.id + '&stripeEmail=' + token.email + '&username=' + username;
 
-                let payload = 'stripeToken=' + response.id;
-
-                this._http.post('http://dc-chess.com/license/buy.php', payload, {
+                this._http.post('http://dc-chess.com/license/charge.php', payload, {
                     headers: headers
                 })
                     .map(res => res.json())
                     .subscribe(res => {
                         console.log(res);
-                    })
+                        this.response.emit(res);
+                    });
             }
         });
     }
+
+    buy() {
+        this._handler.open({
+            name: 'DC Apps AS',
+            description: 'One year license',
+            currency: 'nok',
+            amount: 100000
+        });
+    }
+
+
+    ngOnInit() { }
 }

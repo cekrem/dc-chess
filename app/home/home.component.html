@@ -1,5 +1,9 @@
 <div container class="text--center dc-narrow">
     <div class="app-logo"></div>
+
+    <p>
+        <license (response)="paymentResponse($event)"></license>
+    </p>
     
     <p *ngIf="loggedIn">
         <button [routerLink]="['Dashboard']" class="button--bordered button--full">Dashboard</button>
@@ -24,7 +28,7 @@
             <button class="button--bordered">Login</button>
         </fieldset>
     </form>
-    
+
     <div [hidden]="isChrome" class="alert text--left">
         <p>
             <small><small>

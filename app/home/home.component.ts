@@ -3,11 +3,12 @@ import { NgIf } from 'angular2/common';
 import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
+import { LicenseComponent } from '../license/license.component';
 
 @Component({
     selector: 'home',
     templateUrl: './app/home/home.component.html',
-    directives: [ROUTER_DIRECTIVES, NgIf]
+    directives: [ROUTER_DIRECTIVES, NgIf, LicenseComponent]
 })
 
 export class HomeComponent implements OnInit {
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
         return this._safeUserEntry;
     }
 
-    login(demo: string) {
+    login(demo?: string) {
         console.log('logging in as ' + this.userEntry);
         this.loading = true;
 
@@ -74,5 +75,14 @@ export class HomeComponent implements OnInit {
     logout() {
         this._data.logout();
         this.loggedIn = false;
+    }
+    
+    paymentResponse(data) {
+        console.log(data);
+        
+        this._safeUserEntry = data[0];
+        this.licenseEntry = data[1];
+        
+        this.login();
     }
 }
