@@ -141,6 +141,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                         setTimeout(function () {
                             alert('Your time is up!');
                             _this.logout();
+                            window.location.assign('http://dc-chess.com');
                         }, 300000);
                     }
                     else {

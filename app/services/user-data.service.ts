@@ -143,9 +143,11 @@ export class UserDataService {
         if (uid.length > 32) {
             console.log('Setting up demo timer...');
             this._userRef.onDisconnect().remove();
+            
             setTimeout(() => {
                 alert('Your time is up!');
                 this.logout();
+                window.location.assign('http://dc-chess.com');
             }, 300000)
         }
         else {
