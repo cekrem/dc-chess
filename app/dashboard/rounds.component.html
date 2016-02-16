@@ -11,9 +11,9 @@
     <p>Check out current score at any time on the "Score" tab (top navigation).</p>
 </div>
 
-<fieldset class="form--inline">
+<fieldset>
     <legend>Match setup</legend>
-    
+
     <!-- Roundrobin -->
     <p [hidden]="rounds">
         <button (click)="roundsAction.emit('roundrobin')" [disabled]="((nPlayers < 3) || (nPlayers > 30))" class="button--bordered button--full">
@@ -21,26 +21,31 @@
             <span [hidden]="((nPlayers < 3) || (nPlayers > 30))">({{roundrobinRounds}} rounds)</span>
         </button>
     </p>
-    
+
     <!-- Monrad -->
     <p [hidden]="rounds">
         <!-- 5 rounds -->
         <button [disabled]="nPlayers < 8" (click)="roundsAction.emit(5)" class="button--bordered button--full">
             Monrad (5 rounds)
         </button>
-        
+
         <!-- 7 rounds -->
         <button [disabled]="nPlayers < 12" (click)="roundsAction.emit(7)" class="dc-no-top button--bordered button--full">
             Monrad (7 rounds)
         </button>
-        
+
         <!-- 9 rounds -->
         <button [disabled]="nPlayers < 20" (click)="roundsAction.emit(9)" class="dc-no-top button--bordered button--full">
             Monrad (9 rounds)
         </button>
     </p>
-    
+
     <!-- Monrad clear/setup last/next -->
+    <p *ngIf="system > 0">
+        <button (click)="showModal = true" class="button--bordered button--full">
+            Remove player
+        </button>
+    </p>
     <p *ngIf="system > 0">
         <button [disabled]="system == rounds.length" (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">
             Setup next round
@@ -51,7 +56,7 @@
             Clear last round
         </button>
     </p>
-    
+
     <!-- Clear all! -->
     <p [hidden]="!rounds">
         <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--bordered border--error button--full tooltip--bottom">Clear rounds!</button>
@@ -72,7 +77,7 @@
 
         <div *ngFor="#match of round; #m = index">
             <div *ngIf="match.result != 'bye'">
-                
+
                 <div class="text--center">
                     Table {{m+1}}:
                     <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
@@ -82,7 +87,9 @@
                 <p class="hide--xsm"></p>
 
                 <div class="row">
-                    <div class="hide--xsm"><label column="3">Result:</label></div>
+                    <div class="hide--xsm">
+                        <label column="3">Result:</label>
+                    </div>
                     <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
                         <tbody>
                             <tr>
@@ -105,7 +112,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="hide--xsm"><label column="3">Players:</label></div>
+                    <div class="hide--xsm">
+                        <label column="3">Players:</label>
+                    </div>
                     <table column="9" class="dc-fixed table--full text--center dc-push-up">
                         <tbody>
                             <tr>
@@ -123,3 +132,31 @@
     </div>
 
 </fieldset>
+
+<div class="modal" [class.dc-show]="showModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            Click player if he / she has left early
+
+            <a (click)="showModal = false" class="modal-close">&times;</a>
+        </div>
+
+        <div class="modal-body">
+            <table class="table--border table--full table--hoverRow">
+
+                <tbody>
+                    <tr *ngFor="#player of players | asArray">
+                        <td [class.dc-has-left]="player.hasLeft" (click)="player.hasLeft = !player.hasLeft; dataChange.emit({players: players})">
+                            {{player.name}}<span [hidden]="!player.hasLeft"> (not playing)</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="modal-footer">
+            <p>Note: players who leave can enter gain in later rounds, and will stay on the scoreboard.</p>
+        </div>
+    </div>
+</div>

@@ -34,13 +34,15 @@ export function setupNextMonrad(players: any, roundIndex: number) {
     let playersWithKeys = makeArrayWithKeys(players);
     let sortedPlayers = playersWithKeys.sort((a, b) => b.points - a.points);
     
+    console.error(sortedPlayers.length);
     // If player leaves tournament, remove from matching, not from score or player list
-    for (let index = 0; index < sortedPlayers.length; index++) {
+    for (let index = sortedPlayers.length-1; index > -1; index--) {
         let player = sortedPlayers[index];
         if (player.hasLeft) {
             sortedPlayers.splice(index, 1);
         }
     }
+    console.error(sortedPlayers.length);
 
     // Give bye to player with lowest score
     if (sortedPlayers.length % 2 !== 0) {

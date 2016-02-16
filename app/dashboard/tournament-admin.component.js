@@ -128,7 +128,13 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     if (system == 'nextMonrad') {
                         rounds = this.tournamentData.rounds;
                         // setup next round, pass length of rounds as roundIndex (smooth)
-                        var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+                        try {
+                            var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+                        }
+                        catch (error) {
+                            alert('Could not setup next round: there are too few players to avoid rematches. As a last resort, un-remove players that has left and give walkovers instead.');
+                            return;
+                        }
                         rounds.push(nextRound);
                         system = 'monrad';
                         this.submit({ rounds: rounds, players: this.tournamentData.players });

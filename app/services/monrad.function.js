@@ -28,13 +28,15 @@ System.register([], function(exports_1) {
     function setupNextMonrad(players, roundIndex) {
         var playersWithKeys = makeArrayWithKeys(players);
         var sortedPlayers = playersWithKeys.sort(function (a, b) { return b.points - a.points; });
+        console.error(sortedPlayers.length);
         // If player leaves tournament, remove from matching, not from score or player list
-        for (var index = 0; index < sortedPlayers.length; index++) {
+        for (var index = sortedPlayers.length - 1; index > -1; index--) {
             var player = sortedPlayers[index];
             if (player.hasLeft) {
                 sortedPlayers.splice(index, 1);
             }
         }
+        console.error(sortedPlayers.length);
         // Give bye to player with lowest score
         if (sortedPlayers.length % 2 !== 0) {
             for (var index = (sortedPlayers.length - 1); index > 0; index--) {

@@ -126,7 +126,13 @@ export class TournamentAdminComponent implements OnDeactivate {
             rounds = this.tournamentData.rounds;
             
             // setup next round, pass length of rounds as roundIndex (smooth)
-            let nextRound = setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+            try {
+                var nextRound = setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
+            } catch (error) {
+                alert('Could not setup next round: there are too few players to avoid rematches. As a last resort, un-remove players that has left and give walkovers instead.');
+                return;
+            }
+
             rounds.push(nextRound);
 
             system = 'monrad';

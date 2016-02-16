@@ -19,7 +19,7 @@
             <button style="display: inline-block !important; transition: none" [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered border--muted button--xsm hide--xsm">Add player</button>
         </p>
 
-        <table class="table--border table--hoverRow table--responsive">
+        <table class="table--border table--hoverRow">
 
             <tbody>
                 <tr *ngFor="#player of players | asArray">
