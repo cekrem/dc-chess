@@ -58,11 +58,17 @@ export class HomeComponent implements OnInit {
         console.log('logging in as ' + this.userEntry);
         this.loading = true;
 
-        if (!demo) {
-            var creds = {
-                user: this.userEntry,
-                license: this.licenseEntry
-            }
+        if (demo == 'demo') {
+            this._data.tryDemo()
+                .then(() => this._router.navigate(['/Dashboard']), (error) => {
+                    this.error = error;
+                    this.loading = null;
+                });
+        }
+
+        let creds = {
+            user: this.userEntry,
+            license: this.licenseEntry
         }
 
         this._data.login(creds)
@@ -76,13 +82,13 @@ export class HomeComponent implements OnInit {
         this._data.logout();
         this.loggedIn = false;
     }
-    
+
     paymentResponse(data) {
         console.log(data);
-        
+
         this._safeUserEntry = data[0];
         this.licenseEntry = data[1];
-        
+
         this.login();
     }
 }

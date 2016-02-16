@@ -19,7 +19,7 @@ export class LicenseComponent implements OnInit {
         
         this._http = http;
         this._handler = StripeCheckout.configure({
-            key: 'pk_test_MW11sALBW0Sbkf4slADJvX6U',
+            key: 'pk_live_UkgJ2mGYH84gTzqmiu5RK5lH',
             image: 'https://s3.amazonaws.com/stripe-uploads/acct_17et1FEqcpzC3Dk3merchant-icon-1455617968443-dc.png',
             locale: 'auto',
             token: (token) => {

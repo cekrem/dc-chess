@@ -52,6 +52,14 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                         _this.userData = data || {};
                     });
                 }
+                UserDataService.prototype.tryDemo = function () {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        _this._baseRef.authAnonymously(function (error, authData) {
+                            resolve('Logged in in demo mode!');
+                        });
+                    });
+                };
                 UserDataService.prototype.login = function (creds) {
                     var _this = this;
                     return new Promise(function (resolve, reject) {
@@ -126,6 +134,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                             licenseStartRef.set(Date.now());
                         }
                     });
+                    // if in demo mode
+                    if (uid.length > 32) {
+                        console.log('Setting up demo timer...');
+                        this._userRef.onDisconnect().remove();
+                        setTimeout(function () {
+                            alert('Your time is up!');
+                            _this.logout();
+                        }, 300000);
+                    }
+                    else {
+                        this._userRef.onDisconnect().cancel();
+                    }
                 };
                 UserDataService.prototype.remove = function (path) {
                     if (path === void 0) { path = 'failsafe'; }

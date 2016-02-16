@@ -1,5 +1,5 @@
 <div container *ngIf="userData" class="text--center dc-narrow">
-    <p class="float--left text--left">
+    <p class="float--left text--left" *ngIf="user.length < 32">
         <small>User: </small>
         <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/user/' + user">
             <small>{{user}}</small>
@@ -14,7 +14,8 @@
     <button class="button--full dc-spacer"></button>
 
     <h1>Dashboard</h1>
-    <p><small *ngIf="userData.licenseStart">License expires: {{userData.licenseStart + 31536000000 | date}}</small></p>
+    <p *ngIf="user.length < 32"><small *ngIf="userData.licenseStart">License expires: {{userData.licenseStart + 31536000000 | date}}</small></p>
+    <p *ngIf="user.length > 31">DEMO MODE</p>
     <p>
     </p>
     <button class="button--full button--bordered" (click)="addTournament()">

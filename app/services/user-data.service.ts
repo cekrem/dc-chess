@@ -49,6 +49,14 @@ export class UserDataService {
                 this.userData = data || {};
             });
     }
+    
+    tryDemo() {
+        return new Promise((resolve, reject) => {
+            this._baseRef.authAnonymously((error, authData) => {
+                resolve('Logged in in demo mode!');
+            });
+        });
+    }
 
     login(creds) {
         return new Promise((resolve, reject) => {
@@ -129,7 +137,20 @@ export class UserDataService {
                 console.log('First login!');
                 licenseStartRef.set(Date.now());
             }
-        })
+        });
+        
+        // if in demo mode
+        if (uid.length > 32) {
+            console.log('Setting up demo timer...');
+            this._userRef.onDisconnect().remove();
+            setTimeout(() => {
+                alert('Your time is up!');
+                this.logout();
+            }, 300000)
+        }
+        else {
+            this._userRef.onDisconnect().cancel();
+        }
 
     }
 

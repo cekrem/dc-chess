@@ -65,12 +65,17 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     var _this = this;
                     console.log('logging in as ' + this.userEntry);
                     this.loading = true;
-                    if (!demo) {
-                        var creds = {
-                            user: this.userEntry,
-                            license: this.licenseEntry
-                        };
+                    if (demo == 'demo') {
+                        this._data.tryDemo()
+                            .then(function () { return _this._router.navigate(['/Dashboard']); }, function (error) {
+                            _this.error = error;
+                            _this.loading = null;
+                        });
                     }
+                    var creds = {
+                        user: this.userEntry,
+                        license: this.licenseEntry
+                    };
                     this._data.login(creds)
                         .then(function () { return _this._router.navigate(['/Dashboard']); }, function (error) {
                         _this.error = error;
