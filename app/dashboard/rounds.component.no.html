@@ -1,0 +1,168 @@
+<div class="alert" [hidden]="rounds">
+    <p><strong>Tips:</strong> Her legger du inn rundeoppsett. "Berger" bruker tabeller til å sette opp kamper mellom
+        <strong>alle</strong> spillerne, mens "Monrad" setter opp et forhåndsbestemt antall runder og sikrer at spillere
+        med lik styrke møtes.
+    </p>
+    <p>Klikk på en av knappene under når du er klar til å sette opp runder.</p>
+</div>
+
+<div class="alert" [hidden]="!rounds">
+    <p><strong>Tips:</strong> Du har nå lagt inn rundeoppsett! Berger-systemet setter opp alle kampene umiddelbart, mens monrad
+        setter opp en runde av gangen. Klikk på "Hvit", "Svart" eller "Remis" for å legge inn resultater.
+    </p>
+    <p>Du kan når som helst sjekke poengstillingen ved å gå til "Resultater" (menyen øverst).</p>
+</div>
+
+<fieldset>
+    <legend>Rundeoppsett</legend>
+
+    <!-- Roundrobin -->
+    <p [hidden]="rounds">
+        <button (click)="roundsAction.emit('roundrobin')" [disabled]="((nPlayers < 3) || (nPlayers > 30))" class="button--bordered button--full">
+            Berger
+            <span [hidden]="((nPlayers < 3) || (nPlayers > 30))">({{roundrobinRounds}} rounds)</span>
+        </button>
+    </p>
+
+    <!-- Monrad -->
+    <p [hidden]="rounds">
+        <!-- 5 rounds -->
+        <button [disabled]="nPlayers < 8" (click)="roundsAction.emit(5)" class="button--bordered button--full">
+            Monrad (5 runder)
+        </button>
+
+        <!-- 7 rounds -->
+        <button [disabled]="nPlayers < 12" (click)="roundsAction.emit(7)" class="dc-no-top button--bordered button--full">
+            Monrad (7 runder)
+        </button>
+
+        <!-- 9 rounds -->
+        <button [disabled]="nPlayers < 20" (click)="roundsAction.emit(9)" class="dc-no-top button--bordered button--full">
+            Monrad (9 runder)
+        </button>
+    </p>
+
+    <!-- Monrad clear/setup last/next -->
+    <p *ngIf="system > 0">
+        <button (click)="showModal = true" class="button--bordered button--full">
+            Fjern spiller
+        </button>
+    </p>
+    <p *ngIf="system > 0">
+        <button [disabled]="system == rounds.length" (click)="roundsAction.emit('nextMonrad')" class="button--bordered button--full">
+            Sett opp neste runde
+        </button>
+    </p>
+    <p *ngIf="system > 0">
+        <button [hidden]="rounds.length == 1" (click)="roundsAction.emit('clearLast')" class="button--bordered border--error button--full">
+            Fjern siste runde igjen
+        </button>
+    </p>
+
+    <!-- Clear all! -->
+    <p [hidden]="!rounds">
+        <button data-hint="Remove all rounds and matches (irreversible!)" (click)="roundsAction.emit('clear')" class="button--bordered border--error button--full tooltip--bottom">
+            Nullstill runder!
+        </button>
+    </p>
+</fieldset>
+
+<fieldset [hidden]="!rounds">
+
+    <legend>Kamper og resultater</legend>
+
+    <ul class="group">
+        <li *ngFor="#round of rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
+            Runde {{r+1}}<span *ngIf="(system > 4) && (system < 10)">/{{system}}</span>
+        </li>
+    </ul>
+
+    <div [hidden]="r != visibleRound" *ngFor="#round of rounds; #r = index">
+
+        <div *ngFor="#match of round; #m = index">
+            <div *ngIf="match.result != 'bye'">
+
+                <div class="text--center">
+                    Bord {{m+1}}:
+                    <a [hidden]="match.result == 0" class="text--success text--error" (click)="match.result = 0; dataChange.emit({rounds: rounds})">
+                        <small>(Fjern resultat)</small>
+                    </a>
+                </div>
+                <p class="hide--xsm"></p>
+
+                <div class="row">
+                    <div class="hide--xsm">
+                        <label column="3">Resultat:</label>
+                    </div>
+                    <table column="9" class="dc-fixed dc-match-table table--hoverCell table--border table--full text--center">
+                        <tbody>
+                            <tr>
+                                <td [class.bg--success]="match.result == 'white'" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
+                                    <div class="right" [hidden]="match.result != 'white'">↓</div>
+                                    Hvit
+                                </td>
+                                <td [class.bg--success]="match.result == 'draw'" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
+                                    <div [hidden]="match.result != 'draw'">↓</div>
+                                    <div [hidden]="match.result != 'draw'" class="right">↓</div>
+                                    Remis
+                                </td>
+                                <td [class.bg--success]="match.result == 'black'" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
+                                    <div [hidden]="match.result != 'black'">↓</div>
+                                    Svart
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="hide--xsm">
+                        <label column="3">Spillere:</label>
+                    </div>
+                    <table column="9" class="dc-fixed table--full text--center dc-push-up">
+                        <tbody>
+                            <tr>
+                                <td class="dc-white">{{players[match.white].name}}</td>
+                                <td class="dc-black">{{players[match.black].name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="button--full" style="visibility: hidden">space, pleace</button>
+            </div>
+
+        </div>
+    </div>
+
+</fieldset>
+
+<div class="modal" [class.dc-show]="showModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            Klikk på en spiller hvis hun / han forlater turneringen
+
+            <a (click)="showModal = false" class="modal-close">&times;</a>
+        </div>
+
+        <div class="modal-body">
+            <table class="table--border table--full table--hoverRow">
+
+                <tbody>
+                    <tr *ngFor="#player of players | asArray">
+                        <td [class.dc-has-left]="player.hasLeft" (click)="player.hasLeft = !player.hasLeft; dataChange.emit({players: players})">
+                            {{player.name}}<span [hidden]="!player.hasLeft"> (spiller ikke)</span>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="modal-footer">
+            <p>
+                Merk: Spillere som forlater turneringen tidlig kan bli med igjen i senere runder, og de forsvinner ikke fra resultatlisten.
+            </p>
+        </div>
+    </div>
+</div>

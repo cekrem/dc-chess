@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dashboard/score.component', '../services/as-array.pipe'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dashboard/score.component', '../services/as-array.pipe', '../language.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, score_component_1, as_array_pipe_1;
+    var core_1, common_1, router_1, score_component_1, as_array_pipe_1, language_function_1;
     var TournamentComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
             },
             function (as_array_pipe_1_1) {
                 as_array_pipe_1 = as_array_pipe_1_1;
+            },
+            function (language_function_1_1) {
+                language_function_1 = language_function_1_1;
             }],
         execute: function() {
             TournamentComponent = (function () {
@@ -80,7 +83,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                 TournamentComponent = __decorate([
                     core_1.Component({
                         selector: 'tournament',
-                        templateUrl: 'app/tournament/tournament.component.html',
+                        templateUrl: 'app/tournament/tournament.component' + language_function_1.isNorwegian() + '.html',
                         directives: [common_1.NgIf, common_1.NgFor, score_component_1.ScoreComponent],
                         pipes: [as_array_pipe_1.AsArrayPipe],
                         styleUrls: ['app/tournament/tournament.styles.css']

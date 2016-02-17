@@ -8,9 +8,11 @@ import { ScoreComponent } from '../dashboard/score.component';
 
 import { AsArrayPipe } from '../services/as-array.pipe';
 
+import { isNorwegian } from '../language.function';
+
 @Component({
     selector: 'tournament',
-    templateUrl: 'app/tournament/tournament.component.html',
+    templateUrl: 'app/tournament/tournament.component'  + isNorwegian() +'.html',
     directives: [NgIf, NgFor, ScoreComponent],
     pipes: [AsArrayPipe],
     styleUrls: ['app/tournament/tournament.styles.css']

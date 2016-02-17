@@ -2,8 +2,8 @@
     <div class="app-logo"></div>
 
     <p *ngIf="!loggedIn">
-        <license (response)="paymentResponse($event)">Buy license</license>
-        <button class="button--bordered button--xsm" (click)="login('demo')">Try demo</button>
+        <license (response)="paymentResponse($event)">Kjøp lisens</license>
+        <button class="button--bordered button--xsm" (click)="login('demo')">Prøv demo</button>
     </p>
     
     <p *ngIf="loggedIn">
@@ -11,30 +11,31 @@
     </p>
     <p *ngIf="loggedIn">
         <a (click)="logout()">
-            <small>Logout</small>
+            <small>Logg ut</small>
         </a>
     </p>
     <form *ngIf="!loggedIn" (submit)="login()">
         <fieldset>
-            <legend>Login</legend>
+            <legend>Logg inn</legend>
             <p>
-                <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="User name" />
+                <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="Brukernavn" />
             </p>
             <p>
-                <input #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="License key" />
+                <input #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="Lisensnøkkel" />
             </p>
             <p *ngIf="error">
                 <small class="text--error">{{error}}</small>
             </p>
-            <button class="button--bordered">Login</button>
+            <button class="button--bordered">Logg inn</button>
         </fieldset>
     </form>
 
     <div [hidden]="isChrome" class="alert text--left">
         <p>
             <small><small>
+                Merk: Denne appen bør fungere fint i enhver moderne nettleser, men den ble spesifikt laget for å kjøre i Google Chrome
                 Note: This app should run fine on any modern browser, but is specifically designed for Google Chrome. <br><br>
-                <a href="https://www.google.com/chrome">Get Chrome</a>
+                <a href="https://www.google.com/chrome">Skaff chrome</a>
             </small></small>
         </p>
     </div>

@@ -1,0 +1,44 @@
+<div container *ngIf="userData" class="text--center dc-narrow">
+    <p class="float--left text--left" *ngIf="user.length < 32">
+        <small>Bruker: </small>
+        <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/user/' + user">
+            <small>{{user}}</small>
+        </a>
+    </p>
+    <p class="float--right">
+        <a (click)="logout()">
+            <small>Logg ut</small>
+        </a>
+    </p>
+
+    <button class="button--full dc-spacer"></button>
+
+    <h1>Dashboard</h1>
+    <p *ngIf="user.length < 32"><small *ngIf="userData.licenseStart">Lisensen utgår: {{userData.licenseStart + 31536000000 | date}}</small></p>
+    <p *ngIf="user.length > 31">DEMO</p>
+    <p>
+    </p>
+    <button class="button--full button--bordered" (click)="addTournament()">
+        Ny turnering
+    </button>
+    <p></p>
+    <div class="alert" *ngIf="userData.tournaments">
+        <p><strong>Tips:</strong> Klikk på en turnering for å gå inn på den, høyreklikk to ganger for å slette den.</p>
+    </div>
+    <table *ngIf="userData.tournaments" class="table--full text--center table--border table--hoverRow">
+        <tr *ngFor="#tournament of userData.tournaments | asArray">
+            <td [hidden]="confirmKey == tournament.key" (contextmenu)="confirmDelete(tournament.key)" (click)="openTournament(tournament.key)">
+                <span *ngIf="tournament.name != 'Blank tournament'">{{tournament.name}}</span>
+                <span *ngIf="tournament.name == 'Blank tournament'">Tom turnering</span>
+            </td>
+            <td [hidden]="confirmKey != tournament.key" (contextmenu)="deleteTournament(tournament.key)">
+                Høyreklikk igjen for å slette!
+            </td>
+        </tr>
+    </table>
+    <p></p>
+</div>
+
+<div *ngIf="!userData" class="center--all">
+    <div class="spinner"></div>
+</div>

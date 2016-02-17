@@ -1,31 +1,31 @@
 <div container class="text--center" *ngIf="tournamentData">
     <h1>{{tournamentData.name}}</h1>
-    <p>{{tournamentData.desc || 'No description added!'}}</p>
+    <p>{{tournamentData.desc || 'Ingen beskrivelse lagt til!'}}</p>
 
     <form class="form--inline" [hidden]="tournamentData.rounds">
         <fieldset>
             <legend>
-                Join tournament
+                Påmelding
             </legend>
             <p>
-                <label>Join tournament:</label>
-                <input [disabled]="tournamentData.private || tournamentData.rounds || joined" #player type="text" placeholder="Your name">
+                <label>Meld deg på:</label>
+                <input [disabled]="tournamentData.private || tournamentData.rounds || joined" #player type="text" placeholder="Navn">
                 <button [disabled]="tournamentData.private || tournamentData.rounds || joined" (click)="addPlayer(player.value || 'unnamed');"
                 class="button--bordered border--muted button--xsm">
-                    Join
+                    Bli med
                 </button>
             </p>
-            <p *ngIf="playerKey">You have joined this tournament as "<span class="text--success">{{tournamentData.players[playerKey].name}}</span>"</p>
+            <p *ngIf="playerKey">Du har blitt med i denne turneringen som "<span class="text--success">{{tournamentData.players[playerKey].name}}</span>"</p>
         </fieldset>
     </form>
     
     <fieldset [hidden]="!tournamentData.rounds">
 
-        <legend>Matches and results</legend>
+        <legend>Runder og resultater</legend>
 
         <ul class="group">
             <li *ngFor="#round of tournamentData.rounds; #r = index;" [class.is-active]="visibleRound == r" class="group-item" (click)="visibleRound = r">
-                Round {{r+1}}
+                Runde {{r+1}}
             </li>
         </ul>
 
@@ -35,27 +35,27 @@
                 <div *ngIf="match.result != 'bye'">
 
                     <div class="text--center">
-                        Table {{m+1}}:
+                        Bord {{m+1}}:
                     </div>
                     <p class="hide--xsm"></p>
 
                     <div class="row">
-                        <div class="hide--xsm"><label column="3">Result:</label></div>
+                        <div class="hide--xsm"><label column="3">Resultat:</label></div>
                         <table column="9" class="dc-fixed dc-match-table table--border table--full text--center">
                             <tbody>
                                 <tr>
                                     <td [class.bg--success]="match.result == 'white'">
                                         <div class="right" [hidden]="match.result != 'white'">↓</div>
-                                        White
+                                        Hvit
                                     </td>
                                     <td [class.bg--success]="match.result == 'draw'">
                                         <div [hidden]="match.result != 'draw'">↓</div>
                                         <div [hidden]="match.result != 'draw'" class="right">↓</div>
-                                        Draw
+                                        Remis
                                     </td>
                                     <td [class.bg--success]="match.result == 'black'">
                                         <div [hidden]="match.result != 'black'">↓</div>
-                                        Black
+                                        Svart
                                     </td>
                                 </tr>
                             </tbody>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="hide--xsm"><label column="3">Players:</label></div>
+                        <div class="hide--xsm"><label column="3">Spillere:</label></div>
                         <table column="9" class="dc-fixed table--full text--center dc-push-up">
                             <tbody>
                                 <tr>
@@ -87,7 +87,7 @@
 
 
 <div class="alert" *ngIf="error">
-    <strong>Error: </strong> {{error}}
+    <strong>Feil: </strong> {{error}}
 </div>
 <div class="center--all" *ngIf="!error && !tournamentData">
     <div class="spinner"></div>

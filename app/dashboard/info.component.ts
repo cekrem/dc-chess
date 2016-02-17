@@ -1,8 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core';
 
+import { isNorwegian } from '../language.function';
+
 @Component({
     selector: 'tournamentInfo',
-    templateUrl: 'app/dashboard/info.component.html'
+    templateUrl: 'app/dashboard/info.component'+ isNorwegian() +'.html'
 })
 
 export class InfoComponent implements OnInit {

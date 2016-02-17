@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', '../services/monrad.function', '../services/score.function', '../services/as-array.pipe', './info.component', './players.component', './rounds.component', './score.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/roundrobin.function', '../services/monrad.function', '../services/score.function', '../services/as-array.pipe', './info.component', './players.component', './rounds.component', './score.component', '../language.function'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, monrad_function_1, score_function_1, as_array_pipe_1, info_component_1, players_component_1, rounds_component_1, score_component_1;
+    var core_1, common_1, router_1, user_data_service_1, roundrobin_function_1, monrad_function_1, score_function_1, as_array_pipe_1, info_component_1, players_component_1, rounds_component_1, score_component_1, language_function_1;
     var TournamentAdminComponent;
     return {
         setters:[
@@ -47,6 +47,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
             },
             function (score_component_1_1) {
                 score_component_1 = score_component_1_1;
+            },
+            function (language_function_1_1) {
+                language_function_1 = language_function_1_1;
             }],
         execute: function() {
             TournamentAdminComponent = (function () {
@@ -55,6 +58,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this._data = data;
                     this.tournamentKey = params.get('tournamentKey');
                     this.activeView = 'info';
+                    // Setting language the simple way
+                    if (language_function_1.isNorwegian() == '.no') {
+                        this.norwegian = true;
+                    }
+                    console.log(this.norwegian);
                     data.getAuthAsync()
                         .catch(function () { return router.navigate(['Home']); });
                     try {
@@ -132,7 +140,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             var nextRound = monrad_function_1.setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
                         }
                         catch (error) {
-                            alert('Could not setup next round: there are too few players to avoid rematches. As a last resort, un-remove players that has left and give walkovers instead.');
+                            if (this.norwegian) {
+                                alert('Kunne ikke sette opp neste runde: det er for få gjenværende spillere til å unngå omkamper.');
+                            }
+                            else {
+                                alert('Could not setup next round: there are too few players to avoid rematches.');
+                            }
                             return;
                         }
                         rounds.push(nextRound);
@@ -157,7 +170,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 TournamentAdminComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentAdmin',
-                        templateUrl: 'app/dashboard/tournament-admin.component.html',
+                        templateUrl: 'app/dashboard/tournament-admin.component' + language_function_1.isNorwegian() + '.html',
                         directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent, players_component_1.PlayersComponent, rounds_component_1.RoundsComponent, score_component_1.ScoreComponent],
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 

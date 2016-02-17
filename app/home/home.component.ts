@@ -1,13 +1,15 @@
-import {Component, OnInit} from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { NgIf } from 'angular2/common';
 import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { UserDataService } from '../services/user-data.service';
 import { LicenseComponent } from '../license/license.component';
 
+import { isNorwegian } from '../language.function';
+
 @Component({
     selector: 'home',
-    templateUrl: './app/home/home.component.html',
+    templateUrl: './app/home/home.component' + isNorwegian() + '.html',
     directives: [ROUTER_DIRECTIVES, NgIf, LicenseComponent]
 })
 

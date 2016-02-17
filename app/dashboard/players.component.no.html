@@ -1,0 +1,44 @@
+<div class="alert">
+    <p><strong>Tips:</strong> 
+        Her legger du til spillere. Skriv inn navnet, og trykk enter (eller klikk på knappen "Legg til"). Høyreklikk to ganger på en spiller for å slette.
+    </p>
+    <p>Klikk på "Rundeoppsett" når du er klar til å gå videre (menyen øverst).</p>
+</div>
+
+<form class="form--inline">
+    <fieldset>
+        <legend>
+            Spillere
+            <span *ngIf="((players | asArray).length > 2)" class="badge bg--success">{{players | asArray: 'length'}}</span>
+            <span *ngIf="((players | asArray).length < 3)" class="badge bg--muted">{{players | asArray: 'length'}}</span>
+        </legend>
+        <p>
+            <label>Legg til spiller:</label>
+            <input [disabled]="!canAdd" #player type="text" placeholder="Navn">
+            <button [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered border--muted button--full show--xsm">
+                Legg til
+            </button>
+            <button style="display: inline-block !important; transition: none" [disabled]="!canAdd" (click)="addPlayer(player.value || 'unnamed'); player.value = ''" class="button--bordered border--muted button--xsm hide--xsm">
+                Legg til
+            </button>
+        </p>
+
+        <table class="table--border table--full table--hoverRow">
+
+            <tbody>
+                <tr *ngFor="#player of players | asArray">
+                    <td *ngIf="confirmKey != player.key" (contextmenu)="confirmDelete(player.key)">
+                        {{player.name}}
+                    </td>
+                    <td *ngIf="confirmKey == player.key" (contextmenu)="deletePlayer(player.key)">
+                        Høyreklikk igjen for å slette
+                    </td>
+                </tr>
+                <tr *ngIf="!(players)">
+                    <td>(ingen)</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </fieldset>
+</form>

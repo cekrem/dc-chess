@@ -2,9 +2,11 @@ import {Component, OnInit, Input} from 'angular2/core';
 
 import { AsArrayPipe } from '../services/as-array.pipe';
 
+import { isNorwegian } from '../language.function';
+
 @Component({
     selector: 'tournamentScore',
-    templateUrl: 'app/dashboard/score.component.html',
+    templateUrl: 'app/dashboard/score.component' + isNorwegian() +'.html',
     pipes: [AsArrayPipe]
 })
 

@@ -1,42 +1,42 @@
 <div class="alert">
-    <p><strong>Hint:</strong> This is where you name your tournament and enter basic info. The Tournament URL can be used to
-        share the tournament, and if your tournament is not private, people can join via the link as well.
+    <p><strong>Tips:</strong> Her gir du turneringen din et navn, og legger inn nødvendig info.
+    Turnerings-URLen kan brukes til å dele turneringen. Hvis turneringen ikke er privat, kan spillere melde seg på via linken.
     </p>
-    <p>When you're ready, proceed to "Players" (top navigation).</p>
+    <p>Trykk på "Spillere" når du er klar til å gå videre (menyen øverst).</p>
 </div>
 
 <form class="form--inline">
     <fieldset>
-        <legend>Tournament info</legend>
+        <legend>Turneringsinfo</legend>
         <p>
-            <label>Name:</label>
+            <label>Navn:</label>
             <input #name [value]="tournament.name" type="text" (keyup)="dataChange.emit({name: name.value})" />
         </p>
 
         <p>
-            <label>Description:</label>
+            <label>Beskrivelse:</label>
             <input #desc [value]="tournament.desc || ''" type="text" (keyup)="dataChange.emit({desc: desc.value})" />
         </p>
 
         <p>
-            <label>Private:</label>
+            <label>Privat:</label>
             <button class="button--full show--xsm dc-spacer"></button>
             <button (click)="dataChange.emit({private: true})" [disabled]="tournament.private" class="button--bordered border--muted button--xsm">Yes</button>
             <button (click)="dataChange.emit({private: false})" [disabled]="!tournament.private" class="button--bordered border--muted button--xsm">No</button>
         </p>
 
         <p>
-            <label>Tournament URL:</label>
+            <label>Turnerings-URL:</label>
             <button class="button--full show--xsm dc-spacer"></button>
             <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.path">
-                URL (right click and copy link)
+                URL (høyreklikk og kopier link/kobling)
             </a>
         </p>
         <p>
-            <label>Embed code:</label>
+            <label>Embed-kode:</label>
             <button class="button--full show--xsm dc-spacer"></button>
             <a (click)="showEmbed = true" class="text--success">
-                Show / edit embed code
+                Vis / rediger embed-kode
             </a>
             <textarea cols="50" rows="6" class="float--right" *ngIf="showEmbed"><iframe src="http://dc-chess.com/tournament/{{tournament.path}}" name="frame1" scrolling="auto" frameborder="no" align="center" height="100%" width="100%"></iframe></textarea>
         </p>

@@ -17,9 +17,11 @@ import { PlayersComponent } from './players.component';
 import { RoundsComponent } from './rounds.component';
 import { ScoreComponent } from './score.component';
 
+import { isNorwegian } from '../language.function';
+
 @Component({
     selector: 'tournamentAdmin',
-    templateUrl: 'app/dashboard/tournament-admin.component.html',
+    templateUrl: 'app/dashboard/tournament-admin.component' + isNorwegian() + '.html',
     directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent, PlayersComponent, RoundsComponent, ScoreComponent],
     pipes: [AsArrayPipe]
 })
@@ -33,11 +35,18 @@ export class TournamentAdminComponent implements OnDeactivate {
     public playerKeys: Array<string>;
     public playersArray: Array<any>;
     public activeView: string;
+    public norwegian: boolean;
 
     constructor(router: Router, params: RouteParams, data: UserDataService) {
         this._data = data;
         this.tournamentKey = params.get('tournamentKey');
         this.activeView = 'info';
+        
+        // Setting language the simple way
+        if (isNorwegian() == '.no') {
+            this.norwegian = true;
+        }
+        console.log(this.norwegian);
 
         data.getAuthAsync()
             .catch(() => router.navigate(['Home']));
@@ -129,7 +138,12 @@ export class TournamentAdminComponent implements OnDeactivate {
             try {
                 var nextRound = setupNextMonrad(this.tournamentData.players, this.tournamentData.rounds.length);
             } catch (error) {
-                alert('Could not setup next round: there are too few players to avoid rematches. As a last resort, un-remove players that has left and give walkovers instead.');
+                if (this.norwegian) {
+                    alert('Kunne ikke sette opp neste runde: det er for få gjenværende spillere til å unngå omkamper.');
+                }
+                else {
+                    alert('Could not setup next round: there are too few players to avoid rematches.');
+                }
                 return;
             }
 
