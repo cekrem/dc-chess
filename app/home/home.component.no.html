@@ -17,25 +17,23 @@
             <small>Logg ut</small>
         </a>
     </p>
-    
-    <div class="dc-spacer" style="height: 10px"></div>
-    
+
+    <div class="dc-spacer" style="height: 12px"></div>
+
     <form *ngIf="!loggedIn" (submit)="login()">
         <p>Logg inn</p>
         <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="Brukernavn" />
         <input class="dc-no-top" #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="Lisensnøkkel"
         />
-        <p></p>
-        <button class="button--bordered button--full">Logg inn</button>
+        <p *ngIf="error">
+            <small class="text--error">{{error}}</small>
+        </p>
+        <button class="dc-spacer button--bordered button--full"></button>
     </form>
 
-    <div [hidden]="isChrome" class="alert text--left">
-        <p>
-            <small><small>
-                Merk: Denne appen bør fungere fint i enhver moderne nettleser, men den ble spesifikt laget for å kjøre i Google Chrome<br><br>
-                <a href="https://www.google.com/chrome">Skaff chrome</a>
-            </small></small>
-        </p>
+    <div [hidden]="isChrome" class="text--center">
+        <a class="tooltip--bottom" data-hint="Google Chrome anbefales til denne appen!"
+        href="https://www.google.com/chrome">Skaff Chrome</a>
     </div>
 </div>
 <div [hidden]="!loading" class="center--all">
