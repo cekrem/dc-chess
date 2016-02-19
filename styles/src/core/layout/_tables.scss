@@ -31,10 +31,10 @@ table {
   th,
   td {
     border: 2px solid getColor(base, lines);
-    line-height: unitSize(3);
+    line-height: unitSize(6);
     overflow: visible;
-    padding: unitSize(1) 1em;
-    padding-top: 0.7em;
+    padding: 0 2.5em;
+    padding-top: 3px;
     background-clip: padding-box;
 
     @media (min-width: $bp-extra-small) {

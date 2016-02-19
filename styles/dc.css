@@ -34,11 +34,11 @@
     }
 }
 
-.dc-narrow {
-    max-width: 400px;
-    padding: 50px;
-    padding-bottom: 40px;
-    padding-top: 20px;
+input:not([type="submit"]), select, textarea {
+    font-size: 1em !important;
+    line-height: 48px !important;
+    height: initial !important;
+    padding-top: 2px !important;
 }
 
 .alert {
@@ -67,6 +67,18 @@ label {
 .row label {
     line-height: 48px;
 }
+/* Utils */
+
+.dc-narrow {
+    max-width: 400px;
+    padding: 50px;
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+
+.dc-login {
+    border: none;    
+}
 
 .dc-spacer {
     visibility: hidden;
@@ -78,23 +90,23 @@ label {
 }
 /* NAV */
 .dc-no-left {
-    border-left: none;
-    margin-left: none;
+    border-left: none !important;
+    margin-left: none !important;
 }
 
 .dc-no-right {
-    border-right: none;
-    margin-left: none;
+    border-right: none !important;
+    margin-left: none !important;
 }
 
 .dc-no-top {
-    border-top: none;
-    margin-top: none;
+    border-top: none !important;
+    margin-top: none !important;
 }
 
 .dc-no-bottom {
-    border-bottom: none;
-    margin-bottom: none;
+    border-bottom: none !important;
+    margin-bottom: none !important;
 }
 
 /* Rounds, match view */

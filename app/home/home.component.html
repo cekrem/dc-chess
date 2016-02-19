@@ -1,14 +1,14 @@
 <div container class="text--center dc-narrow">
-<!--    <div style="position: absolute;">
+    <!--<div style="position: absolute;">
         <small><a href="/about">Info</a></small>
     </div>-->
     <div class="app-logo"></div>
 
     <p *ngIf="!loggedIn">
         <license (response)="paymentResponse($event)">Buy license</license>
-        <button class="button--bordered button--xsm" (click)="login('demo')">Try demo</button>
+        <button class="button--bordered button--full dc-no-top" (click)="login('demo')">Try demo</button>
     </p>
-    
+
     <p *ngIf="loggedIn">
         <button [routerLink]="['Dashboard']" class="button--bordered button--full">Dashboard</button>
     </p>
@@ -17,20 +17,16 @@
             <small>Logout</small>
         </a>
     </p>
+    
+    <div class="dc-spacer" style="height: 10px"></div>
+    
     <form *ngIf="!loggedIn" (submit)="login()">
-        <fieldset>
-            <legend>Login</legend>
-            <p>
-                <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="User name" />
-            </p>
-            <p>
-                <input #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="License key" />
-            </p>
-            <p *ngIf="error">
-                <small class="text--error">{{error}}</small>
-            </p>
-            <button class="button--bordered">Login</button>
-        </fieldset>
+        <p>Login</p>
+        <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="Brukernavn" />
+        <input class="dc-no-top" #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="Lisensnøkkel"
+        />
+        <p></p>
+        <button class="button--bordered button--full">Login</button>
     </form>
 
     <div [hidden]="isChrome" class="alert text--left">

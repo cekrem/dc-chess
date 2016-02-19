@@ -6,9 +6,9 @@
 
     <p *ngIf="!loggedIn">
         <license (response)="paymentResponse($event)">Kjøp lisens</license>
-        <button class="button--bordered button--xsm" (click)="login('demo')">Prøv demo</button>
+        <button class="button--bordered button--full dc-no-top" (click)="login('demo')">Prøv demo</button>
     </p>
-    
+
     <p *ngIf="loggedIn">
         <button [routerLink]="['Dashboard']" class="button--bordered button--full">Dashboard</button>
     </p>
@@ -17,20 +17,16 @@
             <small>Logg ut</small>
         </a>
     </p>
+    
+    <div class="dc-spacer" style="height: 10px"></div>
+    
     <form *ngIf="!loggedIn" (submit)="login()">
-        <fieldset>
-            <legend>Logg inn</legend>
-            <p>
-                <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="Brukernavn" />
-            </p>
-            <p>
-                <input #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="Lisensnøkkel" />
-            </p>
-            <p *ngIf="error">
-                <small class="text--error">{{error}}</small>
-            </p>
-            <button class="button--bordered">Logg inn</button>
-        </fieldset>
+        <p>Logg inn</p>
+        <input #user autofocus (focus)="error = null;" (keyup)="userEntry = user.value" type="text" placeholder="Brukernavn" />
+        <input class="dc-no-top" #license (focus)="error = null;" (keyup)="licenseEntry = license.value" type="text" placeholder="Lisensnøkkel"
+        />
+        <p></p>
+        <button class="button--bordered button--full">Logg inn</button>
     </form>
 
     <div [hidden]="isChrome" class="alert text--left">

@@ -20,7 +20,7 @@
     <p [hidden]="rounds">
         <button (click)="roundsAction.emit('roundrobin')" [disabled]="((nPlayers < 3) || (nPlayers > 30))" class="button--bordered button--full">
             Berger
-            <span [hidden]="((nPlayers < 3) || (nPlayers > 30))">({{roundrobinRounds}} rounds)</span>
+            <span [hidden]="((nPlayers < 3) || (nPlayers > 30))">({{roundrobinRounds}} runder)</span>
         </button>
     </p>
 
