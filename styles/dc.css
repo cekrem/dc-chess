@@ -41,6 +41,11 @@ input:not([type="submit"]), select, textarea {
     padding-top: 2px !important;
 }
 
+input:focus {
+    border-color: initial !important;
+    border-left-color: #31ed5d !important;
+}
+
 .alert {
     font-size: 1em;
     border: none;
