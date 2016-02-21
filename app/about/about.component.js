@@ -26,7 +26,7 @@ System.register(['angular2/core', '../language.function'], function(exports_1) {
                 AboutComponent = __decorate([
                     core_1.Component({
                         selector: 'about',
-                        templateUrl: './app/about/about.component' + language_function_1.isNorwegian() + '.html'
+                        templateUrl: './app/about/about.component' + language_function_1.getLanguagePrefix() + '.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AboutComponent);

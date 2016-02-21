@@ -5,11 +5,11 @@ import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 import { UserDataService } from '../services/user-data.service';
 import { LicenseComponent } from '../license/license.component';
 
-import { isNorwegian } from '../language.function';
+import { getLanguagePrefix } from '../language.function';
 
 @Component({
     selector: 'home',
-    templateUrl: './app/home/home.component' + isNorwegian() + '.html',
+    templateUrl: './app/home/home.component' + getLanguagePrefix() + '.html',
     directives: [ROUTER_DIRECTIVES, NgIf, LicenseComponent]
 })
 

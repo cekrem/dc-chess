@@ -36,7 +36,7 @@ System.register(['angular2/core', '../language.function'], function(exports_1) {
                 InfoComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentInfo',
-                        templateUrl: 'app/dashboard/info.component' + language_function_1.isNorwegian() + '.html'
+                        templateUrl: 'app/dashboard/info.component' + language_function_1.getLanguagePrefix() + '.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], InfoComponent);

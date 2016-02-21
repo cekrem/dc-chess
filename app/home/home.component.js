@@ -98,7 +98,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 HomeComponent = __decorate([
                     core_1.Component({
                         selector: 'home',
-                        templateUrl: './app/home/home.component' + language_function_1.isNorwegian() + '.html',
+                        templateUrl: './app/home/home.component' + language_function_1.getLanguagePrefix() + '.html',
                         directives: [router_1.ROUTER_DIRECTIVES, common_1.NgIf, license_component_1.LicenseComponent]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, user_data_service_1.UserDataService])

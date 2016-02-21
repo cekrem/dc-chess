@@ -59,7 +59,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     this.tournamentKey = params.get('tournamentKey');
                     this.activeView = 'info';
                     // Setting language the simple way
-                    if (language_function_1.isNorwegian() == '.no') {
+                    if (language_function_1.getLanguagePrefix() == '.no') {
                         this.norwegian = true;
                     }
                     console.log(this.norwegian);
@@ -170,7 +170,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 TournamentAdminComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentAdmin',
-                        templateUrl: 'app/dashboard/tournament-admin.component' + language_function_1.isNorwegian() + '.html',
+                        templateUrl: 'app/dashboard/tournament-admin.component' + language_function_1.getLanguagePrefix() + '.html',
                         directives: [common_1.NgIf, common_1.NgFor, router_1.ROUTER_DIRECTIVES, info_component_1.InfoComponent, players_component_1.PlayersComponent, rounds_component_1.RoundsComponent, score_component_1.ScoreComponent],
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 

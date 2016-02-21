@@ -5,11 +5,11 @@ import { Router, RouteParams } from 'angular2/router';
 import { UserDataService } from '../services/user-data.service';
 import { AsArrayPipe } from '../services/as-array.pipe';
 
-import { isNorwegian } from '../language.function';
+import { getLanguagePrefix } from '../language.function';
 
 @Component({
     selector: 'dashboard',
-    templateUrl: 'app/dashboard/dashboard.component' + isNorwegian() + '.html',
+    templateUrl: 'app/dashboard/dashboard.component' + getLanguagePrefix() + '.html',
     directives: [NgIf, NgFor],
     pipes: [AsArrayPipe]
 })

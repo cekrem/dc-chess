@@ -2,11 +2,11 @@ import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core';
 
 import {AsArrayPipe} from '../services/as-array.pipe';
 
-import { isNorwegian } from '../language.function';
+import { getLanguagePrefix } from '../language.function';
 
 @Component({
     selector: 'tournamentPlayers',
-    templateUrl: 'app/dashboard/players.component' + isNorwegian() +'.html',
+    templateUrl: 'app/dashboard/players.component' + getLanguagePrefix() +'.html',
     pipes: [AsArrayPipe]
 })
 

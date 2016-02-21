@@ -46,7 +46,7 @@ System.register(['angular2/core', '../services/as-array.pipe', '../language.func
                 ScoreComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentScore',
-                        templateUrl: 'app/dashboard/score.component' + language_function_1.isNorwegian() + '.html',
+                        templateUrl: 'app/dashboard/score.component' + language_function_1.getLanguagePrefix() + '.html',
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 
                     __metadata('design:paramtypes', [])

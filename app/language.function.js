@@ -1,5 +1,5 @@
 System.register([], function(exports_1) {
-    function isNorwegian() {
+    function getLanguagePrefix() {
         var language = window.navigator.language || window.navigator.browserLanguage || window.navigator.userLanguage || window.navigator.systemLanguage;
         if ((language.indexOf('nb') > -1) || (language.indexOf('no') > -1)) {
             return '.no';
@@ -8,7 +8,7 @@ System.register([], function(exports_1) {
             return '';
         }
     }
-    exports_1("isNorwegian", isNorwegian);
+    exports_1("getLanguagePrefix", getLanguagePrefix);
     return {
         setters:[],
         execute: function() {

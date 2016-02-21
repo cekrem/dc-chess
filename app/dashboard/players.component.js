@@ -81,7 +81,7 @@ System.register(['angular2/core', '../services/as-array.pipe', '../language.func
                 PlayersComponent = __decorate([
                     core_1.Component({
                         selector: 'tournamentPlayers',
-                        templateUrl: 'app/dashboard/players.component' + language_function_1.isNorwegian() + '.html',
+                        templateUrl: 'app/dashboard/players.component' + language_function_1.getLanguagePrefix() + '.html',
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 
                     __metadata('design:paramtypes', [])

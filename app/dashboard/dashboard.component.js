@@ -86,7 +86,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 DashboardComponent = __decorate([
                     core_1.Component({
                         selector: 'dashboard',
-                        templateUrl: 'app/dashboard/dashboard.component' + language_function_1.isNorwegian() + '.html',
+                        templateUrl: 'app/dashboard/dashboard.component' + language_function_1.getLanguagePrefix() + '.html',
                         directives: [common_1.NgIf, common_1.NgFor],
                         pipes: [as_array_pipe_1.AsArrayPipe]
                     }), 

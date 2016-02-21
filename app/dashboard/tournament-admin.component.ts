@@ -17,11 +17,11 @@ import { PlayersComponent } from './players.component';
 import { RoundsComponent } from './rounds.component';
 import { ScoreComponent } from './score.component';
 
-import { isNorwegian } from '../language.function';
+import { getLanguagePrefix } from '../language.function';
 
 @Component({
     selector: 'tournamentAdmin',
-    templateUrl: 'app/dashboard/tournament-admin.component' + isNorwegian() + '.html',
+    templateUrl: 'app/dashboard/tournament-admin.component' + getLanguagePrefix() + '.html',
     directives: [NgIf, NgFor, ROUTER_DIRECTIVES, InfoComponent, PlayersComponent, RoundsComponent, ScoreComponent],
     pipes: [AsArrayPipe]
 })
@@ -43,7 +43,7 @@ export class TournamentAdminComponent implements OnDeactivate {
         this.activeView = 'info';
         
         // Setting language the simple way
-        if (isNorwegian() == '.no') {
+        if (getLanguagePrefix() == '.no') {
             this.norwegian = true;
         }
         console.log(this.norwegian);
