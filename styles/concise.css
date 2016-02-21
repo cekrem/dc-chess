@@ -274,12 +274,16 @@ textarea {
   height: 32px;
   padding: 0 .75em;
   transition: 150ms;
-  width: 100%; }
+  width: 100%;
+  font-size: 1em !important;
+  line-height: 48px !important;
+  height: initial !important;
+  padding-top: 2px !important; }
   input:not([type="submit"]):focus,
   select:focus,
   textarea:focus {
-    border-color: #74cbe8;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(69, 145, 170, 0.5);
+    border-color: initial !important;
+    border-left-color: #31ed5d !important;
     outline: none; }
   input:not([type="submit"])[disabled],
   select[disabled],
@@ -296,7 +300,8 @@ input:not([type="submit"]) {
     outline: none; }
 
 label {
-  display: block; }
+  display: inline-block !important;
+  width: 170px; }
 
 fieldset {
   border: 2px solid #000;
@@ -306,7 +311,8 @@ fieldset {
 
 legend {
   font-weight: normal;
-  padding: 0 1em; }
+  padding: 0 1em;
+  text-align: center; }
 
 input[type="checkbox"],
 input[type="file"],
@@ -830,7 +836,7 @@ table {
     border: 2px solid #000;
     line-height: 48px;
     overflow: visible;
-    padding: 0 2.5em;
+    padding: 0;
     padding-top: 3px;
     background-clip: padding-box; }
     @media (min-width: 40em) {
@@ -845,14 +851,15 @@ table {
       width: auto; }
       table th,
       table td {
-        padding: 0 2.5em;
+        padding: 0;
         padding-top: 3px; } }
 
 .nonresponsive {
   width: auto; }
   .nonresponsive th,
   .nonresponsive td {
-    padding: 0 2.5em; }
+    padding: 0;
+    padding-top: 3px; }
 
 .nonresponsive th,
 .nonresponsive td {
@@ -871,6 +878,9 @@ table {
     border-radius: 0px; }
   .table--responsive table {
     margin-bottom: 0; }
+  .table--responsive th, .table--responsive td {
+    padding: 0 2.5em;
+    padding-top: 3px; }
 
 .table--full {
   width: 100%; }
@@ -1355,10 +1365,10 @@ address {
  */
 .alert {
   background-color: #fff;
-  border: 1px solid #000;
+  border: none;
   border-radius: 3px;
   color: inherit;
-  font-size: 0.7em;
+  font-size: 1em;
   margin: 20px 0;
   padding: 8px 1em;
   position: relative; }
@@ -1366,6 +1376,11 @@ address {
     color: black; }
     .alert a:hover {
       text-decoration: underline; }
+  .alert p {
+    color: #aaa; }
+    .alert p strong {
+      font-weight: normal;
+      color: #000; }
 
 .alert-close {
   color: inherit;

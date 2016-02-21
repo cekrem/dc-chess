@@ -4,10 +4,10 @@
 
 .alert {
   background-color: getColor(background, light);
-  border: 1px solid getColor(base, lines);
+  border: none;
   border-radius: 3px;
   color: inherit;
-  font-size: pxToEm(14);
+  font-size: 1em;
   margin: unitSize(3, -4) 0;
   padding: unitSize(1) 1em;
   position: relative;
@@ -16,6 +16,14 @@
     color: darken(getColor(text, primary), 20%);
 
     &:hover { text-decoration: underline; }
+  }
+  
+  p {
+      color: #aaa;
+      strong {
+            font-weight: normal;
+            color: #000;
+      }
   }
 }
 

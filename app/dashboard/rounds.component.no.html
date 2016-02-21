@@ -98,16 +98,16 @@
                         <tbody>
                             <tr>
                                 <td [class.bg--success]="match.result == 'white'" (click)="match.result = 'white'; dataChange.emit({rounds: rounds})">
-                                    <div class="right" [hidden]="match.result != 'white'">↓</div>
+                                    <div class="hide--xsm right" [hidden]="match.result != 'white'">↓</div>
                                     Hvit
                                 </td>
                                 <td [class.bg--success]="match.result == 'draw'" (click)="match.result = 'draw'; dataChange.emit({rounds: rounds})">
-                                    <div [hidden]="match.result != 'draw'">↓</div>
-                                    <div [hidden]="match.result != 'draw'" class="right">↓</div>
+                                    <div [hidden]="match.result != 'draw'" class="hide--xsm">↓</div>
+                                    <div [hidden]="match.result != 'draw'" class="hide--xsm right">↓</div>
                                     Remis
                                 </td>
                                 <td [class.bg--success]="match.result == 'black'" (click)="match.result = 'black'; dataChange.emit({rounds: rounds})">
-                                    <div [hidden]="match.result != 'black'">↓</div>
+                                    <div class="hide--xsm" [hidden]="match.result != 'black'">↓</div>
                                     Svart
                                 </td>
                             </tr>
