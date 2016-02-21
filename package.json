@@ -1,40 +1,43 @@
 {
-  "name": "dc-chess2",
-  "version": "0.5.0",
-  "description": "second try at online tournament creation. First goal: schools! Second: replace swiss manager and turneringsservice",
-  "scripts": {
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
-    "start:scss": "concurrent \"npm run scss:watch\" \"npm run tsc:w \" \" npm run lite\" ",
-    "scss": "node-sass styles/src/concise.scss styles/concise.css",
-    "scss:watch": "watch \"npm run scss\" styles/src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dc-apps/dc-chess2.git"
-  },
-  "author": "cekrem",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dc-apps/dc-chess2/issues"
-  },
-  "homepage": "https://github.com/dc-apps/dc-chess2",
-  "dependencies": {
-    "angular2": "2.0.0-beta.3",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "0.33.3",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
-    "systemjs": "0.19.6",
-    "zone.js": "0.5.11"
-  },
-  "devDependencies": {
-    "concurrently": "^1.0.0",
-    "lite-server": "^1.3.1",
-    "typescript": "^1.7.3",
-    "node-sass": "^3.4.2",
-    "watch": "^0.17.1"
-  }
+    "name": "dc-chess2",
+    "version": "0.5.0",
+    "description": "second try at online tournament creation. First goal: schools! Second: replace swiss manager and turneringsservice",
+    "scripts": {
+        "postinstall": "npm run typings install",
+        "tsc": "tsc",
+        "tsc:w": "tsc -w",
+        "lite": "lite-server",
+        "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+        "start:scss": "concurrent \"npm run scss:watch\" \"npm run tsc:w \" \" npm run lite\" ",
+        "scss": "node-sass styles/src/concise.scss styles/concise.css",
+        "scss:watch": "watch \"npm run scss\" styles/src",
+        "typings": "typings"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dc-apps/dc-chess2.git"
+    },
+    "author": "cekrem",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dc-apps/dc-chess2/issues"
+    },
+    "homepage": "https://github.com/dc-apps/dc-chess2",
+    "dependencies": {
+        "angular2": "2.0.0-beta.6",
+        "systemjs": "0.19.20",
+        "es6-promise": "^3.0.2",
+        "es6-shim": "^0.33.3",
+        "reflect-metadata": "0.1.2",
+        "rxjs": "5.0.0-beta.0",
+        "zone.js": "0.5.14"
+    },
+    "devDependencies": {
+        "concurrently": "^1.0.0",
+        "lite-server": "^2.0.1",
+        "typescript": "^1.7.5",
+        "typings":"^0.6.8",
+        "node-sass": "^3.4.2",
+        "watch": "^0.17.1"
+    }
 }
