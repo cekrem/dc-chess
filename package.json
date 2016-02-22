@@ -9,8 +9,8 @@
         "lite": "lite-server",
         "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
         "start:scss": "concurrent \"npm run scss:watch\" \"npm run tsc:w \" \" npm run lite\" ",
-        "scss": "node-sass styles/src/concise.scss styles/concise.css",
-        "scss:watch": "watch \"npm run scss\" styles/src",
+        "scss": "node-sass styles-src/concise.scss styles/concise.css",
+        "scss:watch": "watch \"npm run scss\" styles-src",
         "typings": "typings"
     },
     "repository": {

@@ -49,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', './home/home.component', '.
                         selector: 'app',
                         template: '<router-outlet></router-outlet>',
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        styleUrls: [theme_function_1.setTheme(), '../styles/dc.css'],
+                        styleUrls: [theme_function_1.setTheme()],
                         encapsulation: core_1.ViewEncapsulation.None
                     }),
                     router_1.RouteConfig([

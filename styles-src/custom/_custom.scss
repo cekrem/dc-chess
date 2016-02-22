@@ -1,3 +1,8 @@
+//
+// DC OVERRIDES
+// =============================================================================
+
+
 @font-face {
   font-family: 'Calibre-Medium';
   src: url('styles/calibre/Calibre-Medium.eot?#iefix') format('embedded-opentype'),  url('styles/calibre/Calibre-Medium.otf')  format('opentype'),
@@ -6,6 +11,16 @@
   font-style: normal;
 }
 
+.app-logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 84px;
+    background: url('/img/dc.png');
+    background-size: 200px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
 
 /* Overrides */
 
@@ -58,6 +73,13 @@
     opacity: 1;
     pointer-events: all;
 }
+
+fieldset.dc-lineformat p {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    line-height: 48px;
+}
+
 /* NAV */
 .dc-no-left {
     border-left: none !important;
@@ -87,6 +109,10 @@
 
 .dc-fixed {
     table-layout: fixed;
+    td, th {
+        padding: 0;
+        padding-top: 3px;
+    }
 }
 
 .dc-player-table th, .dc-border td {

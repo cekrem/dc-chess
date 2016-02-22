@@ -16,7 +16,7 @@ import { setTheme } from './theme.function';
         selector: 'app',
         template: '<router-outlet></router-outlet>',
         directives: [ROUTER_DIRECTIVES],
-        styleUrls: [setTheme(), '../styles/dc.css'],
+        styleUrls: [setTheme()],
         encapsulation: ViewEncapsulation.None
     })
 

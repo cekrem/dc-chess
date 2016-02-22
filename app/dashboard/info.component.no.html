@@ -6,23 +6,22 @@
 </div>
 
 <form class="form--inline">
-    <fieldset>
+    <fieldset class="dc-lineformat">
         <legend>Turneringsinfo</legend>
         <p>
             <label>Navn:</label>
             <input #name [value]="tournament.name" type="text" (keyup)="dataChange.emit({name: name.value})" />
         </p>
 
-        <p>
+        <p class="hide--xsm">
             <label>Beskrivelse:</label>
-            <input #desc [value]="tournament.desc || ''" type="text" (keyup)="dataChange.emit({desc: desc.value})" />
+            <input class="dc-no-top" #desc [value]="tournament.desc || ''" type="text" (keyup)="dataChange.emit({desc: desc.value})" />
         </p>
 
         <p>
             <label>Privat:</label>
             <button class="button--full show--xsm dc-spacer"></button>
-            <button (click)="dataChange.emit({private: true})" [disabled]="tournament.private" class="button--bordered border--muted button--xsm">Yes</button>
-            <button (click)="dataChange.emit({private: false})" [disabled]="!tournament.private" class="button--bordered border--muted button--xsm">No</button>
+            <input #private type="checkbox" [checked]="tournament.private" (change)="dataChange.emit({private: private.checked})">
         </p>
 
         <p>

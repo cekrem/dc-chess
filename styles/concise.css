@@ -836,7 +836,7 @@ table {
     border: 2px solid #000;
     line-height: 48px;
     overflow: visible;
-    padding: 0;
+    padding: 0 2.5em;
     padding-top: 3px;
     background-clip: padding-box; }
     @media (min-width: 40em) {
@@ -851,14 +851,14 @@ table {
       width: auto; }
       table th,
       table td {
-        padding: 0;
+        padding: 0 2.5em;
         padding-top: 3px; } }
 
 .nonresponsive {
   width: auto; }
   .nonresponsive th,
   .nonresponsive td {
-    padding: 0;
+    padding: 0 2.5em;
     padding-top: 3px; }
 
 .nonresponsive th,
@@ -2062,12 +2062,134 @@ ol.dropdown-content {
 .tooltip--always .tooltip--left:before, .tooltip--always .tooltip--left:after {
   transform: translateX(8px); }
 
+@font-face {
+  font-family: 'Calibre-Medium';
+  src: url("styles/calibre/Calibre-Medium.eot?#iefix") format("embedded-opentype"), url("styles/calibre/Calibre-Medium.otf") format("opentype"), url("styles/calibre/Calibre-Medium.woff") format("woff"), url("styles/calibre/Calibre-Medium.ttf") format("truetype"), url("styles/calibre/Calibre-Medium.svg#calibre/Calibre-Medium") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 .app-logo {
   margin-left: auto;
   margin-right: auto;
   width: 200px;
-  height: 120px;
+  height: 84px;
   background: url("/img/dc.png");
   background-size: 200px;
   margin-top: 20px;
   margin-bottom: 40px; }
+
+/* Overrides */
+* {
+  font-weight: normal !important; }
+
+[container] {
+  max-width: 640px;
+  background: white;
+  padding: 20px; }
+
+@media (min-width: 40em) {
+  [container] {
+    margin-top: 80px; } }
+
+@media (max-width: 40em) {
+  .group-item {
+    width: 60%; }
+  .group-item:nth-child(even) {
+    float: right; } }
+
+.row label {
+  line-height: 48px; }
+
+/* Utils */
+.dc-narrow {
+  max-width: 400px;
+  padding: 50px;
+  padding-bottom: 40px;
+  padding-top: 20px; }
+
+.dc-login {
+  border: none; }
+
+.dc-spacer {
+  visibility: hidden; }
+
+.dc-show {
+  opacity: 1;
+  pointer-events: all; }
+
+fieldset.dc-lineformat p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 48px; }
+
+/* NAV */
+.dc-no-left {
+  border-left: none !important;
+  margin-left: none !important; }
+
+.dc-no-right {
+  border-right: none !important;
+  margin-left: none !important; }
+
+.dc-no-top {
+  border-top: none !important;
+  margin-top: none !important; }
+
+.dc-no-bottom {
+  border-bottom: none !important;
+  margin-bottom: none !important; }
+
+/* Rounds, match view */
+.dc-player-table {
+  table-layout: fixed;
+  border: none; }
+
+.dc-fixed {
+  table-layout: fixed; }
+  .dc-fixed td, .dc-fixed th {
+    padding: 0;
+    padding-top: 3px; }
+
+.dc-player-table th, .dc-border td {
+  border-right: 0; }
+
+.dc-match-table td {
+  position: relative; }
+
+.dc-match-table td div {
+  position: absolute;
+  left: 1em; }
+
+.dc-match-table td div.right {
+  left: auto;
+  right: 1em; }
+
+.dc-black {
+  background: #000 !important;
+  color: #fff !important; }
+
+.dc-push-up {
+  margin-top: -2px !important; }
+
+.dc-has-left {
+  background: #aaa;
+  color: #555; }
+
+/* Score */
+.dc-score-table th, .dc-score-table td {
+  text-align: center;
+  white-space: nowrap; }
+
+.dc-fullscreen {
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: scroll;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9); }
+
+.dc-fullscreen-switch {
+  position: absolute;
+  margin-left: 2px;
+  text-decoration: underline;
+  color: white !important; }
