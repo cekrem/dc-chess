@@ -4,7 +4,7 @@ import { getLanguagePrefix } from '../language.function';
 
 @Component({
     selector: 'about',
-    templateUrl: './app/about/about.component' + getLanguagePrefix() + '.html'
+    templateUrl: './app/about/about.component.no.html' // only in norwegian so far
 })
 
 export class AboutComponent implements OnInit {

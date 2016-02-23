@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../language.function'], function(exports_1) {
+System.register(['angular2/core'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,15 +8,12 @@ System.register(['angular2/core', '../language.function'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, language_function_1;
+    var core_1;
     var AboutComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (language_function_1_1) {
-                language_function_1 = language_function_1_1;
             }],
         execute: function() {
             AboutComponent = (function () {
@@ -26,7 +23,7 @@ System.register(['angular2/core', '../language.function'], function(exports_1) {
                 AboutComponent = __decorate([
                     core_1.Component({
                         selector: 'about',
-                        templateUrl: './app/about/about.component' + language_function_1.getLanguagePrefix() + '.html'
+                        templateUrl: './app/about/about.component.no.html' // only in norwegian so far
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AboutComponent);
