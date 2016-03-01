@@ -44,7 +44,7 @@ export class LicenseComponent implements OnInit {
     buy() {
         this._handler.open({
             name: 'DC Apps AS',
-            description: 'One year license',
+            description: 'Subscription (yearly)',
             currency: 'nok',
             amount: 100000
         });

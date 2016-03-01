@@ -47,7 +47,7 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1) {
                 LicenseComponent.prototype.buy = function () {
                     this._handler.open({
                         name: 'DC Apps AS',
-                        description: 'One year license',
+                        description: 'Subscription (yearly)',
                         currency: 'nok',
                         amount: 100000
                     });
