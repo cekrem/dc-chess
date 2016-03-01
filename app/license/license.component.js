@@ -39,6 +39,14 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1) {
                                 .map(function (res) { return res.json(); })
                                 .subscribe(function (res) {
                                 console.log(res);
+                                try {
+                                    // This should work, but we don't take any chances. Rather lose customer Id than customer :)
+                                    var userRef = new Firebase('https://dc-pro.firebaseio.com/users/' + res[0]);
+                                    userRef.child('customerId').set(res[2]);
+                                }
+                                catch (error) {
+                                    console.error(error);
+                                }
                                 _this.response.emit(res);
                             });
                         }
