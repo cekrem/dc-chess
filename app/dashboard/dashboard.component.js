@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/as-array.pipe', '../language.function'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../services/user-data.service', '../services/as-array.pipe', '../language.function'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,7 +59,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 };
                 DashboardComponent.prototype.addTournament = function () {
                     var newRef = this._data.push('tournaments/');
-                    var key = newRef.key();
+                    var key = newRef.key;
+                    console.log(key);
                     var path = newRef.toString();
                     var safePath = btoa(path);
                     console.log(path);
@@ -93,7 +96,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, user_data_service_1.UserDataService])
                 ], DashboardComponent);
                 return DashboardComponent;
-            })();
+            }());
             exports_1("DashboardComponent", DashboardComponent);
         }
     }

@@ -51,7 +51,8 @@ export class DashboardComponent implements OnInit {
 
     addTournament() {
         let newRef = this._data.push('tournaments/');
-        let key = newRef.key();
+        let key = newRef.key
+        console.log(key)
         let path = newRef.toString();
         let safePath = btoa(path);
 

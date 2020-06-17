@@ -1,23 +1,53 @@
 <html>
-
-<head>
+  <head>
     <base href="/" />
 
     <!-- Responsive stuff -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
 
     <title>DC Chess</title>
 
-    <!-- Firebase -->
-    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.0/firebase.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+    <!-- auth -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+
+    <!-- database -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDxaYdGvfTmv46milnPSjrSPzDMNUjgcFs",
+        authDomain: "dc-chess2.firebaseapp.com",
+        databaseURL: "https://dc-chess2.firebaseio.com",
+        projectId: "dc-chess2",
+        storageBucket: "dc-chess2.appspot.com",
+        messagingSenderId: "525573912212",
+        appId: "1:525573912212:web:571e6f3f25f353e2216681",
+        measurementId: "G-VWFGX8PF4Z",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <!-- Safari intl -->
     <script src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Intl.~locale.nb"></script>
-    
+
     <!-- Stripe -->
     <script src="https://checkout.stripe.com/checkout.js"></script>
 
@@ -36,45 +66,69 @@
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
     <!-- 2. Configure SystemJS -->
     <script>
-        System.config({
-        packages: {        
+      System.config({
+        packages: {
           app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
+            format: "register",
+            defaultExtension: "js",
+          },
+        },
       });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
+      System.import("app/boot").then(null, console.error.bind(console));
     </script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <app>
-        <div class="center--all">
-            <div class="spinner"></div>
-        </div>
+      <div class="center--all">
+        <div class="spinner"></div>
+      </div>
     </app>
 
-    <!--[if IE ]>
-        <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: white;">
-            <div class="center--all">
-                <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-            </div>
+    <!--[if IE]>
+      <div
+        style="
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background: white;
+        "
+      >
+        <div class="center--all">
+          <p class="browsehappy">
+            You are using an <strong>outdated</strong> browser. Please
+            <a href="http://browsehappy.com/">upgrade your browser</a> to
+            improve your experience.
+          </p>
         </div>
+      </div>
     <![endif]-->
-</body>
+  </body>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
 
-  ga('create', 'UA-44752488-8', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
+    ga("create", "UA-44752488-8", "auto");
+    ga("send", "pageview");
+  </script>
 </html>

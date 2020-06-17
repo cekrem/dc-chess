@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/router', '../services/as-array.pipe'], function(exports_1) {
+System.register(["angular2/core", "angular2/router", "../services/as-array.pipe"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -26,12 +28,11 @@ System.register(['angular2/core', 'angular2/router', '../services/as-array.pipe'
                 function UserComponent(router, params, app) {
                     var _this = this;
                     this._router = router;
-                    this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
-                    this.user = params.get('user');
-                    this._userRef = new Firebase(this._baseUrl + this.user);
-                    this._userRef.on('value', function (snapshot) {
+                    this.user = params.get("user");
+                    this._userRef = firebase.database().ref("users/" + this.user);
+                    this._userRef.on("value", function (snapshot) {
                         _this.userData = snapshot.val();
-                        console.log('userData loaded!');
+                        console.log("userData loaded!");
                         if (!_this.userData) {
                             _this.noUser = true;
                         }
@@ -42,21 +43,24 @@ System.register(['angular2/core', 'angular2/router', '../services/as-array.pipe'
                     });
                 }
                 UserComponent.prototype.openTournament = function (path) {
-                    this._router.navigate(['/Tournament', {
-                            tournamentPath: path
-                        }]);
+                    this._router.navigate([
+                        "/Tournament",
+                        {
+                            tournamentPath: path,
+                        },
+                    ]);
                 };
                 UserComponent.prototype.ngOnInit = function () { };
                 UserComponent = __decorate([
                     core_1.Component({
-                        selector: 'user',
-                        templateUrl: 'app/user/user.component.html',
-                        pipes: [as_array_pipe_1.AsArrayPipe]
+                        selector: "user",
+                        templateUrl: "app/user/user.component.html",
+                        pipes: [as_array_pipe_1.AsArrayPipe],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, core_1.ApplicationRef])
                 ], UserComponent);
                 return UserComponent;
-            })();
+            }());
             exports_1("UserComponent", UserComponent);
         }
     }

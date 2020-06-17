@@ -27,7 +27,7 @@
         <p>
             <label>Turnerings-URL:</label>
             <button class="button--full show--xsm dc-spacer"></button>
-            <a class="text--success" onclick="return false" [href]="'http://dc-chess.com/tournament/' + tournament.path">
+            <a class="text--success" onclick="return false" [href]="root + tournament.path">
                 URL (høyreklikk og kopier link/kobling)
             </a>
         </p>
@@ -37,7 +37,8 @@
             <a (click)="showEmbed = true" class="text--success">
                 Vis / rediger embed-kode
             </a>
-            <textarea cols="50" rows="6" class="float--right" *ngIf="showEmbed"><iframe src="http://dc-chess.com/tournament/{{tournament.path}}" name="frame1" scrolling="auto" frameborder="no" align="center" height="100%" width="100%"></iframe></textarea>
+            <textarea cols="50" rows="6" class="float--right" *ngIf="showEmbed"><iframe
+                        src="http://dc-chess.com/tournament/{{tournament.path}}" name="frame1" scrolling="auto" frameborder="no" align="center" height="100%" width="100%"></iframe></textarea>
         </p>
     </fieldset>
 </form>

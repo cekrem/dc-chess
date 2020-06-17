@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, EventEmitter, Input, OnInit, Output} from 'angular2/core';
 
-import { getLanguagePrefix } from '../language.function';
+import {getLanguagePrefix} from '../language.function';
 
 @Component({
     selector: 'tournamentInfo',
@@ -8,14 +8,18 @@ import { getLanguagePrefix } from '../language.function';
 })
 
 export class InfoComponent implements OnInit {
+    public root: string
     @Input() public tournament: any;
     @Output() public dataChange: EventEmitter<any>;
-    
+
     constructor() {
+        const {location} = window
+        const {protocol, hostname, port} = location
         this.dataChange = new EventEmitter();
-     }
-        
+        this.root = `${protocol}//${hostname}:${port}/tournaments/`
+    }
+
     ngOnInit() {
-        
-     }
+
+    }
 }

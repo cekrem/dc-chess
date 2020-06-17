@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dashboard/score.component', '../services/as-array.pipe', '../language.function'], function(exports_1) {
+System.register(["angular2/core", "angular2/common", "angular2/router", "../dashboard/score.component", "../services/as-array.pipe", "../language.function"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,15 +36,15 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
             TournamentComponent = (function () {
                 function TournamentComponent(app, params) {
                     var _this = this;
-                    this._baseUrl = 'https://dc-pro.firebaseio.com/users/';
-                    this._safePath = params.get('tournamentPath');
-                    this.tournamentPath = atob(this._safePath);
+                    this._baseUrl = "https://dc-chess2.firebaseio.com/users/";
+                    this._safePath = params.get("tournamentPath");
+                    this.tournamentPath = atob(this._safePath).replace(this._baseUrl, "");
                     console.log(this.tournamentPath);
-                    this.activeRef = new Firebase(this.tournamentPath);
-                    this.activeRef.on('value', function (snapshot) {
+                    this.activeRef = firebase.database().ref("users/" + this.tournamentPath);
+                    this.activeRef.on("value", function (snapshot) {
                         _this.tournamentData = snapshot.val();
                         app.tick();
-                        console.log('data loaded!');
+                        console.log("data loaded!");
                     });
                     if (localStorage[this._safePath]) {
                         this.joined = true;
@@ -52,12 +54,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                 TournamentComponent.prototype.addPlayer = function (playerName) {
                     var _this = this;
                     if (localStorage[this._safePath]) {
-                        alert('You can only join once!');
+                        alert("You can only join once!");
                         return false;
                     }
                     var keys = Object.keys(this.tournamentData.players || {});
                     if (keys.length > 29) {
-                        alert('We’re only supporting 30 players so far.');
+                        alert("We’re only supporting 30 players so far.");
                         return false;
                     }
                     var player = { name: playerName };
@@ -68,30 +70,29 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../dash
                         }
                     });
                     if (duplicate) {
-                        this.addPlayer(playerName + '*');
+                        this.addPlayer(playerName + "*");
                     }
                     else {
-                        var child = this.activeRef.child('players');
+                        var child = this.activeRef.child("players");
                         this.playerKey = child.push(player).key();
                         console.log(this.playerKey);
                         this.joined = true;
                         localStorage[this._safePath] = this.playerKey;
                     }
                 };
-                TournamentComponent.prototype.ngOnInit = function () {
-                };
+                TournamentComponent.prototype.ngOnInit = function () { };
                 TournamentComponent = __decorate([
                     core_1.Component({
-                        selector: 'tournament',
-                        templateUrl: 'app/tournament/tournament.component' + language_function_1.getLanguagePrefix() + '.html',
+                        selector: "tournament",
+                        templateUrl: "app/tournament/tournament.component" + language_function_1.getLanguagePrefix() + ".html",
                         directives: [common_1.NgIf, common_1.NgFor, score_component_1.ScoreComponent],
                         pipes: [as_array_pipe_1.AsArrayPipe],
-                        styleUrls: ['app/tournament/tournament.styles.css']
+                        styleUrls: ["app/tournament/tournament.styles.css"],
                     }), 
                     __metadata('design:paramtypes', [core_1.ApplicationRef, router_1.RouteParams])
                 ], TournamentComponent);
                 return TournamentComponent;
-            })();
+            }());
             exports_1("TournamentComponent", TournamentComponent);
         }
     }

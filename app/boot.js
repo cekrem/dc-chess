@@ -1,4 +1,6 @@
-System.register(['rxjs/Rx', 'angular2/platform/browser', 'angular2/router', 'angular2/http', './services/user-data.service', './app.component'], function(exports_1) {
+System.register(['rxjs/Rx', 'angular2/platform/browser', 'angular2/router', 'angular2/http', './services/user-data.service', './app.component'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var browser_1, router_1, http_1, user_data_service_1, app_component_1;
     return {
         setters:[

@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     function setupRoundRobin(playerKeys) {
         // Push bye if odd number of players
         if (playerKeys.length % 2 !== 0) {
